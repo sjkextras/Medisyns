@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Medisyns — Provincial Breakdown</title>
+<title>Medisyns — Provincial Evidence Base</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{width:100%;font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#fff;overflow-x:hidden;}
 a{text-decoration:none;}
-
-/* NAV */
 .nav{display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:70px;background:#0D1F3C;position:sticky;top:0;z-index:100;}
 .nav-brand{display:flex;align-items:center;gap:12px;}
 .nav-hex{width:28px;height:28px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
@@ -19,8 +17,6 @@ a{text-decoration:none;}
 .nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;transition:color .2s;}
 .nav-links a:hover{color:#fff;}
 .nav-cta{background:#0B7A75!important;color:#fff!important;padding:9px 20px;border-radius:3px;}
-
-/* HERO */
 .hero{background:#0D1F3C;padding:100px 56px 80px;position:relative;overflow:hidden;}
 .hero-dots{position:absolute;inset:0;opacity:.035;background-image:radial-gradient(rgba(255,255,255,.8) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
 .hero-glow{position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(11,122,117,.14) 0%,transparent 60%);pointer-events:none;}
@@ -31,65 +27,52 @@ a{text-decoration:none;}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,62px);line-height:1.06;color:#fff;max-width:800px;margin-bottom:24px;}
 .hero h1 em{font-style:italic;color:#0FA3A0;}
 .hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,.58);max-width:620px;line-height:1.75;}
-
-/* INTEGRITY NOTICE */
+.province-nav{background:#F4F7FB;border-bottom:1px solid #E8EEF4;padding:0 56px;}
+.province-nav-inner{max-width:1000px;margin:0 auto;display:flex;gap:0;}
+.province-nav a{display:flex;align-items:center;gap:8px;padding:16px 24px;font-size:13px;font-weight:500;color:#64748B;border-bottom:2px solid transparent;transition:all .2s;text-decoration:none;}
+.province-nav a:hover{color:#0D1F3C;border-bottom-color:#0B7A75;}
+.province-nav a.active{color:#0D1F3C;border-bottom-color:#0B7A75;}
+.prov-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .integrity{background:#0B7A75;padding:20px 56px;}
 .integrity-inner{max-width:1000px;margin:0 auto;display:flex;align-items:flex-start;gap:16px;}
 .integrity-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
 .integrity-text{font-size:13px;color:#fff;line-height:1.7;}
 .integrity-text strong{font-weight:500;}
-
-/* SECTIONS */
 .section{padding:80px 56px;}
 .section-inner{max-width:1000px;margin:0 auto;}
 .off{background:#F4F7FB;}
-.dark{background:#0D1F3C;}
-
-/* PROVINCE HEADER */
 .province-header{display:flex;align-items:center;gap:20px;margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid #E8EEF4;}
 .province-flag{width:60px;height:40px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#fff;font-family:'DM Mono',monospace;}
 .sk-flag{background:#006B3F;}
 .on-flag{background:#B83030;}
-.province-meta{}
+.bc-flag{background:#003087;}
 .province-name{font-family:'DM Serif Display',serif;font-size:36px;color:#0D1F3C;line-height:1;}
 .province-sub{font-size:14px;color:#64748B;margin-top:4px;}
-
-/* FINDING CARDS */
 .findings{display:flex;flex-direction:column;gap:20px;margin-bottom:36px;}
 .finding{background:#fff;border:1px solid #E8EEF4;border-radius:6px;overflow:hidden;}
-.finding-head{display:flex;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid #E8EEF4;}
-.finding-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:16px;color:#fff;flex-shrink:0;}
+.finding-head{display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid #E8EEF4;}
+.finding-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:15px;color:#fff;flex-shrink:0;}
 .finding-title{font-size:15px;font-weight:500;color:#0D1F3C;}
 .finding-body{padding:20px 24px;}
 .finding-stat{font-family:'DM Serif Display',serif;font-size:32px;line-height:1;margin-bottom:8px;}
 .finding-desc{font-size:14px;color:#64748B;line-height:1.7;margin-bottom:16px;}
 .finding-source{display:flex;align-items:flex-start;gap:8px;background:#F4F7FB;border-left:3px solid #0B7A75;border-radius:0 4px 4px 0;padding:10px 14px;}
 .source-label{font-family:'DM Mono',monospace;font-size:10px;color:#0B7A75;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;margin-top:1px;}
-.source-text{font-size:12px;color:#64748B;line-height:1.5;}
+.source-text{font-size:12px;color:#64748B;line-height:1.6;}
 .source-text a{color:#0B7A75;text-decoration:underline;}
-
-/* MEDISYNS RESPONSE */
 .response-box{background:#0D1F3C;border-radius:8px;padding:28px 32px;}
 .response-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0FA3A0;margin-bottom:12px;}
 .response-box h3{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:12px;}
 .response-box p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;}
-
-/* WHAT MEDISYNS MEASURES */
-.measures{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;}
-.measure{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:20px;}
-.measure-icon{font-size:20px;margin-bottom:10px;}
+.measures{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+.measure{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:18px;}
+.measure-icon{font-size:18px;margin-bottom:8px;}
 .measure h4{font-size:13px;font-weight:500;color:#fff;margin-bottom:6px;}
 .measure p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;}
-
-/* CAVEAT */
-.caveat{background:#FFF8E6;border:1px solid #E8D5A0;border-radius:6px;padding:20px 24px;margin-top:24px;display:flex;gap:12px;}
+.caveat{background:#FFF8E6;border:1px solid #E8D5A0;border-radius:6px;padding:18px 22px;margin-top:22px;display:flex;gap:12px;}
 .caveat-icon{font-size:18px;flex-shrink:0;}
-.caveat-text{font-size:13px;color:#6B5800;line-height:1.7;}
-
-/* DIVIDER */
+.caveat-text{font-size:12px;color:#6B5800;line-height:1.7;}
 .province-divider{border:none;border-top:2px solid #E8EEF4;margin:0;}
-
-/* CTA */
 .cta{background:#0B7A75;padding:80px 56px;text-align:center;}
 .cta-inner{max-width:600px;margin:0 auto;}
 .cta h2{font-family:'DM Serif Display',serif;font-size:40px;color:#fff;margin-bottom:16px;}
@@ -98,26 +81,23 @@ a{text-decoration:none;}
 .cta-input{flex:1;min-width:180px;max-width:240px;padding:14px 18px;border-radius:3px;border:none;font-size:14px;font-family:'DM Sans',sans-serif;background:rgba(255,255,255,.15);color:#fff;outline:none;}
 .cta-input::placeholder{color:rgba(255,255,255,.45);}
 .cta-btn{padding:14px 28px;border-radius:3px;background:#0D1F3C;color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;}
-
-/* FOOTER */
 .footer{background:#0D1F3C;padding:32px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(255,255,255,.06);}
 .footer-brand{display:flex;align-items:center;gap:10px;}
 .footer-hex{width:20px;height:20px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
 .footer-name{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;}
 .footer-meta{font-size:11px;color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;}
-
 @media(max-width:900px){
   .nav{padding:0 24px;}.nav-links{display:none;}
   .hero,.section,.cta{padding:72px 24px;}
-  .integrity{padding:16px 24px;}
+  .integrity,.province-nav{padding:16px 24px;}
   .measures{grid-template-columns:1fr;}
   .footer{padding:24px;flex-direction:column;align-items:flex-start;}
+  .province-nav-inner{overflow-x:auto;}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <a href="/" class="nav-brand">
     <div class="nav-hex"></div>
@@ -132,18 +112,24 @@ a{text-decoration:none;}
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-dots"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
     <div class="eyebrow">Provincial evidence base</div>
-    <h1>The verification gap<br>is <em>documented</em> by province</h1>
+    <h1>The verification gap is<br><em>documented</em> by province</h1>
     <p class="hero-sub">Every finding on this page is sourced directly from provincial auditors, federal health authorities, and government-funded investigative research. Medisyns does not manufacture the problem — it is documented in official records.</p>
   </div>
 </div>
 
-<!-- INTEGRITY NOTICE -->
+<div class="province-nav">
+  <div class="province-nav-inner">
+    <a href="#saskatchewan"><div class="prov-dot" style="background:#006B3F"></div>Saskatchewan</a>
+    <a href="#ontario"><div class="prov-dot" style="background:#B83030"></div>Ontario</a>
+    <a href="#bc"><div class="prov-dot" style="background:#003087"></div>British Columbia</a>
+  </div>
+</div>
+
 <div class="integrity">
   <div class="integrity-inner">
     <div class="integrity-icon">🔎</div>
@@ -154,107 +140,85 @@ a{text-decoration:none;}
 <!-- SASKATCHEWAN -->
 <div class="section" id="saskatchewan">
   <div class="section-inner">
-
     <div class="province-header">
       <div class="province-flag sk-flag">SK</div>
-      <div class="province-meta">
+      <div>
         <div class="province-name">Saskatchewan</div>
-        <div class="province-sub">Population: 1.2M · Saskatchewan Health Authority · Ministry of Health</div>
+        <div class="province-sub">Population: 1.2M &middot; Saskatchewan Health Authority &middot; Ministry of Health</div>
       </div>
     </div>
-
     <div class="findings">
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#006B3F">1</div>
           <div class="finding-title">No active monitoring of pharmacy dispensing practices</div>
         </div>
         <div class="finding-body">
-          <div class="finding-stat" style="color:#B83030">Zero</div>
+          <div class="finding-stat" style="color:#B83030">Zero monitoring</div>
           <p class="finding-desc">The Saskatchewan Ministry of Health does not actively monitor the dispensing practices of the province's 385 pharmacies, and does not know whether those practices contribute to prescription drug misuse. A risk-based monitoring approach does not exist. There is no mechanism to detect whether pharmacies are properly dispensing opioids or other controlled substances.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7: Health—Monitoring Opioid Prescribing and Dispensing. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a> · Audit period: March 1, 2018 – February 28, 2019</span>
+            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7: Health—Monitoring Opioid Prescribing and Dispensing. Audit period: March 1, 2018 – February 28, 2019. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
           </div>
         </div>
       </div>
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#006B3F">2</div>
-          <div class="finding-title">Saskatchewan opioid prescribing significantly above national average</div>
+          <div class="finding-title">Opioid prescribing 21% above the national average</div>
         </div>
         <div class="finding-body">
           <div class="finding-stat" style="color:#006B3F">6,616 vs 5,479</div>
-          <p class="finding-desc">For the six most commonly prescribed opioids, Saskatchewan's defined daily doses of 6,616 per 1,000 population is well above the national average of 5,479 per 1,000 population — a 21% premium over the national rate. Physicians prescribe almost all opioids in the province. The Provincial Auditor found the Ministry did not monitor all opioids prescribed in Saskatchewan, including ones known to cause overdose or death.</p>
+          <p class="finding-desc">For the six most commonly prescribed opioids, Saskatchewan's defined daily doses of 6,616 per 1,000 population is well above the national average of 5,479 per 1,000 population — a 21% premium over the national rate. The Provincial Auditor found the Ministry did not monitor all opioids prescribed in Saskatchewan, including ones known to cause overdose or death.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7. Data sourced from Canadian Institute for Health Information, Pan-Canadian Trends in the Prescribing of Opioids and Benzodiazepines, 2012 to 2017, p. 20. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
+            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7. Original data: Canadian Institute for Health Information, Pan-Canadian Trends in the Prescribing of Opioids and Benzodiazepines, 2012–2017, p.20. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
           </div>
         </div>
       </div>
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#006B3F">3</div>
-          <div class="finding-title">Regina and Saskatoon — highest opioid hospitalization rates in Canada</div>
+          <div class="finding-title">Regina #1 and Saskatoon #2 in Canada for opioid hospitalization rates</div>
         </div>
         <div class="finding-body">
           <div class="finding-stat" style="color:#B83030">28.3 per 100,000</div>
           <p class="finding-desc">Among 19 Canadian cities with populations over 100,000, Regina ranked first for opioid poisoning hospitalization rates at 28.3 per 100,000 people in 2016–17. Saskatoon ranked second at 26.1 per 100,000. Both are dramatically higher than Toronto (7.9) and Vancouver (20.5). The Provincial Auditor linked these rates directly to the absence of adequate prescribing and dispensing monitoring.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7. Original data: Canadian Institute for Health Information, Pan-Canadian Trends in the Prescribing of Opioids and Benzodiazepines, 2012 to 2017, p. 33. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
+            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7. Original data: CIHI, Pan-Canadian Trends in the Prescribing of Opioids and Benzodiazepines, 2012–2017, p.33. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
           </div>
         </div>
       </div>
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#006B3F">4</div>
-          <div class="finding-title">441,354 opioid prescriptions filled — majority unmonitored at dispensing</div>
+          <div class="finding-title">441,354 opioid prescriptions filled — all unmonitored at the dispensing level</div>
         </div>
         <div class="finding-body">
           <div class="finding-stat" style="color:#006B3F">441,354</div>
-          <p class="finding-desc">In the 2018–19 fiscal year, Saskatchewan pharmacies filled 441,354 opioid prescriptions for 98,947 individuals. The majority were for hydromorphone (45%), codeine (32%), and morphine (10%). A further 359,681 prescriptions were dispensed for opioid addiction treatment. None of these dispensing events were subject to active provincial monitoring at the pharmacy level.</p>
+          <p class="finding-desc">In 2018–19, Saskatchewan pharmacies filled 441,354 opioid prescriptions for 98,947 individuals. The majority were hydromorphone (45%), codeine (32%), and morphine (10%). A further 359,681 prescriptions were dispensed for opioid addiction treatment. None of these dispensing events were subject to active provincial monitoring at the pharmacy level.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7. Data provided by the Ministry of Health. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
+            <span class="source-text">Provincial Auditor of Saskatchewan, 2019 Report – Volume 1, Chapter 7. Data provided by the Saskatchewan Ministry of Health. <a href="https://auditor.sk.ca/pub/publications/public_reports/2019/Volume_1/07_Health%E2%80%94Monitoring%20Opioid%20Prescribing%20and%20Dispensing.pdf" target="_blank">auditor.sk.ca</a></span>
           </div>
         </div>
       </div>
-
     </div>
-
     <div class="caveat">
       <div class="caveat-icon">📅</div>
-      <p class="caveat-text"><strong>Data currency note:</strong> The Saskatchewan Provincial Auditor's most recent performance audit of opioid prescribing and dispensing monitoring was published in 2019 (audit period ending February 2019). The 2024 and 2025 Auditor reports do not contain updated drug plan monitoring findings. The 2019 audit remains the most recent primary government source on this topic. Medisyns does not extrapolate or update these figures — they are presented as audited.</p>
+      <p class="caveat-text"><strong>Data currency note:</strong> The most recent Saskatchewan Provincial Auditor performance audit of opioid prescribing and dispensing was published in 2019 (audit period ending February 2019). The 2024 and 2025 Auditor reports do not contain updated drug plan monitoring findings. These figures are presented as audited — Medisyns does not extrapolate or update them.</p>
     </div>
-
-    <div class="response-box" style="margin-top:28px;">
+    <div class="response-box" style="margin-top:24px;">
       <div class="response-label">What Medisyns provides for Saskatchewan</div>
       <h3>The first continuous dispensing audit layer Saskatchewan has never had</h3>
-      <p>The Provincial Auditor found that the Ministry does not actively monitor dispensing practices and has no risk-based approach to identify pharmacy-level concerns. Medisyns is not a policy solution — it is infrastructure. Every dispense event generates a real-time verification record, a cross-system duplication check, and a timestamped audit entry. The monitoring gap the Auditor identified in 2019 is precisely what the Medisyns protocol layer closes.</p>
+      <p>The Provincial Auditor confirmed the Ministry does not actively monitor dispensing and has no risk-based approach to identify pharmacy-level concerns. Medisyns is infrastructure: every dispense event generates a real-time verification record, a cross-system duplication check, and a timestamped audit entry. The monitoring gap the Auditor identified in 2019 is precisely what the Medisyns protocol layer closes.</p>
       <div class="measures">
-        <div class="measure">
-          <div class="measure-icon">📊</div>
-          <h4>First fraud baseline</h4>
-          <p>Saskatchewan has no fraud rate because it has no detection system. Every Medisyns transaction establishes a data point that has never previously existed.</p>
-        </div>
-        <div class="measure">
-          <div class="measure-icon">🔗</div>
-          <h4>Cross-system duplication</h4>
-          <p>Duplicate prescriptions filled at different pharmacies are detectable only with a cross-system verification layer. Medisyns is that layer.</p>
-        </div>
-        <div class="measure">
-          <div class="measure-icon">📋</div>
-          <h4>Continuous audit trail</h4>
-          <p>Replaces periodic inspection with a real-time log of every dispense event — timestamped, party-identified, and cryptographically verified.</p>
-        </div>
+        <div class="measure"><div class="measure-icon">📊</div><h4>First fraud baseline</h4><p>Saskatchewan has no fraud rate because it has no detection system. Every Medisyns transaction establishes a data point that has never previously existed.</p></div>
+        <div class="measure"><div class="measure-icon">🔗</div><h4>Cross-system duplication</h4><p>Duplicate prescriptions filled at different pharmacies are only detectable with a cross-system verification layer. Medisyns is that layer.</p></div>
+        <div class="measure"><div class="measure-icon">📋</div><h4>Continuous audit trail</h4><p>Replaces periodic inspection with a real-time log of every dispense event — timestamped, party-identified, and cryptographically verified.</p></div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -263,107 +227,172 @@ a{text-decoration:none;}
 <!-- ONTARIO -->
 <div class="section off" id="ontario">
   <div class="section-inner">
-
     <div class="province-header">
       <div class="province-flag on-flag">ON</div>
-      <div class="province-meta">
+      <div>
         <div class="province-name">Ontario</div>
-        <div class="province-sub">Population: 15M · Ontario Drug Benefit Program · Ministry of Health</div>
+        <div class="province-sub">Population: 15M &middot; Ontario Drug Benefit Program &middot; Ministry of Health</div>
       </div>
     </div>
-
     <div class="findings">
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#B83030">1</div>
-          <div class="finding-title">6.7% of pharmacies inspected — $9.1M in inappropriate claims recovered</div>
+          <div class="finding-title">6.7% of pharmacies inspected — $9.1M recovered, $3.9M missed</div>
         </div>
         <div class="finding-body">
           <div class="finding-stat" style="color:#B83030">286 of 4,260</div>
-          <p class="finding-desc">In 2016/17, the Ontario Ministry of Health inspected just 286 of more than 4,260 pharmacies — 6.7% of the total. Those inspections recovered $9.1 million in inappropriate claims. The Auditor General separately identified a further $3.9 million in inappropriate claims that the Ministry did not inspect or recover. The Ministry was found to lack an overall inspection strategy to target high-risk pharmacies.</p>
+          <p class="finding-desc">In 2016/17, the Ontario Ministry of Health inspected just 286 of more than 4,260 pharmacies — 6.7% of the total. Those inspections recovered $9.1 million in inappropriate claims. The Auditor General separately identified a further $3.9 million in inappropriate claims the Ministry did not inspect or recover. The Ministry was found to lack an overall inspection strategy to target high-risk pharmacies.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">Office of the Auditor General of Ontario, 2017 Annual Report, Section 3.09: Ontario Public Drug Programs (Value-for-Money Audit). <a href="https://auditor.on.ca/en/content/annualreports/arreports/en17/2017AR_v1_en_web.pdf" target="_blank">auditor.on.ca</a> · Audit period: 2016/17 fiscal year</span>
+            <span class="source-text">Office of the Auditor General of Ontario, 2017 Annual Report, Section 3.09: Ontario Public Drug Programs (Value-for-Money Audit). Audit period: 2016/17 fiscal year. <a href="https://auditor.on.ca/en/content/annualreports/arreports/en17/2017AR_v1_en_web.pdf" target="_blank">auditor.on.ca</a></span>
           </div>
         </div>
       </div>
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#B83030">2</div>
-          <div class="finding-title">$5.4 billion ODB program with no systematic high-risk inspection strategy</div>
+          <div class="finding-title">$5.4B ODB program with no systematic high-risk inspection strategy</div>
         </div>
         <div class="finding-body">
-          <div class="finding-stat" style="color:#B83030">$5.4B</div>
-          <p class="finding-desc">Total expenditures of the Ontario Drug Benefit Program in 2016/17 were approximately $5.4 billion (including co-payments and deductibles), serving approximately 4 million recipients. The Auditor General concluded the Ministry was not recovering many invalid claims and payments to pharmacists — against a program of this size, even a fraction of a percent in fraud or inappropriate billing represents tens of millions of dollars.</p>
+          <div class="finding-stat" style="color:#B83030">$5.4 billion</div>
+          <p class="finding-desc">Total expenditures of the Ontario Drug Benefit Program in 2016/17 were approximately $5.4 billion, serving approximately 4 million recipients. The Auditor General concluded the Ministry was not recovering many invalid claims and payments to pharmacists. Against a program of this scale, even a fraction of a percent in fraud or inappropriate billing represents tens of millions of dollars of undetected losses.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
             <span class="source-text">Office of the Auditor General of Ontario, 2017 Annual Report, Section 3.09: Ontario Public Drug Programs. <a href="https://auditor.on.ca/en/content/annualreports/arreports/en17/2017AR_v1_en_web.pdf" target="_blank">auditor.on.ca</a></span>
           </div>
         </div>
       </div>
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#B83030">3</div>
-          <div class="finding-title">245,000 opioid tablets disappeared from one Ontario pharmacy — reason: "unexplained"</div>
+          <div class="finding-title">245,000 opioid tablets vanished from one Ontario pharmacy — official reason: "Loss unexplained"</div>
         </div>
         <div class="finding-body">
           <div class="finding-stat" style="color:#B83030">$4M street value</div>
-          <p class="finding-desc">In May 2023, a pharmacy somewhere in Ontario reported the loss of more than 245,000 hydromorphone (Dilaudid) tablets to Health Canada. There was no robbery and no break-in. The manufacturer reported no supply chain concerns. The official reason recorded by Health Canada: "Loss unexplained." There is no requirement to report such losses to police. The Ontario College of Pharmacists launched an investigation but could not provide further details.</p>
+          <p class="finding-desc">In May 2023, a pharmacy somewhere in Ontario reported the loss of more than 245,000 hydromorphone (Dilaudid) tablets to Health Canada. There was no robbery and no break-in. The official reason recorded by Health Canada: "Loss unexplained." There is no legal requirement to report such losses to police. The Ontario College of Pharmacists launched an investigation but could not provide further details.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">CBC News investigation, June 27, 2024. Data obtained from Health Canada via access-to-information request. <a href="https://www.cbc.ca/news/canada/unexplained-losses-prescription-drugs-1.7247602" target="_blank">cbc.ca/news/canada/unexplained-losses-prescription-drugs-1.7247602</a></span>
+            <span class="source-text">CBC News investigation, June 27, 2024. Data obtained from Health Canada via access-to-information request. Health Canada data confirmed authentic by Health Canada spokesperson. <a href="https://www.cbc.ca/news/canada/unexplained-losses-prescription-drugs-1.7247602" target="_blank">cbc.ca</a></span>
           </div>
         </div>
       </div>
-
       <div class="finding">
         <div class="finding-head">
           <div class="finding-num" style="background:#B83030">4</div>
-          <div class="finding-title">Ontario government acknowledges duplicate prescribing and double-doctoring as active fraud vectors</div>
+          <div class="finding-title">Ontario government acknowledges duplicate prescribing as an active fraud vector with no real-time solution</div>
         </div>
         <div class="finding-body">
-          <div class="finding-stat" style="color:#B83030">No real-time detection</div>
-          <p class="finding-desc">The Ontario government's own public fraud prevention page acknowledges that duplicate prescriptions — obtaining the same drug from multiple pharmacies — and "double doctoring" (obtaining opioid prescriptions from three or more doctors in a month) are active fraud vectors in the ODB program. The Health Network System provides some data to pharmacists, but there is no cross-system real-time verification layer that would catch these events before dispensing occurs.</p>
+          <div class="finding-stat" style="color:#B83030">No pre-dispense detection</div>
+          <p class="finding-desc">The Ontario government's own fraud prevention page acknowledges duplicate prescriptions — obtaining the same drug from multiple pharmacies — and "double doctoring" (obtaining opioid prescriptions from three or more doctors in a month) as active fraud vectors in the ODB program. No cross-system real-time verification layer exists that would catch these events before dispensing occurs.</p>
           <div class="finding-source">
             <span class="source-label">Source</span>
-            <span class="source-text">Government of Ontario, Preventing Fraud Within Ontario's Health Care System. <a href="https://www.ontario.ca/page/preventing-fraud-within-ontarios-health-care-system" target="_blank">ontario.ca/page/preventing-fraud-within-ontarios-health-care-system</a></span>
+            <span class="source-text">Government of Ontario, Preventing Fraud Within Ontario's Health Care System. <a href="https://www.ontario.ca/page/preventing-fraud-within-ontarios-health-care-system" target="_blank">ontario.ca</a></span>
           </div>
         </div>
       </div>
-
     </div>
-
     <div class="caveat">
       <div class="caveat-icon">📅</div>
-      <p class="caveat-text"><strong>Data currency note:</strong> The Ontario Auditor General's most recent Value-for-Money audit of the Ontario Drug Benefit Program was published in 2017 (audit period 2016/17). The pharmacy inspection figures (286 of 4,260) and recovery amounts ($9.1M) reflect that audit period. Medisyns presents these as the most recent audited figures available from a primary government source. The 2023 CBC News/Health Canada data is current as of the publication date.</p>
+      <p class="caveat-text"><strong>Data currency note:</strong> The Ontario Auditor General's most recent Value-for-Money audit of the Ontario Drug Benefit Program was published in 2017 (audit period 2016/17). The pharmacy inspection figures and recovery amounts reflect that audit period and are the most recent audited figures available from a primary government source. The 2023 CBC News/Health Canada data is current as of the publication date.</p>
     </div>
-
-    <div class="response-box" style="margin-top:28px;background:#1A1A2E;">
+    <div class="response-box" style="margin-top:24px;">
       <div class="response-label">What Medisyns provides for Ontario</div>
       <h3>Real-time cross-system verification the ODB program currently lacks</h3>
-      <p>The Auditor General found Ontario inspects 6.7% of pharmacies and still missed $3.9M in inappropriate claims. The government's own fraud page acknowledges duplicate prescriptions and double-doctoring as known problems — with no real-time solution. Medisyns sits between the ODB system, private insurers, prescribers, and pharmacies. Every fill is cross-checked before it is dispensed. Duplication is caught at the point of authorization, not discovered in a retrospective audit years later.</p>
+      <p>The Auditor General found Ontario inspects 6.7% of pharmacies and still missed $3.9M in inappropriate claims. The government's own fraud page acknowledges duplicate prescriptions and double-doctoring as known problems — with no real-time solution. Medisyns connects the ODB system, private insurers, prescribers, and pharmacies. Every fill is cross-checked before it is dispensed. Duplication is caught at authorization, not discovered in a retrospective audit years later.</p>
       <div class="measures">
-        <div class="measure">
-          <div class="measure-icon">⚡</div>
-          <h4>Pre-dispense fraud detection</h4>
-          <p>Fraud flags fire before the drug leaves the pharmacy — not after a retrospective audit that catches 6.7% of pharmacies every 15 years.</p>
+        <div class="measure"><div class="measure-icon">⚡</div><h4>Pre-dispense fraud detection</h4><p>Fraud flags fire before the drug leaves the pharmacy — not after a retrospective audit that catches 6.7% of pharmacies every 15 years.</p></div>
+        <div class="measure"><div class="measure-icon">🔗</div><h4>ODB + private insurer connection</h4><p>Ontario's 8M+ dual-insured residents have prescriptions split across OHIP and private plans. Medisyns connects both in real time.</p></div>
+        <div class="measure"><div class="measure-icon">📊</div><h4>Replaces periodic inspection</h4><p>Every dispense event logged continuously. No need to wait for the next inspection cycle to discover what went wrong.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="province-divider">
+
+<!-- BRITISH COLUMBIA -->
+<div class="section" id="bc">
+  <div class="section-inner">
+    <div class="province-header">
+      <div class="province-flag bc-flag">BC</div>
+      <div>
+        <div class="province-name">British Columbia</div>
+        <div class="province-sub">Population: 5.5M &middot; BC PharmaCare &middot; Ministry of Health &middot; PharmaNet</div>
+      </div>
+    </div>
+    <div class="findings">
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003087">1</div>
+          <div class="finding-title">BC Ministry of Health confirms "significant portion" of prescribed opioids being diverted</div>
         </div>
-        <div class="measure">
-          <div class="measure-icon">🔗</div>
-          <h4>ODB + private insurer connection</h4>
-          <p>Ontario's 8M+ dual-insured residents have prescriptions split across OHIP and private plans. Medisyns is the coordination layer that connects both.</p>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#B83030">Significant diversion</div>
+          <p class="finding-desc">A BC Ministry of Health internal investigative unit briefing, confirmed authentic by Health Minister Josie Osborne in February 2025, states that a "significant portion" of prescribed opioids in BC are being diverted and that prescribed alternatives are being trafficked provincially, nationally, and internationally. The investigation involves organized criminals, doctors, assisted living residences, and pharmacies.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">BC Ministry of Health investigative unit briefing, confirmed by Health Minister Josie Osborne. Government news release: February 19, 2025. <a href="https://news.gov.bc.ca/releases/2025HLTH0008-000127" target="_blank">news.gov.bc.ca</a> &middot; CBC News coverage confirmed by minister: <a href="https://www.cbc.ca/news/canada/british-columbia/bc-investigates-opioid-diversion-1.7451733" target="_blank">cbc.ca</a></span>
+          </div>
         </div>
-        <div class="measure">
-          <div class="measure-icon">📊</div>
-          <h4>Replaces periodic inspection</h4>
-          <p>Every dispense event logged continuously. No need to wait for the next inspection cycle to discover what went wrong.</p>
+      </div>
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003087">2</div>
+          <div class="finding-title">More than 60 pharmacies under investigation for kickback and overbilling schemes</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#003087">60+ pharmacies</div>
+          <p class="finding-desc">Since 2024, the BC Ministry of Health's Special Investigative Unit, in collaboration with the College of Pharmacists of BC and law enforcement, has been investigating pharmacies suspected of illegal activities — including misusing fee-for-service payments to offer kickbacks to attract patients, and filling prescriptions patients did not require in order to overbill PharmaCare. More than 60 pharmacies have been identified.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">BC Ministry of Health official news release, February 19, 2025. <a href="https://news.gov.bc.ca/releases/2025HLTH0008-000127" target="_blank">news.gov.bc.ca/releases/2025HLTH0008-000127</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003087">3</div>
+          <div class="finding-title">$1.698 billion in PharmaCare expenditure in 2023/24 — across 46.64 million paid claims</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#003087">$1.698B</div>
+          <p class="finding-desc">Total BC PharmaCare expenditure in 2023/24 was $1.698 billion across 46.64 million paid claims for 1.01 million beneficiaries. PharmaNet — BC's province-wide pharmacy network — records every dispense in BC community pharmacies. Despite this infrastructure, the Ministry's own investigative unit found systematic fraud across more than 60 pharmacies that PharmaNet data alone did not prevent.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">BC Ministry of Health, PharmaCare Trends 2023/2024. Published by Pharmaceutical, Laboratory and Blood Services Division. <a href="https://www2.gov.bc.ca/assets/gov/health/health-drug-coverage/pharmacare/pharmacare_trends_2023_2024.pdf" target="_blank">gov.bc.ca</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003087">4</div>
+          <div class="finding-title">BC forced to overhaul safe supply program — moving to witnessed dosing by December 2025</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#003087">Program overhaul</div>
+          <p class="finding-desc">In December 2025, BC required all prescribed alternatives clients to transition to witnessed dosing — meaning patients must consume medications under direct supervision of a health professional. This policy reversal was a direct response to the confirmed diversion of prescribed opioids at scale. The BC government explicitly acknowledged that the fee structure for pharmacies had created financial incentives for bad actors to attract and retain patients fraudulently.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">BC Ministry of Health, Access to Prescribed Alternatives in British Columbia: Policy Direction, December 2, 2025. <a href="https://www2.gov.bc.ca/gov/content/health/practitioner-professional-resources/pharmacare/pharmacare-substance-use-disorder-hub/pa" target="_blank">gov.bc.ca</a></span>
+          </div>
         </div>
       </div>
     </div>
-
+    <div class="caveat">
+      <div class="caveat-icon">📋</div>
+      <p class="caveat-text"><strong>Context note:</strong> The BC findings are primarily drawn from the 2025 Ministry of Health investigation into prescribed alternatives diversion — a specific program within PharmaCare. The broader prescription drug verification gap (duplicate prescriptions, cross-system fraud, eligibility verification) remains a separate and unresolved issue across all PharmaCare plans. BC's PharmaNet provides transaction data but not real-time cross-party verification of the kind Medisyns provides.</p>
+    </div>
+    <div class="response-box" style="margin-top:24px;">
+      <div class="response-label">What Medisyns provides for British Columbia</div>
+      <h3>The cross-party verification layer PharmaNet cannot provide alone</h3>
+      <p>BC has PharmaNet — a province-wide dispensing record system. But PharmaNet records transactions; it does not verify eligibility across parties in real time before dispensing occurs. The Ministry's own investigation found that systematic fraud at 60+ pharmacies went undetected until a Special Investigative Unit intervened. Medisyns sits at the verification layer — every fill is cross-checked against the prescriber registry, insurer eligibility, and cross-pharmacy duplication before the drug is dispensed.</p>
+      <div class="measures">
+        <div class="measure"><div class="measure-icon">🛡</div><h4>Pre-dispense verification</h4><p>PharmaNet records what happened. Medisyns verifies before it happens — catching incentive schemes and duplicate fills at the point of authorization.</p></div>
+        <div class="measure"><div class="measure-icon">🔗</div><h4>Cross-party eligibility</h4><p>BC has multiple PharmaCare plans plus private insurers. Medisyns connects all parties to a single real-time verification event per fill.</p></div>
+        <div class="measure"><div class="measure-icon">📊</div><h4>Audit trail beyond PharmaNet</h4><p>Every transaction logged on a permissioned ledger — immutable, timestamped, and auditable by the Ministry, College of Pharmacists, and law enforcement.</p></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -380,13 +409,12 @@ a{text-decoration:none;}
   </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <div class="footer-brand">
     <div class="footer-hex"></div>
     <span class="footer-name">Medisyns</span>
   </div>
-  <div class="footer-meta">All data sourced from primary government documents · PIPEDA · ITSG-33 · FHIR R4 · Patent pending US & CA</div>
+  <div class="footer-meta">All data sourced from primary government documents &middot; PIPEDA &middot; ITSG-33 &middot; FHIR R4 &middot; Patent pending US & CA</div>
 </div>
 
 </body>
