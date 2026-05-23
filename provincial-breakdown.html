@@ -95,6 +95,22 @@ a{text-decoration:none;}
   .province-nav-inner{overflow-x:auto;}
 }
 </style>
+<script>
+(function(){
+  var p = sessionStorage.getItem("mx_auth");
+  if(p !== "granted"){
+    document.documentElement.style.visibility = "hidden";
+    var pw = prompt("Enter password to access Medisyns:");
+    if(pw !== "AmalfiLemons"){
+      document.body.innerHTML = "<div style=\"font-family:sans-serif;text-align:center;padding:80px;color:#64748B;\">Access denied. <a href=\"\" style=\"color:#0B7A75;\">Try again<\/a><\/div>";
+      document.documentElement.style.visibility = "visible";
+      return;
+    }
+    sessionStorage.setItem("mx_auth","granted");
+    document.documentElement.style.visibility = "visible";
+  }
+})();
+</script>
 </head>
 <body>
 
