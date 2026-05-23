@@ -153,6 +153,22 @@ h2{font-family:'DM Serif Display',serif;font-size:46px;line-height:1.1;color:#0D
   .footer{padding:24px;flex-direction:column;align-items:flex-start;}
 }
 </style>
+<script>
+(function(){
+  var p = sessionStorage.getItem("mx_auth");
+  if(p !== "granted"){
+    document.documentElement.style.visibility = "hidden";
+    var pw = prompt("Enter password to access Medisyns:");
+    if(pw !== "AmalfiLemons"){
+      document.body.innerHTML = "<div style=\"font-family:sans-serif;text-align:center;padding:80px;color:#64748B;\">Access denied. <a href=\"\" style=\"color:#0B7A75;\">Try again<\/a><\/div>";
+      document.documentElement.style.visibility = "visible";
+      return;
+    }
+    sessionStorage.setItem("mx_auth","granted");
+    document.documentElement.style.visibility = "visible";
+  }
+})();
+</script>
 </head>
 <body style="margin:0;padding:0;width:100%;overflow-x:hidden;">
 
@@ -358,3 +374,4 @@ h2{font-family:'DM Serif Display',serif;font-size:46px;line-height:1.1;color:#0D
 </div>
 
 </body>
+</html>
