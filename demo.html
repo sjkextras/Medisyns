@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medisyns — Live Verification Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#F4F7FB;overflow-x:hidden;}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:70px;background:#0D1F3C;position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-hex{width:28px;height:28px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.nav-name{font-family:'DM Serif Display',serif;font-size:19px;color:#fff;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{background:#0B7A75!important;color:#fff!important;padding:9px 20px;border-radius:3px;}
+
+.hero{background:#0D1F3C;padding:72px 56px 56px;text-align:center;position:relative;overflow:hidden;}
+.hero-dots{position:absolute;inset:0;opacity:.035;background-image:radial-gradient(rgba(255,255,255,.8) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(11,122,117,.4);border-radius:2px;padding:6px 14px;margin-bottom:24px;font-family:'DM Mono',monospace;font-size:11px;color:#0FA3A0;letter-spacing:.14em;text-transform:uppercase;}
+.hero-eyebrow::before{content:'';width:7px;height:7px;background:#0FA3A0;border-radius:50%;animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,52px);color:#fff;margin-bottom:16px;line-height:1.1;}
+.hero h1 em{font-style:italic;color:#0FA3A0;}
+.hero p{font-size:17px;color:rgba(255,255,255,.6);max-width:560px;margin:0 auto;line-height:1.7;}
+
+.main{max-width:860px;margin:0 auto;padding:48px 24px;}
+
+.scenario-section{margin-bottom:32px;}
+.scenario-label{font-size:11px;font-weight:500;color:#64748B;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.scenario-row{display:flex;gap:10px;flex-wrap:wrap;}
+.scenario-btn{padding:10px 20px;border-radius:6px;border:1px solid #E8EEF4;background:#fff;font-size:14px;font-family:'DM Sans',sans-serif;color:#64748B;cursor:pointer;transition:all .15s;}
+.scenario-btn.sel{background:#0D1F3C;color:#fff;border-color:#0D1F3C;font-weight:500;}
+.scenario-btn:hover:not(.sel){border-color:#0D1F3C;color:#0D1F3C;}
+
+.patient-card{background:#fff;border:1px solid #E8EEF4;border-radius:8px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;gap:16px;}
+.patient-avatar{width:48px;height:48px;border-radius:50%;background:#D6E8F7;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#1A56A0;flex-shrink:0;}
+.patient-info{flex:1;}
+.patient-name{font-size:16px;font-weight:500;color:#0D1F3C;margin:0 0 3px;}
+.patient-meta{font-size:13px;color:#64748B;margin:0;}
+.patient-status{font-size:12px;font-weight:500;padding:6px 14px;border-radius:100px;background:#F4F7FB;color:#64748B;flex-shrink:0;transition:all .3s;}
+.status-verifying{background:#FFF8E6;color:#854F0B;}
+.status-verified{background:#E1F5EE;color:#0F6E56;}
+.status-flagged{background:#FCEBEB;color:#A32D2D;}
+
+.chain-label{font-size:11px;font-weight:500;color:#64748B;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
+.chain{display:flex;flex-direction:column;gap:0;margin-bottom:28px;}
+.step{display:flex;align-items:center;gap:14px;padding:16px 20px;border:1px solid #E8EEF4;border-radius:8px;background:#fff;transition:all .3s;opacity:.45;margin-bottom:8px;}
+.step.active{opacity:1;border-color:#0B7A75;background:#F4FAF8;}
+.step.done{opacity:1;border-color:#E8EEF4;background:#fff;}
+.step.flagged-step{opacity:1;border-color:#F09595;background:#FFF5F5;}
+.step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#F4F7FB;font-family:'DM Serif Display',serif;font-size:16px;color:#64748B;flex-shrink:0;transition:all .3s;}
+.step.active .step-num{background:#0B7A75;color:#fff;}
+.step.done .step-num{background:#0B7A75;color:#fff;}
+.step.flagged-step .step-num{background:#E24B4A;color:#fff;}
+.step-body{flex:1;}
+.step-title{font-size:14px;font-weight:500;color:#0D1F3C;margin:0 0 3px;}
+.step-desc{font-size:12px;color:#64748B;margin:0;line-height:1.5;}
+.step-right{text-align:right;flex-shrink:0;}
+.step-fee{font-size:13px;font-weight:500;color:#0D1F3C;margin-bottom:4px;}
+.step-badge{font-size:11px;padding:3px 10px;border-radius:100px;background:#F4F7FB;color:#64748B;display:inline-block;}
+.badge-verified{background:#E1F5EE;color:#0F6E56;}
+.badge-flagged{background:#FCEBEB;color:#A32D2D;}
+.step-tx{font-size:10px;color:#94A3B8;font-family:'DM Mono',monospace;margin-top:3px;}
+
+.result-box{border-radius:8px;padding:20px 24px;margin-bottom:28px;display:none;border:1px solid;}
+.result-box.show{display:block;}
+.result-approved{background:#E1F5EE;border-color:#5DCAA5;}
+.result-flagged{background:#FCEBEB;border-color:#F09595;}
+.result-title{font-size:16px;font-weight:500;margin:0 0 6px;}
+.result-approved .result-title{color:#085041;}
+.result-flagged .result-title{color:#791F1F;}
+.result-desc{font-size:14px;line-height:1.7;margin:0;}
+.result-approved .result-desc{color:#0F6E56;}
+.result-flagged .result-desc{color:#A32D2D;}
+
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+.metric{background:#fff;border:1px solid #E8EEF4;border-radius:8px;padding:20px;text-align:center;}
+.metric-val{font-family:'DM Serif Display',serif;font-size:28px;color:#0D1F3C;line-height:1;}
+.metric-label{font-size:12px;color:#64748B;margin-top:6px;text-transform:uppercase;letter-spacing:.06em;}
+
+.ledger{background:#fff;border:1px solid #E8EEF4;border-radius:8px;padding:20px 24px;margin-bottom:28px;}
+.ledger-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.ledger-title{font-size:14px;font-weight:500;color:#0D1F3C;}
+.ledger-live{font-size:12px;color:#0B7A75;display:flex;align-items:center;gap:6px;}
+.ledger-dot{width:7px;height:7px;border-radius:50%;background:#0B7A75;animation:blink 1.4s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.ledger-empty{font-size:13px;color:#94A3B8;text-align:center;padding:20px 0;}
+.ledger-entry{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F4F7FB;font-size:13px;}
+.ledger-entry:last-child{border-bottom:none;}
+.ledger-icon{width:28px;height:28px;border-radius:50%;background:#E1F5EE;display:flex;align-items:center;justify-content:center;font-size:13px;color:#0B7A75;flex-shrink:0;}
+.ledger-icon.flag-icon{background:#FCEBEB;color:#E24B4A;}
+.ledger-body-text{flex:1;}
+.ledger-entry-name{color:#0D1F3C;font-weight:500;margin-bottom:2px;}
+.ledger-entry-hash{color:#94A3B8;font-family:'DM Mono',monospace;font-size:11px;}
+.ledger-entry-fee{color:#0D1F3C;font-weight:500;flex-shrink:0;}
+
+.btn-row{display:flex;gap:12px;}
+.btn-run{flex:1;padding:14px;border-radius:6px;border:none;background:#0B7A75;color:#fff;font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .2s;}
+.btn-run:hover{background:#0FA3A0;}
+.btn-run:disabled{background:#E8EEF4;color:#94A3B8;cursor:not-allowed;}
+.btn-reset{padding:14px 24px;border-radius:6px;border:1px solid #E8EEF4;background:#fff;color:#64748B;font-size:15px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;}
+.btn-reset:hover{border-color:#0D1F3C;color:#0D1F3C;}
+
+.explainer{margin-top:48px;border-top:1px solid #E8EEF4;padding-top:40px;}
+.explainer-title{font-family:'DM Serif Display',serif;font-size:28px;color:#0D1F3C;margin-bottom:8px;}
+.explainer-sub{font-size:15px;color:#64748B;margin-bottom:32px;line-height:1.7;}
+.explainer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.explainer-card{background:#fff;border:1px solid #E8EEF4;border-radius:8px;padding:24px 20px;}
+.explainer-icon{width:40px;height:40px;background:#F4F7FB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;color:#0B7A75;}
+.explainer-card h3{font-size:14px;font-weight:500;color:#0D1F3C;margin-bottom:8px;}
+.explainer-card p{font-size:13px;color:#64748B;line-height:1.7;}
+
+.footer{background:#0D1F3C;padding:32px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:64px;}
+.footer-brand{display:flex;align-items:center;gap:10px;}
+.footer-hex{width:20px;height:20px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.footer-name{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;}
+.footer-meta{font-size:11px;color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;}
+
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.spinning{animation:spin .8s linear infinite;display:inline-block;}
+
+@media(max-width:700px){
+  .nav{padding:0 20px;}.nav-links{display:none;}
+  .hero{padding:56px 24px 40px;}
+  .metrics{grid-template-columns:repeat(3,1fr);}
+  .explainer-grid{grid-template-columns:1fr;}
+  .footer{padding:24px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <div class="nav-hex"></div>
+    <span class="nav-name">Medisyns</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#problem">The problem</a>
+    <a href="/provincial-breakdown.html">By province</a>
+    <a href="/#roadmap">Roadmap</a>
+    <a href="/#contact" class="nav-cta">Start a conversation</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-eyebrow">Live protocol demo</div>
+  <h1>Watch Medisyns <em>verify</em><br>a prescription in real time</h1>
+  <p>Select a scenario. Press run. Every step that happens below is what Medisyns does automatically for every prescription filled in a connected province.</p>
+</div>
+
+<div class="main">
+
+  <div class="scenario-section">
+    <div class="scenario-label">Choose a scenario</div>
+    <div class="scenario-row">
+      <button class="scenario-btn sel" onclick="setScenario(0,this)">Standard fill</button>
+      <button class="scenario-btn" onclick="setScenario(1,this)">Requires prior authorization</button>
+      <button class="scenario-btn" onclick="setScenario(2,this)">Duplicate prescription detected</button>
+    </div>
+  </div>
+
+  <div class="patient-card">
+    <div class="patient-avatar" id="pat-av">RD</div>
+    <div class="patient-info">
+      <p class="patient-name" id="pat-name">Robert Daniels</p>
+      <p class="patient-meta">Patient ID: SK-00123 &nbsp;&middot;&nbsp; Saskatchewan &nbsp;&middot;&nbsp; Dr. M. Pereira &nbsp;&middot;&nbsp; <span id="pat-drug">Metformin 500mg</span></p>
+    </div>
+    <div class="patient-status" id="pat-status">Awaiting verification</div>
+  </div>
+
+  <div class="chain-label">Verification chain</div>
+
+  <div class="chain">
+    <div class="step" id="s0">
+      <div class="step-num" id="sn0">1</div>
+      <div class="step-body">
+        <p class="step-title">Provincial registry check</p>
+        <p class="step-desc">Patient confirmed as enrolled, alive, and eligible in Saskatchewan</p>
+      </div>
+      <div class="step-right">
+        <div class="step-fee">$0.10</div>
+        <div class="step-badge" id="b0">Pending</div>
+        <div class="step-tx" id="tx0"></div>
+      </div>
+    </div>
+    <div class="step" id="s1">
+      <div class="step-num" id="sn1">2</div>
+      <div class="step-body">
+        <p class="step-title">Drug coverage confirmed</p>
+        <p class="step-desc">Saskatchewan Drug Plan confirms this medication is covered for this patient</p>
+      </div>
+      <div class="step-right">
+        <div class="step-fee">$0.10</div>
+        <div class="step-badge" id="b1">Pending</div>
+        <div class="step-tx" id="tx1"></div>
+      </div>
+    </div>
+    <div class="step" id="s2">
+      <div class="step-num" id="sn2">3</div>
+      <div class="step-body">
+        <p class="step-title">Prescriber authorized</p>
+        <p class="step-desc">Dr. Pereira confirmed as licensed and authorized to prescribe in Saskatchewan</p>
+      </div>
+      <div class="step-right">
+        <div class="step-fee">$0.10</div>
+        <div class="step-badge" id="b2">Pending</div>
+        <div class="step-tx" id="tx2"></div>
+      </div>
+    </div>
+    <div class="step" id="s3" style="display:none">
+      <div class="step-num" id="sn3">4</div>
+      <div class="step-body">
+        <p class="step-title">Prior authorization approved</p>
+        <p class="step-desc">Ministry pre-approved this prescription before dispensing — required for this high-cost drug</p>
+      </div>
+      <div class="step-right">
+        <div class="step-fee">$0.50</div>
+        <div class="step-badge" id="b3">Pending</div>
+        <div class="step-tx" id="tx3"></div>
+      </div>
+    </div>
+    <div class="step" id="s4">
+      <div class="step-num" id="sn4">4</div>
+      <div class="step-body">
+        <p class="step-title" id="s4-title">Dispense confirmed — no duplicates found</p>
+        <p class="step-desc" id="s4-desc">Cross-checked against all Saskatchewan pharmacies — this patient has not filled this prescription elsewhere</p>
+      </div>
+      <div class="step-right">
+        <div class="step-fee" id="s4-fee">$0.10</div>
+        <div class="step-badge" id="b4">Pending</div>
+        <div class="step-tx" id="tx4"></div>
+      </div>
+    </div>
+    <div class="step" id="s5">
+      <div class="step-num" id="sn5">5</div>
+      <div class="step-body">
+        <p class="step-title">Patient record updated</p>
+        <p class="step-desc">Benefit balance adjusted — cryptographic proof generated and stored permanently on the audit ledger</p>
+      </div>
+      <div class="step-right">
+        <div class="step-fee">$0.10</div>
+        <div class="step-badge" id="b5">Pending</div>
+        <div class="step-tx" id="tx5"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-box" id="result-box">
+    <p class="result-title" id="result-title">Prescription approved</p>
+    <p class="result-desc" id="result-desc"></p>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-val" id="m-steps">0</div>
+      <div class="metric-label">Steps verified</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val" id="m-billed">$0.00</div>
+      <div class="metric-label">Billed to ministry</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val" id="m-time">—</div>
+      <div class="metric-label">Time to verify</div>
+    </div>
+  </div>
+
+  <div class="ledger">
+    <div class="ledger-header">
+      <span class="ledger-title">Permanent audit ledger</span>
+      <span class="ledger-live"><div class="ledger-dot"></div> Live</span>
+    </div>
+    <div id="ledger-body"><div class="ledger-empty">No transactions yet. Press run to begin.</div></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-run" id="btn-run" onclick="runDemo()">
+      <i class="ti ti-player-play"></i>
+      Run verification
+    </button>
+    <button class="btn-reset" onclick="resetDemo()">Reset</button>
+  </div>
+
+  <div class="explainer">
+    <h2 class="explainer-title">What just happened — in plain English</h2>
+    <p class="explainer-sub">Every step above runs automatically for every prescription filled in a province connected to Medisyns. No human reviews it. No paper changes hands. The audit trail is permanent.</p>
+    <div class="explainer-grid">
+      <div class="explainer-card">
+        <div class="explainer-icon"><i class="ti ti-link"></i></div>
+        <h3>Everything connected</h3>
+        <p>The provincial registry, the drug plan, the prescriber database, and the pharmacy all talk to each other through the Medisyns protocol. Right now they don't — each one is a separate silo.</p>
+      </div>
+      <div class="explainer-card">
+        <div class="explainer-icon"><i class="ti ti-alert-triangle"></i></div>
+        <h3>Fraud caught before it happens</h3>
+        <p>The duplicate prescription scenario shows a fraud flag firing before the drug leaves the counter. Today, that duplicate would only be discovered months later — if at all — during a manual audit.</p>
+      </div>
+      <div class="explainer-card">
+        <div class="explainer-icon"><i class="ti ti-lock"></i></div>
+        <h3>Every transaction is permanent proof</h3>
+        <p>Each entry in the audit ledger has a cryptographic hash — a unique fingerprint that proves the record has never been altered. Any regulator or auditor can verify it independently, at any time.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-brand">
+    <div class="footer-hex"></div>
+    <span class="footer-name">Medisyns</span>
+  </div>
+  <div class="footer-meta">Patent pending US &amp; CA &nbsp;&middot;&nbsp; PIPEDA &nbsp;&middot;&nbsp; ITSG-33 &nbsp;&middot;&nbsp; FHIR R4 &nbsp;&middot;&nbsp; SOC 2</div>
+</div>
+
+<script>
+const scenarios = [
+  { name:"Standard fill", patient:"Robert Daniels", av:"RD", drug:"Metformin 500mg", priorAuth:false, duplicate:false },
+  { name:"Requires prior auth", patient:"Margaret Houle", av:"MH", drug:"Ozempic 1mg (high-cost)", priorAuth:true, duplicate:false },
+  { name:"Duplicate detected", patient:"James Firth", av:"JF", drug:"Hydromorphone 2mg", priorAuth:false, duplicate:true }
+];
+
+let currentScenario = 0;
+let running = false;
+let startTime = null;
+
+function setScenario(i, btn) {
+  currentScenario = i;
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  resetDemo();
+}
+
+function uid() {
+  return 'TX-' + Math.random().toString(36).substring(2,6).toUpperCase() + '-' + Math.random().toString(36).substring(2,7).toUpperCase();
+}
+
+function shortHash() {
+  const c = '0123456789abcdef';
+  let h = '';
+  for (let i=0;i<10;i++) h += c[Math.floor(Math.random()*16)];
+  return h + '...';
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function updateMetrics(steps, billed, done) {
+  document.getElementById('m-steps').textContent = steps;
+  document.getElementById('m-billed').textContent = '$' + billed.toFixed(2);
+  if (done && startTime) {
+    const ms = Date.now() - startTime;
+    document.getElementById('m-time').textContent = (ms/1000).toFixed(1) + 's';
+  }
+}
+
+function addLedger(iconClass, name, fee, isFlag) {
+  const body = document.getElementById('ledger-body');
+  const empty = body.querySelector('.ledger-empty');
+  if (empty) empty.remove();
+  const div = document.createElement('div');
+  div.className = 'ledger-entry';
+  div.innerHTML = `
+    <div class="ledger-icon ${isFlag ? 'flag-icon' : ''}"><i class="ti ${isFlag ? 'ti-alert-triangle' : 'ti-check'}"></i></div>
+    <div class="ledger-body-text">
+      <div class="ledger-entry-name">${name}</div>
+      <div class="ledger-entry-hash">${uid()} &nbsp;&middot;&nbsp; hash: ${shortHash()}</div>
+    </div>
+    <div class="ledger-entry-fee">${fee}</div>
+  `;
+  body.appendChild(div);
+}
+
+async function activateStep(id, badgeText, isFlag) {
+  const s = document.getElementById('s'+id);
+  s.style.display = 'flex';
+  s.className = 'step active';
+  document.getElementById('sn'+id).innerHTML = '<span class="spinning"><i class="ti ti-loader"></i></span>';
+  document.getElementById('b'+id).textContent = 'Checking...';
+  document.getElementById('b'+id).className = 'step-badge';
+  await delay(650);
+  s.className = isFlag ? 'step flagged-step' : 'step done';
+  document.getElementById('sn'+id).innerHTML = `<i class="ti ${isFlag ? 'ti-alert-triangle' : 'ti-check'}"></i>`;
+  document.getElementById('tx'+id).textContent = uid();
+  document.getElementById('b'+id).textContent = badgeText;
+  document.getElementById('b'+id).className = isFlag ? 'step-badge badge-flagged' : 'step-badge badge-verified';
+}
+
+async function runDemo() {
+  if (running) return;
+  running = true;
+  startTime = Date.now();
+  const sc = scenarios[currentScenario];
+  const btn = document.getElementById('btn-run');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinning"><i class="ti ti-loader"></i></span> Verifying...';
+
+  const ps = document.getElementById('pat-status');
+  ps.textContent = 'Verifying...';
+  ps.className = 'patient-status status-verifying';
+
+  let steps = 0, billed = 0;
+
+  await activateStep(0, 'Eligible', false);
+  steps++; billed += 0.10; updateMetrics(steps, billed, false);
+  addLedger('ti-database', 'Eligibility verified — Saskatchewan Drug Plan', '$0.10', false);
+  await delay(250);
+
+  await activateStep(1, 'Covered', false);
+  steps++; billed += 0.10; updateMetrics(steps, billed, false);
+  addLedger('ti-building-hospital', 'Coverage confirmed — formulary check passed', '$0.10', false);
+  await delay(250);
+
+  await activateStep(2, 'Authorized', false);
+  steps++; billed += 0.10; updateMetrics(steps, billed, false);
+  addLedger('ti-stethoscope', 'Prescriber authorization verified', '$0.10', false);
+  await delay(250);
+
+  if (sc.priorAuth) {
+    document.getElementById('s3').style.display = 'flex';
+    document.getElementById('sn4').textContent = '5';
+    document.getElementById('sn5').textContent = '6';
+    await activateStep(3, 'Approved', false);
+    steps++; billed += 0.50; updateMetrics(steps, billed, false);
+    addLedger('ti-clipboard-check', 'Prior authorization approved — high-cost drug', '$0.50', false);
+    await delay(250);
+  }
+
+  if (sc.duplicate) {
+    document.getElementById('s4-title').textContent = 'Duplicate prescription detected';
+    document.getElementById('s4-desc').textContent = 'This patient already filled this prescription at a different Saskatchewan pharmacy. Flagged for review — held before dispensing.';
+    document.getElementById('s4-fee').textContent = '$0.35';
+    await activateStep(4, 'FLAGGED', true);
+    steps++; billed += 0.35; updateMetrics(steps, billed, false);
+    addLedger('ti-alert-triangle', 'Fraud flag — duplicate dispense detected', '$0.35', true);
+    await delay(250);
+  } else {
+    await activateStep(4, 'No duplicates', false);
+    steps++; billed += 0.10; updateMetrics(steps, billed, false);
+    addLedger('ti-pill', 'Dispense confirmed — no duplicates across province', '$0.10', false);
+    await delay(250);
+  }
+
+  await activateStep(5, 'Recorded', false);
+  steps++; billed += 0.10; updateMetrics(steps, billed, true);
+  addLedger('ti-file-check', 'Patient record updated — cryptographic proof logged', '$0.10', false);
+
+  const rb = document.getElementById('result-box');
+  if (sc.duplicate) {
+    rb.className = 'result-box show result-flagged';
+    document.getElementById('result-title').textContent = 'Prescription flagged — held for review';
+    document.getElementById('result-desc').textContent = 'A duplicate fill was detected at another Saskatchewan pharmacy. This event is logged permanently on the audit ledger. The pharmacy and the Ministry of Health are notified before the drug leaves the counter. Without Medisyns, this duplicate would only be discovered during a manual audit — months later, if ever.';
+    ps.textContent = 'Flagged';
+    ps.className = 'patient-status status-flagged';
+  } else {
+    rb.className = 'result-box show result-approved';
+    document.getElementById('result-title').textContent = 'Prescription approved';
+    document.getElementById('result-desc').textContent = 'All ' + steps + ' verification steps completed in under 2 seconds. This transaction is permanently logged with a cryptographic audit trail — tamper-proof and independently auditable by any authorized party at any time. The Saskatchewan Ministry of Health has been billed $' + billed.toFixed(2) + '.';
+    ps.textContent = 'Verified';
+    ps.className = 'patient-status status-verified';
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-player-play"></i> Run again';
+  running = false;
+}
+
+function resetDemo() {
+  running = false;
+  startTime = null;
+  const sc = scenarios[currentScenario];
+
+  document.getElementById('pat-name').textContent = sc.patient;
+  document.getElementById('pat-av').textContent = sc.av;
+  document.getElementById('pat-drug').textContent = sc.drug;
+  const ps = document.getElementById('pat-status');
+  ps.textContent = 'Awaiting verification';
+  ps.className = 'patient-status';
+
+  for (let i=0;i<6;i++) {
+    const s = document.getElementById('s'+i);
+    if (!s) continue;
+    s.className = 'step';
+    document.getElementById('sn'+i).textContent = i+1;
+    document.getElementById('b'+i).textContent = 'Pending';
+    document.getElementById('b'+i).className = 'step-badge';
+    document.getElementById('tx'+i).textContent = '';
+  }
+
+  document.getElementById('s3').style.display = 'none';
+  document.getElementById('sn4').textContent = '4';
+  document.getElementById('sn5').textContent = '5';
+  document.getElementById('s4-title').textContent = 'Dispense confirmed — no duplicates found';
+  document.getElementById('s4-desc').textContent = 'Cross-checked against all Saskatchewan pharmacies — this patient has not filled this prescription elsewhere';
+  document.getElementById('s4-fee').textContent = '$0.10';
+  document.getElementById('result-box').className = 'result-box';
+  document.getElementById('ledger-body').innerHTML = '<div class="ledger-empty">No transactions yet. Press run to begin.</div>';
+  updateMetrics(0, 0, false);
+  document.getElementById('m-time').textContent = '—';
+
+  const btn = document.getElementById('btn-run');
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-player-play"></i> Run verification';
+}
+</script>
+</body>
+</html>
