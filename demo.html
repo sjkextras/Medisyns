@@ -132,22 +132,7 @@ html,body{width:100%;font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#
   .footer{padding:24px;flex-direction:column;align-items:flex-start;}
 }
 </style>
-<script>
-(function(){
-  var p = sessionStorage.getItem("mx_auth");
-  if(p !== "granted"){
-    document.documentElement.style.visibility = "hidden";
-    var pw = prompt("Enter password to access Medisyns:");
-    if(pw !== "AmalfiLemons"){
-      document.body.innerHTML = "<div style=\"font-family:sans-serif;text-align:center;padding:80px;color:#64748B;\">Access denied. <a href=\"\" style=\"color:#0B7A75;\">Try again<\/a><\/div>";
-      document.documentElement.style.visibility = "visible";
-      return;
-    }
-    sessionStorage.setItem("mx_auth","granted");
-    document.documentElement.style.visibility = "visible";
-  }
-})();
-</script>
+
 </head>
 <body>
 
@@ -477,7 +462,7 @@ async function runDemo() {
   } else {
     rb.className = 'result-box show result-approved';
     document.getElementById('result-title').textContent = 'Prescription approved';
-    document.getElementById('result-desc').textContent = 'All ' + steps + ' verification steps completed in under 2 seconds. This transaction is permanently logged with a cryptographic audit trail — tamper-proof and independently auditable by any authorized party at any time. The Saskatchewan Ministry of Health has been billed $' + billed.toFixed(2) + '.';
+    document.getElementById('result-desc').textContent = 'All ' + steps + ' verification steps completed in under 2 seconds. This transaction is permanently logged with a cryptographic audit trail — tamper-proof and independently auditable by any authorized party at any time. The Provincial Ministry of Health has been billed $' + billed.toFixed(2) + '.';
     ps.textContent = 'Verified';
     ps.className = 'patient-status status-verified';
   }
