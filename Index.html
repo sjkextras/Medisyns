@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medisyns</title>
+<meta name="description" content="Medisyns — prescription verification infrastructure for Canadian health systems.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#0D1F3C;overflow:hidden;}
+
+.page{width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:40px 24px;}
+
+/* Background */
+.bg-dots{position:absolute;inset:0;opacity:.035;background-image:radial-gradient(rgba(255,255,255,.9) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+.bg-glow-1{position:absolute;top:-160px;right:-160px;width:700px;height:700px;background:radial-gradient(ellipse,rgba(11,122,117,.16) 0%,transparent 65%);pointer-events:none;}
+.bg-glow-2{position:absolute;bottom:-200px;left:-100px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(26,86,160,.08) 0%,transparent 65%);pointer-events:none;}
+
+/* Logo mark */
+.logo{display:flex;align-items:center;gap:14px;margin-bottom:56px;}
+.logo-hex{width:40px;height:40px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);flex-shrink:0;}
+.logo-name{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;letter-spacing:0.01em;}
+
+/* Main content */
+.content{text-align:center;max-width:620px;position:relative;}
+
+.tagline{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,60px);color:#fff;line-height:1.08;margin-bottom:22px;letter-spacing:-0.01em;}
+.tagline em{font-style:italic;color:#0FA3A0;}
+
+.oneliner{font-size:17px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:44px;max-width:480px;margin-left:auto;margin-right:auto;}
+
+/* CTA */
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:#0B7A75;color:#fff;padding:15px 36px;border-radius:4px;font-size:15px;font-weight:500;text-decoration:none;letter-spacing:0.01em;transition:background .2s,transform .15s;}
+.cta-btn:hover{background:#0FA3A0;transform:translateY(-1px);}
+.cta-arrow{font-size:18px;transition:transform .2s;}
+.cta-btn:hover .cta-arrow{transform:translateX(3px);}
+
+/* Credibility strip */
+.creds{display:flex;align-items:center;gap:0;margin-top:56px;flex-wrap:wrap;justify-content:center;}
+.cred{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:0.08em;text-transform:uppercase;padding:0 20px;}
+.cred-divider{width:1px;height:14px;background:rgba(255,255,255,.1);}
+
+/* Footer */
+.footer-note{position:absolute;bottom:28px;font-size:11px;color:rgba(255,255,255,.15);font-family:'DM Mono',monospace;letter-spacing:0.06em;}
+
+@media(max-width:600px){
+  html,body{overflow:auto;}
+  .page{height:auto;min-height:100vh;padding:60px 24px 48px;}
+  .logo{margin-bottom:40px;}
+  .tagline{font-size:36px;}
+  .creds{gap:8px;}
+  .cred{padding:0 12px;font-size:10px;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="bg-dots"></div>
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <div class="logo">
+    <div class="logo-hex"></div>
+    <span class="logo-name">Medisyns</span>
+  </div>
+
+  <div class="content">
+    <h1 class="tagline">Prescription verification<br><em>infrastructure</em><br>for Canadian health.</h1>
+    <p class="oneliner">A permissioned protocol layer that connects health registries, insurers, physicians, and pharmacies — giving provinces the real-time audit infrastructure they've never had.</p>
+    <a href="https://tally.so/r/EkN9yl" class="cta-btn">
+      Get in touch
+      <span class="cta-arrow">→</span>
+    </a>
+  </div>
+
+  <div class="creds">
+    <span class="cred">Patent pending</span>
+    <div class="cred-divider"></div>
+    <span class="cred">FHIR R4</span>
+    <div class="cred-divider"></div>
+    <span class="cred">PIPEDA compliant</span>
+    <div class="cred-divider"></div>
+    <span class="cred">ITSG-33</span>
+    <div class="cred-divider"></div>
+    <span class="cred">SOC 2</span>
+  </div>
+
+  <p class="footer-note">© 2026 Medisyns Inc. &nbsp;·&nbsp; Governed by Ontario Law</p>
+</div>
+
+</body>
+</html>
