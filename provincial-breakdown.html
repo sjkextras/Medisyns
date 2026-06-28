@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Medisyns — Provincial Evidence Base</title>
+<title>Medisyns — Manitoba Evidence Base</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -27,6 +27,14 @@ a{text-decoration:none;}
 .hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,62px);line-height:1.06;color:#fff;max-width:800px;margin-bottom:24px;}
 .hero h1 em{font-style:italic;color:#0FA3A0;}
 .hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,.58);max-width:620px;line-height:1.75;}
+.province-nav{background:#F4F7FB;border-bottom:1px solid #E8EEF4;padding:0 56px;}
+.province-nav-inner{max-width:1000px;margin:0 auto;display:flex;gap:0;align-items:center;}
+.province-nav a{display:flex;align-items:center;gap:8px;padding:16px 24px;font-size:13px;font-weight:500;color:#64748B;border-bottom:2px solid transparent;transition:all .2s;text-decoration:none;}
+.province-nav a:hover{color:#0D1F3C;border-bottom-color:#0B7A75;}
+.province-nav a.active{color:#0D1F3C;border-bottom-color:#0B7A75;}
+.province-nav .back{font-size:12px;color:#0B7A75;margin-right:16px;border-right:1px solid #E8EEF4;padding-right:20px;letter-spacing:0.04em;}
+.province-nav .back:hover{color:#0D1F3C;border-bottom-color:transparent;}
+.prov-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .integrity{background:#0B7A75;padding:20px 56px;}
 .integrity-inner{max-width:1000px;margin:0 auto;display:flex;align-items:flex-start;gap:16px;}
 .integrity-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
@@ -34,25 +42,35 @@ a{text-decoration:none;}
 .integrity-text strong{font-weight:500;}
 .section{padding:80px 56px;}
 .section-inner{max-width:1000px;margin:0 auto;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
-.province-card{border:1px solid #E8EEF4;border-radius:8px;overflow:hidden;transition:box-shadow .2s,transform .2s;display:block;color:inherit;}
-.province-card:hover{box-shadow:0 8px 32px rgba(13,31,60,.10);transform:translateY(-2px);}
-.card-flag{height:80px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:13px;font-weight:600;letter-spacing:0.1em;color:#fff;}
-.sk-flag{background:#006B3F;}
-.on-flag{background:#B83030;}
-.bc-flag{background:#003087;}
-.card-body{padding:24px;}
-.card-name{font-family:'DM Serif Display',serif;font-size:24px;color:#0D1F3C;margin-bottom:6px;}
-.card-meta{font-size:12px;color:#64748B;margin-bottom:16px;font-family:'DM Mono',monospace;letter-spacing:0.04em;}
-.card-findings{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-.card-finding{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#64748B;line-height:1.5;}
-.card-finding-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
-.card-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:#0B7A75;letter-spacing:0.02em;}
-.card-link::after{content:'→';transition:transform .2s;}
-.province-card:hover .card-link::after{transform:translateX(4px);}
-.section-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#0B7A75;margin-bottom:12px;}
-.section h2{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,40px);color:#0D1F3C;margin-bottom:16px;}
-.section-sub{font-size:16px;color:#64748B;line-height:1.7;max-width:640px;}
+.province-header{display:flex;align-items:center;gap:20px;margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid #E8EEF4;}
+.province-flag{width:60px;height:40px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#fff;font-family:'DM Mono',monospace;}
+.mb-flag{background:#CC0000;}
+.province-name{font-family:'DM Serif Display',serif;font-size:36px;color:#0D1F3C;line-height:1;}
+.province-sub{font-size:14px;color:#64748B;margin-top:4px;}
+.findings{display:flex;flex-direction:column;gap:20px;margin-bottom:36px;}
+.finding{background:#fff;border:1px solid #E8EEF4;border-radius:6px;overflow:hidden;}
+.finding-head{display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid #E8EEF4;}
+.finding-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:15px;color:#fff;flex-shrink:0;}
+.finding-title{font-size:15px;font-weight:500;color:#0D1F3C;}
+.finding-body{padding:20px 24px;}
+.finding-stat{font-family:'DM Serif Display',serif;font-size:32px;line-height:1;margin-bottom:8px;}
+.finding-desc{font-size:14px;color:#64748B;line-height:1.7;margin-bottom:16px;}
+.finding-source{display:flex;align-items:flex-start;gap:8px;background:#F4F7FB;border-left:3px solid #0B7A75;border-radius:0 4px 4px 0;padding:10px 14px;}
+.source-label{font-family:'DM Mono',monospace;font-size:10px;color:#0B7A75;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;margin-top:1px;}
+.source-text{font-size:12px;color:#64748B;line-height:1.6;}
+.source-text a{color:#0B7A75;text-decoration:underline;}
+.response-box{background:#0D1F3C;border-radius:8px;padding:28px 32px;}
+.response-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0FA3A0;margin-bottom:12px;}
+.response-box h3{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:12px;}
+.response-box p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;}
+.measures{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+.measure{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:18px;}
+.measure-icon{font-size:18px;margin-bottom:8px;}
+.measure h4{font-size:13px;font-weight:500;color:#fff;margin-bottom:6px;}
+.measure p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;}
+.caveat{background:#FFF8E6;border:1px solid #E8D5A0;border-radius:6px;padding:18px 22px;margin-top:22px;display:flex;gap:12px;}
+.caveat-icon{font-size:18px;flex-shrink:0;}
+.caveat-text{font-size:12px;color:#6B5800;line-height:1.7;}
 .cta{background:#0B7A75;padding:80px 56px;text-align:center;}
 .cta-inner{max-width:600px;margin:0 auto;}
 .cta h2{font-family:'DM Serif Display',serif;font-size:40px;color:#fff;margin-bottom:16px;}
@@ -69,9 +87,10 @@ a{text-decoration:none;}
 @media(max-width:900px){
   .nav{padding:0 24px;}.nav-links{display:none;}
   .hero,.section,.cta{padding:72px 24px;}
-  .integrity{padding:16px 24px;}
-  .grid{grid-template-columns:1fr;}
+  .integrity,.province-nav{padding:16px 24px;}
+  .measures{grid-template-columns:1fr;}
   .footer{padding:24px;flex-direction:column;align-items:flex-start;}
+  .province-nav-inner{overflow-x:auto;}
 }
 </style>
 </head>
@@ -96,72 +115,119 @@ a{text-decoration:none;}
   <div class="hero-glow"></div>
   <div class="hero-inner">
     <div class="eyebrow">Provincial evidence base</div>
-    <h1>The verification gap is<br><em>documented</em> by province</h1>
-    <p class="hero-sub">Every finding is sourced directly from provincial auditors, federal health authorities, and government-funded investigative research. Medisyns does not manufacture the problem — it is documented in official records.</p>
+    <h1>Manitoba:<br><em>The verification gap</em> is documented</h1>
+    <p class="hero-sub">Every finding on this page is sourced directly from the Office of the Auditor General of Manitoba, the College of Pharmacists of Manitoba, and federal health surveillance data. Medisyns does not manufacture the problem — it is documented in official records.</p>
+  </div>
+</div>
+
+<div class="province-nav">
+  <div class="province-nav-inner">
+    <a href="/provincial-breakdown.html" class="back">← All provinces</a>
+    <a href="/provinces/saskatchewan.html"><div class="prov-dot" style="background:#006B3F"></div>Saskatchewan</a>
+    <a href="/provinces/ontario.html"><div class="prov-dot" style="background:#B83030"></div>Ontario</a>
+    <a href="/provinces/british-columbia.html"><div class="prov-dot" style="background:#003087"></div>British Columbia</a>
+    <a href="/provinces/alberta.html"><div class="prov-dot" style="background:#003DA5"></div>Alberta</a>
+    <a href="/provinces/manitoba.html" class="active"><div class="prov-dot" style="background:#CC0000"></div>Manitoba</a>
   </div>
 </div>
 
 <div class="integrity">
   <div class="integrity-inner">
     <div class="integrity-icon">🔎</div>
-    <p class="integrity-text"><strong>Source integrity policy:</strong> Every statistic is cited with its primary source URL. We do not use secondary sources, industry estimates, or aggregator sites. If a number cannot be traced to a government document, auditor report, or peer-reviewed study, it does not appear here.</p>
+    <p class="integrity-text"><strong>Source integrity policy:</strong> Every statistic on this page is cited with its primary source URL. We do not use secondary sources, industry estimates, or aggregator sites. If a number cannot be traced to a government document, auditor report, or peer-reviewed study, it does not appear here. Sources are dated — where data is from an earlier audit, this is noted explicitly.</p>
   </div>
 </div>
 
 <div class="section">
   <div class="section-inner">
-    <div class="section-label">Select a province</div>
-    <h2>Choose a province to view the full evidence file</h2>
-    <p class="section-sub">Each province page contains sourced findings, auditor conclusions, and a breakdown of what Medisyns specifically addresses for that health system.</p>
+    <div class="province-header">
+      <div class="province-flag mb-flag">MB</div>
+      <div>
+        <div class="province-name">Manitoba</div>
+        <div class="province-sub">Population: 1.4M &middot; Manitoba Pharmacare &middot; Drug Programs Information Network (DPIN)</div>
+      </div>
+    </div>
 
-    <div class="grid">
+    <div class="findings">
 
-      <a href="/provinces/saskatchewan.html" class="province-card">
-        <div class="card-flag sk-flag">SK</div>
-        <div class="card-body">
-          <div class="card-name">Saskatchewan</div>
-          <div class="card-meta">Pop. 1.2M &middot; Saskatchewan Health Authority</div>
-          <div class="card-findings">
-            <div class="card-finding"><div class="card-finding-dot" style="background:#006B3F"></div>Zero active monitoring of 385 pharmacies</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#006B3F"></div>Opioid prescribing 21% above national average</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#006B3F"></div>Regina #1 in Canada for opioid hospitalization</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#006B3F"></div>441,354 unmonitored prescriptions in 2018–19</div>
-          </div>
-          <span class="card-link">View Saskatchewan evidence file</span>
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#CC0000">1</div>
+          <div class="finding-title">Auditor General confirmed: Manitoba Health did not monitor physician prescribing practices — and 101 people received narcotics from 4–6 physicians and 4–6 pharmacies simultaneously</div>
         </div>
-      </a>
-
-      <a href="/provinces/ontario.html" class="province-card">
-        <div class="card-flag on-flag">ON</div>
-        <div class="card-body">
-          <div class="card-name">Ontario</div>
-          <div class="card-meta">Pop. 15M &middot; Ontario Drug Benefit Program</div>
-          <div class="card-findings">
-            <div class="card-finding"><div class="card-finding-dot" style="background:#B83030"></div>Only 6.7% of pharmacies inspected</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#B83030"></div>$5.4B ODB program with no fraud detection strategy</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#B83030"></div>245,000 opioid tablets lost — "Loss unexplained"</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#B83030"></div>Government acknowledges duplicate Rx as active fraud vector</div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#CC0000">101 confirmed cases</div>
+          <p class="finding-desc">In its audit of Manitoba's Pharmacare program, the Auditor General of Manitoba found that Manitoba Health did not monitor physician prescribing practices, nor did it actively promote appropriate prescribing through best-practice information. The audit identified 101 cases in 2003 in which individuals received a narcotic or controlled drug and used four to six physicians and four to six pharmacies to obtain drugs — a textbook multi-pharmacy shopping pattern that Medisyns is designed to detect and flag in real time. The Auditor General concluded that Manitoba Health had "limited means to attempt to control program costs through influencing physicians' prescribing practices."</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Office of the Auditor General of Manitoba, Audit of the Pharmacare Program, Manitoba Health, April 2006, Section 6.0: Physician Prescribing Practices and Monitoring of Drug Use, p. 54. <a href="https://www.oag.mb.ca/_files/ugd/a11fb0_f507aa7a09fc465fbb69779b73440319.pdf" target="_blank">oag.mb.ca</a></span>
           </div>
-          <span class="card-link">View Ontario evidence file</span>
         </div>
-      </a>
+      </div>
 
-      <a href="/provinces/british-columbia.html" class="province-card">
-        <div class="card-flag bc-flag">BC</div>
-        <div class="card-body">
-          <div class="card-name">British Columbia</div>
-          <div class="card-meta">Pop. 5.5M &middot; BC PharmaCare &middot; PharmaNet</div>
-          <div class="card-findings">
-            <div class="card-finding"><div class="card-finding-dot" style="background:#003087"></div>Ministry confirms "significant" opioid diversion</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#003087"></div>60+ pharmacies under active investigation</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#003087"></div>$1.698B PharmaCare — fraud undetected by PharmaNet</div>
-            <div class="card-finding"><div class="card-finding-dot" style="background:#003087"></div>Forced program overhaul: witnessed dosing by Dec 2025</div>
-          </div>
-          <span class="card-link">View British Columbia evidence file</span>
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#CC0000">2</div>
+          <div class="finding-title">Auditor General forensic audit: a Manitoba Pharmacare employee processed $236,000 in suspicious payments through DPIN with no supervision — and 4 of 5 corrective recommendations remained unimplemented as of 2022</div>
         </div>
-      </a>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#B83030">$236,000+ undetected</div>
+          <p class="finding-desc">In a 2018 forensic audit, the Auditor General of Manitoba found that a former Manitoba Pharmacare employee processed over $236,000 in suspicious payments between 2007 and 2015 through manual adjustments in the DPIN billing system. The fraud was enabled by an internal control environment with "many significant gaps," including no supervision, weak or absent supporting documentation, and few automated controls. The Auditor General made five recommendations. In the most recent follow-up, conducted in 2022, only one of the five had been implemented. As of the March 2025 Public Accounts Committee, the department acknowledged that technology limitations and reliance on manual claims processing had not been fully addressed.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Office of the Auditor General of Manitoba, Forensic Audits — Pharmacare: Special Audit of Financial Irregularities and Controls, November 2018. Follow-up confirmed in OAG Follow-Up Report, April 2022. Public Accounts Committee testimony, March 5, 2025. <a href="https://www.oag.mb.ca/audit-reports/report/forensic-audits/" target="_blank">oag.mb.ca</a> &middot; <a href="https://www.gov.mb.ca/legislature/hansard/43rd_2nd/pa_02/pa_02.html" target="_blank">gov.mb.ca (Hansard)</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#CC0000">3</div>
+          <div class="finding-title">College of Pharmacists of Manitoba issuing active alerts: prescription forgeries are on the rise province-wide, with faxed forgeries from out-of-province numbers targeting opioids</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#CC0000">Province-wide &amp; rising</div>
+          <p class="finding-desc">In May and June 2024, the College of Pharmacists of Manitoba issued active forgery alerts to all registrants. Prescription forgeries for Percocet (oxycodone) and Cotridin (codeine/pseudoephedrine) are the most commonly reported, often for large quantities — typically 120 tablets of Percocet or 210 ml of Cotridin. Forgeries are increasingly transmitted by fax from out-of-province area codes, allowing rapid distribution to multiple pharmacies simultaneously. The College confirmed that forgery attempts are not limited to Winnipeg — pharmacies throughout Manitoba have been affected. A wide range of Manitoba and out-of-province prescribers have been impersonated.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">College of Pharmacists of Manitoba (CPhM), Friday Five bulletin, June 21, 2024: Combating Prescription Forgeries: Key Trends and Precautions for Pharmacy Professionals. <a href="https://cphm.ca/friday-five/friday-five-june-21-2024/" target="_blank">cphm.ca</a> &middot; CPhM Friday Five, May 24, 2024: Protecting Patients, Preventing Fraud: A Guide to Detecting Prescription Forgeries. <a href="https://cphm.ca/friday-five/friday-five-may-24-2024/" target="_blank">cphm.ca</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#CC0000">4</div>
+          <div class="finding-title">382 opioid toxicity deaths in Manitoba in 2023 — and Manitoba's DPIN system only shows 6 months of prescription history at the point of dispensing</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#CC0000">382 deaths in 2023</div>
+          <p class="finding-desc">Manitoba recorded 382 apparent opioid toxicity deaths in 2023, a decrease of 2.9% from 2022 but representing the second-highest total since national tracking began. The Drug Programs Information Network (DPIN) — Manitoba's provincial pharmacy billing and dispensing system — performs drug utilization review checks at the point of dispensing, but the system only shows a patient's most recent six months of medication history. This limitation, first identified by the Auditor General in 2006 and confirmed in current Manitoba Health documentation, means that longer-term multi-pharmacy shopping patterns are structurally invisible to the system without a dedicated cross-system verification layer.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Opioid death data: Public Health Agency of Canada, Opioid- and Stimulant-related Harms in Canada, June 2025 release. <a href="https://health-infobase.canada.ca/substance-related-harms/opioids-stimulants/" target="_blank">health-infobase.canada.ca</a> &middot; DPIN 6-month history limitation: OAG Manitoba, Audit of the Pharmacare Program, April 2006, p.54; confirmed in Manitoba Health eChart documentation. <a href="https://echartmanitoba.ca/hcp/training/frequently-asked-questions/medications/" target="_blank">echartmanitoba.ca</a></span>
+          </div>
+        </div>
+      </div>
 
     </div>
+
+    <div class="caveat">
+      <div class="caveat-icon">📅</div>
+      <p class="caveat-text"><strong>Data currency note:</strong> The primary Pharmacare performance audit (Finding 1) was published by the Auditor General of Manitoba in April 2006 and covers fiscal year 2003/04. No subsequent performance audit of Manitoba's prescription drug monitoring or pharmacy dispensing practices has been published by the OAG. The 2018 forensic audit (Finding 2) and the 2024 College of Pharmacists alerts (Finding 3) are recent. The 2006 Auditor General finding on multi-pharmacy shopping is presented as audited historical evidence of a structural gap, not as a claim that exactly 101 cases exist today — the current number is unknown precisely because the monitoring gap persists.</p>
+    </div>
+
+    <div class="response-box" style="margin-top:24px;">
+      <div class="response-label">What Medisyns provides for Manitoba</div>
+      <h3>The cross-pharmacy visibility layer DPIN cannot provide — and the Auditor General said was missing in 2006</h3>
+      <p>The Auditor General of Manitoba confirmed in 2006 that individuals were obtaining narcotics from up to six physicians and six pharmacies simultaneously — and that Manitoba Health had no mechanism to detect or intervene. DPIN has since added real-time billing adjudication, but its 6-month rolling window and billing-system design do not constitute a fraud-prevention verification layer. The 2018 forensic audit confirmed that DPIN's manual claims process remained exploitable by insiders for nearly a decade before detection. Medisyns operates at the verification layer — every fill cross-checked against prescriber registry, multi-pharmacy history beyond 6 months, insurer eligibility, and cross-party duplication — before the drug is dispensed.</p>
+      <div class="measures">
+        <div class="measure"><div class="measure-icon">🔗</div><h4>Multi-pharmacy detection</h4><p>The 101 cases the Auditor General identified in 2003 required individuals using 4–6 pharmacies. Medisyns closes this gap with a cross-system check on every fill, regardless of which pharmacy processes it.</p></div>
+        <div class="measure"><div class="measure-icon">🛡</div><h4>Forgery detection at authorization</h4><p>Faxed forgeries succeed partly because pharmacies cannot instantly verify prescriber identity against a real-time registry. Medisyns verification fires before the drug is dispensed.</p></div>
+        <div class="measure"><div class="measure-icon">📊</div><h4>Beyond the 6-month DPIN window</h4><p>DPIN's rolling 6-month history is a structural constraint, not a policy choice. Medisyns maintains a verifiable cross-system record of every fill event — timestamped and auditable.</p></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
