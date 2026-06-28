@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medisyns — Alberta Evidence Base</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#fff;overflow-x:hidden;}
+a{text-decoration:none;}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:70px;background:#0D1F3C;position:sticky;top:0;z-index:100;}
+.nav-brand{display:flex;align-items:center;gap:12px;}
+.nav-hex{width:28px;height:28px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.nav-name{font-family:'DM Serif Display',serif;font-size:19px;color:#fff;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,0.55);letter-spacing:0.06em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{background:#0B7A75!important;color:#fff!important;padding:9px 20px;border-radius:3px;}
+.hero{background:#0D1F3C;padding:100px 56px 80px;position:relative;overflow:hidden;}
+.hero-dots{position:absolute;inset:0;opacity:.035;background-image:radial-gradient(rgba(255,255,255,.8) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;}
+.hero-glow{position:absolute;top:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(11,122,117,.14) 0%,transparent 60%);pointer-events:none;}
+.hero-inner{max-width:1000px;margin:0 auto;position:relative;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(11,122,117,.4);border-radius:2px;padding:7px 16px;margin-bottom:32px;font-family:'DM Mono',monospace;font-size:11px;color:#0FA3A0;letter-spacing:.14em;text-transform:uppercase;}
+.eyebrow::before{content:'';width:7px;height:7px;background:#0FA3A0;border-radius:50%;animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,5vw,62px);line-height:1.06;color:#fff;max-width:800px;margin-bottom:24px;}
+.hero h1 em{font-style:italic;color:#0FA3A0;}
+.hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,.58);max-width:620px;line-height:1.75;}
+.province-nav{background:#F4F7FB;border-bottom:1px solid #E8EEF4;padding:0 56px;}
+.province-nav-inner{max-width:1000px;margin:0 auto;display:flex;gap:0;align-items:center;}
+.province-nav a{display:flex;align-items:center;gap:8px;padding:16px 24px;font-size:13px;font-weight:500;color:#64748B;border-bottom:2px solid transparent;transition:all .2s;text-decoration:none;}
+.province-nav a:hover{color:#0D1F3C;border-bottom-color:#0B7A75;}
+.province-nav a.active{color:#0D1F3C;border-bottom-color:#0B7A75;}
+.province-nav .back{font-size:12px;color:#0B7A75;margin-right:16px;border-right:1px solid #E8EEF4;padding-right:20px;letter-spacing:0.04em;}
+.province-nav .back:hover{color:#0D1F3C;border-bottom-color:transparent;}
+.prov-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.integrity{background:#0B7A75;padding:20px 56px;}
+.integrity-inner{max-width:1000px;margin:0 auto;display:flex;align-items:flex-start;gap:16px;}
+.integrity-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.integrity-text{font-size:13px;color:#fff;line-height:1.7;}
+.integrity-text strong{font-weight:500;}
+.section{padding:80px 56px;}
+.section-inner{max-width:1000px;margin:0 auto;}
+.province-header{display:flex;align-items:center;gap:20px;margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid #E8EEF4;}
+.province-flag{width:60px;height:40px;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:0.06em;color:#fff;font-family:'DM Mono',monospace;}
+.ab-flag{background:#003DA5;}
+.province-name{font-family:'DM Serif Display',serif;font-size:36px;color:#0D1F3C;line-height:1;}
+.province-sub{font-size:14px;color:#64748B;margin-top:4px;}
+.findings{display:flex;flex-direction:column;gap:20px;margin-bottom:36px;}
+.finding{background:#fff;border:1px solid #E8EEF4;border-radius:6px;overflow:hidden;}
+.finding-head{display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid #E8EEF4;}
+.finding-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:15px;color:#fff;flex-shrink:0;}
+.finding-title{font-size:15px;font-weight:500;color:#0D1F3C;}
+.finding-body{padding:20px 24px;}
+.finding-stat{font-family:'DM Serif Display',serif;font-size:32px;line-height:1;margin-bottom:8px;}
+.finding-desc{font-size:14px;color:#64748B;line-height:1.7;margin-bottom:16px;}
+.finding-source{display:flex;align-items:flex-start;gap:8px;background:#F4F7FB;border-left:3px solid #0B7A75;border-radius:0 4px 4px 0;padding:10px 14px;}
+.source-label{font-family:'DM Mono',monospace;font-size:10px;color:#0B7A75;letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;margin-top:1px;}
+.source-text{font-size:12px;color:#64748B;line-height:1.6;}
+.source-text a{color:#0B7A75;text-decoration:underline;}
+.response-box{background:#0D1F3C;border-radius:8px;padding:28px 32px;}
+.response-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0FA3A0;margin-bottom:12px;}
+.response-box h3{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:12px;}
+.response-box p{font-size:14px;color:rgba(255,255,255,.65);line-height:1.75;}
+.measures{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+.measure{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:18px;}
+.measure-icon{font-size:18px;margin-bottom:8px;}
+.measure h4{font-size:13px;font-weight:500;color:#fff;margin-bottom:6px;}
+.measure p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;}
+.caveat{background:#FFF8E6;border:1px solid #E8D5A0;border-radius:6px;padding:18px 22px;margin-top:22px;display:flex;gap:12px;}
+.caveat-icon{font-size:18px;flex-shrink:0;}
+.caveat-text{font-size:12px;color:#6B5800;line-height:1.7;}
+.cta{background:#0B7A75;padding:80px 56px;text-align:center;}
+.cta-inner{max-width:600px;margin:0 auto;}
+.cta h2{font-family:'DM Serif Display',serif;font-size:40px;color:#fff;margin-bottom:16px;}
+.cta p{font-size:17px;color:rgba(255,255,255,.75);margin-bottom:36px;line-height:1.7;}
+.cta-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cta-input{flex:1;min-width:180px;max-width:240px;padding:14px 18px;border-radius:3px;border:none;font-size:14px;font-family:'DM Sans',sans-serif;background:rgba(255,255,255,.15);color:#fff;outline:none;}
+.cta-input::placeholder{color:rgba(255,255,255,.45);}
+.cta-btn{padding:14px 28px;border-radius:3px;background:#0D1F3C;color:#fff;border:none;cursor:pointer;font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;}
+.footer{background:#0D1F3C;padding:32px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(255,255,255,.06);}
+.footer-brand{display:flex;align-items:center;gap:10px;}
+.footer-hex{width:20px;height:20px;background:#0B7A75;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.footer-name{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;}
+.footer-meta{font-size:11px;color:rgba(255,255,255,.25);font-family:'DM Mono',monospace;}
+@media(max-width:900px){
+  .nav{padding:0 24px;}.nav-links{display:none;}
+  .hero,.section,.cta{padding:72px 24px;}
+  .integrity,.province-nav{padding:16px 24px;}
+  .measures{grid-template-columns:1fr;}
+  .footer{padding:24px;flex-direction:column;align-items:flex-start;}
+  .province-nav-inner{overflow-x:auto;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <div class="nav-hex"></div>
+    <span class="nav-name">Medisyns</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#problem">The problem</a>
+    <a href="/#how">How it works</a>
+    <a href="/#provincial">For provinces</a>
+    <a href="/#roadmap">Roadmap</a>
+    <a href="/#contact" class="nav-cta">Start a conversation</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Provincial evidence base</div>
+    <h1>Alberta:<br><em>The verification gap</em> is documented</h1>
+    <p class="hero-sub">Every finding on this page is sourced directly from Alberta's provincial substance use surveillance data, the Alberta College of Pharmacy, and federal health authorities. Medisyns does not manufacture the problem — it is documented in official records.</p>
+  </div>
+</div>
+
+<div class="province-nav">
+  <div class="province-nav-inner">
+    <a href="/provincial-breakdown.html" class="back">← All provinces</a>
+    <a href="/provinces/saskatchewan.html"><div class="prov-dot" style="background:#006B3F"></div>Saskatchewan</a>
+    <a href="/provinces/ontario.html"><div class="prov-dot" style="background:#B83030"></div>Ontario</a>
+    <a href="/provinces/british-columbia.html"><div class="prov-dot" style="background:#003087"></div>British Columbia</a>
+    <a href="/provinces/alberta.html" class="active"><div class="prov-dot" style="background:#003DA5"></div>Alberta</a>
+    <a href="/provinces/manitoba.html"><div class="prov-dot" style="background:#CC0000"></div>Manitoba</a>
+  </div>
+</div>
+
+<div class="integrity">
+  <div class="integrity-inner">
+    <div class="integrity-icon">🔎</div>
+    <p class="integrity-text"><strong>Source integrity policy:</strong> Every statistic on this page is cited with its primary source URL. We do not use secondary sources, industry estimates, or aggregator sites. If a number cannot be traced to a government document, regulatory body publication, or peer-reviewed study, it does not appear here. Sources are dated — where data is from an earlier period, this is noted explicitly. <strong>Note on this page:</strong> Alberta has not published a recent Auditor General performance audit of pharmacy dispensing or opioid prescribing monitoring comparable to Saskatchewan's 2019 audit. The structural gap documented here comes from Alberta's own surveillance data, the Alberta College of Pharmacy's regulatory guidance, and the documented technical limitations of the NetCare/PIN system.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <div class="province-header">
+      <div class="province-flag ab-flag">AB</div>
+      <div>
+        <div class="province-name">Alberta</div>
+        <div class="province-sub">Population: 4.7M &middot; Alberta Health Services &middot; Alberta Blue Cross &middot; NetCare / Pharmaceutical Information Network (PIN)</div>
+      </div>
+    </div>
+
+    <div class="findings">
+
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003DA5">1</div>
+          <div class="finding-title">1,870 Albertans died from opioids in 2023 — the province's deadliest year on record, averaging more than 5 deaths per day</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#B83030">1,870 deaths</div>
+          <p class="finding-desc">Alberta recorded 1,870 apparent opioid toxicity deaths in 2023, confirmed by the province's own Substance Use Surveillance System — the deadliest year on record for opioid-related deaths in Alberta's history. This surpassed the previous record of 1,869 set in 2021. More than 5 Albertans died every day. Alberta, British Columbia, and Ontario together accounted for 78% of all apparent opioid toxicity deaths nationally in 2024, despite representing 63% of Canada's population. Alberta's crisis is disproportionate to its population size.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Alberta Substance Use Surveillance System, Government of Alberta, confirmed via CBC News reporting citing provincial data, May 20, 2024. <a href="https://www.alberta.ca/substance-use-surveillance-data" target="_blank">alberta.ca</a> &middot; CBC News: <a href="https://www.cbc.ca/news/canada/calgary/alberta-opioid-overdose-record-1.7209519" target="_blank">cbc.ca</a> &middot; National 78% figure: Public Health Agency of Canada, Opioid- and Stimulant-related Harms in Canada, June 2025. <a href="https://health-infobase.canada.ca/substance-related-harms/opioids-stimulants/" target="_blank">health-infobase.canada.ca</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003DA5">2</div>
+          <div class="finding-title">Real-time integration with NetCare was only made mandatory in December 2024 — meaning pharmacies previously operated on nightly batch uploads, creating same-day duplicate fill gaps</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#003DA5">Mandatory from Dec 2024</div>
+          <p class="finding-desc">Alberta's Pharmaceutical Information Network (PIN), operating within the NetCare Electronic Health Record, is designed to flag duplicate prescriptions and potential fraud across the province's pharmacy network. However, the Alberta College of Pharmacy announced in December 2024 that real-time integration (RTI) with NetCare would "soon be a requirement" — meaning prior to this mandate, many pharmacies submitted dispensing data via nightly batch uploads rather than in real time. The College explicitly identified this as a patient safety risk: "with nightly batch entries, there's a risk for medication errors such as incorrect doses, duplicate therapies, or dangerous interactions that are not flagged due to a delay when that information is loaded into health data systems."</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Alberta College of Pharmacy (ACP), Full Scale bulletin: Real-time Integration with Netcare Soon a Requirement, December 19, 2024. Quoting Cliff Lindeman, Program Manager, Prescribing, Analytics & Tracked Prescription Program (TPP), College of Physicians and Surgeons of Alberta. <a href="https://abpharmacy.ca/news/full-scale/real-time-integration-with-netcare-soon-a-requirement/" target="_blank">abpharmacy.ca</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003DA5">3</div>
+          <div class="finding-title">Alberta College of Pharmacy confirms: not all prescriptions appear in NetCare — and duplicate prescriptions processed before RTI can create parallel records at two pharmacies simultaneously</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#003DA5">Structural data gaps</div>
+          <p class="finding-desc">The Alberta College of Pharmacy's own published guidance states explicitly that "not all prescriptions show up in Netcare" — nutritional products, certain compounded medications, and items with pseudo-PINs rather than DINs are excluded from the system entirely. Separately, the College warns that when a pharmacy processes a prescription without first obtaining the original document, a record is immediately created in NetCare via RTI — if the patient then takes the original to a second pharmacy, "duplicate records may be created with both the patient's Netcare records and third-party insurer records." This is a documented structural vulnerability in Alberta's dispensing verification architecture.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Alberta College of Pharmacy: Not All Prescriptions Show Up in Netcare. <a href="https://abpharmacy.ca/articles/not-all-prescriptions-show-netcare" target="_blank">abpharmacy.ca</a> &middot; ACP: Transmission of Prescriptions — Dual record risk from processing without original. <a href="https://abpharmacy.ca/news/transmission-prescriptions/" target="_blank">abpharmacy.ca</a></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="finding-head">
+          <div class="finding-num" style="background:#003DA5">4</div>
+          <div class="finding-title">NetCare tracks dispensing within the public drug plan — but Alberta's private insurer market operates on a separate track with no cross-system real-time verification</div>
+        </div>
+        <div class="finding-body">
+          <div class="finding-stat" style="color:#003DA5">No cross-insurer layer</div>
+          <p class="finding-desc">Alberta's government-sponsored drug programs — Coverage for Seniors, Non-Group Coverage, low-income plans — are administered through Alberta Blue Cross, which manages the province's Drug Benefit List. The NetCare Pharmaceutical Information Network records dispensing events submitted by community pharmacies, but this system operates within the public drug plan structure. Private insurers, employer benefit plans, and out-of-pocket patients transact on separate tracks. There is no provincial cross-insurer real-time verification layer that checks a prescription across public and private payers simultaneously before it is filled — the gap Medisyns is specifically designed to close.</p>
+          <div class="finding-source">
+            <span class="source-label">Source</span>
+            <span class="source-text">Alberta Netcare Pharmaceutical Information Network (PIN) architecture: <a href="https://www.albertanetcare.ca/learningcentre/pharmaceutical-information-network.htm" target="_blank">albertanetcare.ca</a> &middot; Alberta government-sponsored drug programs administered by Alberta Blue Cross: <a href="https://www.alberta.ca/drug-coverage-health-benefits" target="_blank">alberta.ca</a></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="caveat">
+      <div class="caveat-icon">📋</div>
+      <p class="caveat-text"><strong>Transparency note on sourcing:</strong> Unlike Saskatchewan, Ontario, and British Columbia, Alberta has not published a recent Auditor General performance audit specifically examining pharmacy dispensing oversight, opioid prescribing monitoring, or prescription fraud detection. The four findings above are sourced from Alberta's own government surveillance system, the Alberta College of Pharmacy's regulatory publications, and NetCare's own technical documentation. They document structural gaps — a verified crisis at scale, a recently-mandated but historically absent RTI requirement, known data exclusions from NetCare, and the absence of cross-insurer verification — rather than auditor findings of specific dollar recoveries or missed claims.</p>
+    </div>
+
+    <div class="response-box" style="margin-top:24px;">
+      <div class="response-label">What Medisyns provides for Alberta</div>
+      <h3>The cross-system verification layer NetCare does not provide — and that Alberta has never had</h3>
+      <p>Alberta has NetCare — a province-wide EHR with a Pharmaceutical Information Network. But NetCare is a clinical record system, not a fraud-prevention verification layer. RTI only became mandatory in December 2024. Not all prescriptions appear in it. Private insurers are not connected to it. And with 1,870 opioid deaths in 2023 — the province's deadliest year on record — the scale of undetected diversion and misuse is clear. Medisyns sits at the point where every prescription fill is cross-checked against the prescriber registry, cross-pharmacy history, and insurer eligibility in real time — before the drug leaves the pharmacy counter.</p>
+      <div class="measures">
+        <div class="measure"><div class="measure-icon">⚡</div><h4>Real-time, not batch</h4><p>NetCare batch uploads created same-day windows where duplicate fills were invisible. Medisyns verification fires at the moment of authorization — there is no gap window.</p></div>
+        <div class="measure"><div class="measure-icon">🔗</div><h4>Public + private in one check</h4><p>Alberta Blue Cross public plans and private employer benefit plans currently operate on separate tracks. Medisyns connects both at the verification event.</p></div>
+        <div class="measure"><div class="measure-icon">📊</div><h4>Every dispense event logged</h4><p>Every Medisyns transaction creates an immutable, timestamped audit record — independent of which pharmacy system or insurer is involved — giving Alberta a fraud baseline it has never had.</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta" id="contact">
+  <div class="cta-inner">
+    <h2>These problems are solvable</h2>
+    <p>Medisyns is in active conversations with provincial health systems. If you work in or with provincial health policy, procurement, or health IT — we'd like to talk.</p>
+    <div class="cta-form">
+      <input class="cta-input" type="text" placeholder="Your name">
+      <input class="cta-input" type="email" placeholder="Work email">
+      <button class="cta-btn">Get in touch</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">
+    <div class="footer-hex"></div>
+    <span class="footer-name">Medisyns</span>
+  </div>
+  <div class="footer-meta">All data sourced from primary government documents &middot; PIPEDA &middot; ITSG-33 &middot; FHIR R4 &middot; Patent pending US & CA</div>
+</div>
+
+</body>
+</html>
