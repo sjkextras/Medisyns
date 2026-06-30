@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medisyns — Provincial Analysis · Canada</title>
+<meta name="description" content="Province-by-province analysis of prescription fraud exposure, existing infrastructure, and the Medisyns integration case for Saskatchewan, Ontario, and British Columbia.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#fff;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+:root{
+  --navy:#0D1F3C;
+  --teal:#0B7A75;
+  --teal-lt:#0FA3A0;
+  --teal-dim:rgba(11,122,117,.1);
+  --slate:#64748B;
+  --border:#E2EAF2;
+  --off:#F4F7FB;
+  --r:4px;
+}
+
+/* ── NAV ── */
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 60px;height:68px;
+  background:var(--navy);
+  position:sticky;top:0;z-index:200;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-brand{display:flex;align-items:center;gap:11px;}
+.brand-mark{
+  width:26px;height:26px;background:var(--teal);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  flex-shrink:0;
+}
+.brand-name{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;}
+.brand-region{
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--teal-lt);letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid rgba(15,163,160,.3);border-radius:2px;
+  padding:3px 8px;margin-left:4px;
+}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{
+  font-size:12px;font-weight:500;
+  color:rgba(255,255,255,.5);
+  letter-spacing:.06em;text-transform:uppercase;
+  transition:color .18s;
+}
+.nav-links a:hover{color:#fff;}
+.nav-back{
+  color:rgba(255,255,255,.5) !important;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.nav-cta{
+  background:var(--teal) !important;color:#fff !important;
+  padding:8px 18px;border-radius:var(--r);
+}
+
+/* ── PAGE HEADER ── */
+.page-header{
+  background:var(--navy);padding:72px 60px 56px;
+  position:relative;overflow:hidden;
+}
+.page-header-grid{
+  position:absolute;inset:0;opacity:.022;
+  background-image:
+    linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;
+}
+.page-header-glow{
+  position:absolute;top:-120px;right:-60px;
+  width:600px;height:600px;
+  background:radial-gradient(ellipse,rgba(11,122,117,.14) 0%,transparent 58%);
+  pointer-events:none;
+}
+.page-header-inner{max-width:1080px;margin:0 auto;position:relative;}
+.page-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid rgba(15,163,160,.3);border-radius:2px;
+  padding:6px 14px;margin-bottom:28px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--teal-lt);letter-spacing:.16em;text-transform:uppercase;
+}
+.page-header h1{
+  font-family:'DM Serif Display',serif;
+  font-size:50px;line-height:1.08;color:#fff;
+  max-width:700px;margin-bottom:16px;
+}
+.page-header p{
+  font-size:17px;font-weight:300;
+  color:rgba(255,255,255,.5);
+  max-width:520px;line-height:1.8;
+}
+
+/* ── PROVINCE NAV ── */
+.prov-nav{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:0 60px;position:sticky;top:68px;z-index:100;
+}
+.prov-nav-inner{
+  max-width:1080px;margin:0 auto;
+  display:flex;gap:0;
+}
+.prov-tab{
+  padding:16px 24px;
+  font-size:12px;font-weight:500;
+  color:var(--slate);
+  border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+  display:flex;align-items:center;gap:8px;
+  white-space:nowrap;
+}
+.prov-tab:hover{color:var(--navy);}
+.prov-tab.active{color:var(--teal);border-bottom-color:var(--teal);}
+.tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* ── SECTION ── */
+.province-section{
+  padding:80px 60px;
+  border-bottom:1px solid var(--border);
+}
+.province-section:last-of-type{border-bottom:none;}
+.section-inner{max-width:1080px;margin:0 auto;}
+
+/* Province header */
+.prov-header{
+  display:flex;align-items:flex-start;
+  justify-content:space-between;gap:32px;
+  margin-bottom:52px;flex-wrap:wrap;
+}
+.prov-header-left{}
+.prov-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:12px;
+}
+.prov-header h2{
+  font-family:'DM Serif Display',serif;
+  font-size:40px;line-height:1.1;color:var(--navy);
+  margin-bottom:10px;
+}
+.prov-status-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--border);border-radius:100px;
+  padding:6px 14px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.07em;text-transform:uppercase;
+  color:var(--slate);
+}
+.prov-status-badge.active{border-color:rgba(34,197,94,.3);color:#16A34A;}
+.prov-status-badge.pipeline{border-color:rgba(15,163,160,.3);color:var(--teal);}
+.prov-status-badge.next{border-color:var(--border);color:#94A3B8;}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+.prov-snapshot{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:14px;min-width:320px;
+}
+.snap-card{
+  background:var(--off);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px 14px;
+  text-align:center;
+}
+.snap-n{
+  font-family:'DM Serif Display',serif;
+  font-size:24px;color:var(--navy);line-height:1;
+  margin-bottom:6px;
+}
+.snap-n em{color:var(--teal);font-style:normal;}
+.snap-l{font-size:10px;color:var(--slate);line-height:1.4;text-transform:uppercase;letter-spacing:.04em;}
+
+/* Two-col layout */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+.two-col-wide{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start;}
+
+/* Analysis block */
+.analysis-block{margin-bottom:32px;}
+.analysis-block h3{
+  font-size:14px;font-weight:600;color:var(--navy);
+  margin-bottom:10px;letter-spacing:.01em;
+}
+.analysis-block p{font-size:13px;color:var(--slate);line-height:1.8;margin-bottom:10px;}
+.analysis-block p:last-child{margin-bottom:0;}
+
+/* Infra list */
+.infra-list{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.infra-item{
+  display:flex;gap:12px;align-items:flex-start;
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 16px;
+}
+.infra-icon{
+  width:28px;height:28px;border-radius:4px;
+  background:var(--teal-dim);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;
+}
+.infra-body{}
+.infra-name{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:2px;}
+.infra-desc{font-size:11px;color:var(--slate);line-height:1.55;}
+.infra-gap{
+  display:inline-block;margin-top:5px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--teal);background:var(--teal-dim);
+  border-radius:2px;padding:2px 8px;letter-spacing:.04em;
+}
+
+/* ROI block */
+.roi-block{
+  background:var(--navy);border-radius:6px;
+  padding:28px 28px;
+  border-left:3px solid var(--teal);
+}
+.roi-block h3{
+  font-size:12px;font-weight:600;color:var(--teal-lt);
+  font-family:'DM Mono',monospace;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:16px;
+}
+.roi-row{
+  display:flex;justify-content:space-between;
+  align-items:baseline;padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  gap:16px;
+}
+.roi-row:last-of-type{border-bottom:none;}
+.roi-label{font-size:12px;color:rgba(255,255,255,.5);line-height:1.4;}
+.roi-value{
+  font-family:'DM Serif Display',serif;
+  font-size:20px;color:#fff;white-space:nowrap;
+}
+.roi-value em{color:var(--teal-lt);font-style:normal;}
+.roi-note{
+  margin-top:14px;font-size:10px;
+  color:rgba(255,255,255,.22);
+  font-style:italic;font-family:'DM Mono',monospace;
+  letter-spacing:.03em;line-height:1.5;
+}
+
+/* Pitch block */
+.pitch-block{
+  background:var(--off);border:1px solid var(--border);
+  border-radius:var(--r);padding:24px 22px;
+}
+.pitch-block h3{
+  font-size:12px;font-weight:600;color:var(--teal);
+  font-family:'DM Mono',monospace;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:12px;
+}
+.pitch-block p{
+  font-size:13px;color:var(--navy);
+  line-height:1.8;font-style:italic;
+}
+
+/* Divider */
+.section-divider{
+  border:none;border-top:1px solid var(--border);
+  margin:40px 0;
+}
+
+/* CTA strip */
+.cta-strip{
+  background:var(--teal);padding:72px 60px;text-align:center;
+}
+.cta-strip-inner{max-width:560px;margin:0 auto;}
+.cta-strip h2{
+  font-family:'DM Serif Display',serif;
+  font-size:36px;color:#fff;margin-bottom:12px;
+}
+.cta-strip p{
+  font-size:15px;color:rgba(255,255,255,.68);
+  line-height:1.8;margin-bottom:32px;
+}
+.cta-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cta-input{
+  flex:1;min-width:160px;max-width:210px;
+  padding:12px 15px;border-radius:var(--r);
+  border:none;font-size:13px;font-family:'DM Sans',sans-serif;
+  background:rgba(255,255,255,.16);color:#fff;outline:none;
+}
+.cta-input::placeholder{color:rgba(255,255,255,.42);}
+.cta-submit{
+  padding:12px 24px;border-radius:var(--r);
+  background:var(--navy);color:#fff;border:none;
+  cursor:pointer;font-size:13px;font-weight:500;
+  font-family:'DM Sans',sans-serif;white-space:nowrap;
+}
+.cta-fine{
+  font-size:10px;color:rgba(255,255,255,.28);
+  margin-top:14px;font-family:'DM Mono',monospace;
+}
+
+/* FOOTER */
+.footer{
+  background:var(--navy);padding:28px 60px;
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:14px;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.footer-brand{display:flex;align-items:center;gap:9px;}
+.footer-hex{
+  width:18px;height:18px;background:var(--teal);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+.footer-name{font-family:'DM Serif Display',serif;font-size:15px;color:#fff;}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.3);transition:color .15s;}
+.footer-links a:hover{color:rgba(255,255,255,.7);}
+.footer-meta{
+  font-size:10px;color:rgba(255,255,255,.2);
+  font-family:'DM Mono',monospace;letter-spacing:.04em;
+}
+
+@media(max-width:960px){
+  .nav,.prov-nav{padding:0 24px;}
+  .nav-links{display:none;}
+  .page-header{padding:56px 24px 44px;}
+  .page-header h1{font-size:36px;}
+  .province-section{padding:56px 24px;}
+  .prov-header{flex-direction:column;}
+  .prov-snapshot{grid-template-columns:repeat(3,1fr);}
+  .two-col,.two-col-wide{grid-template-columns:1fr;}
+  .footer{padding:24px;flex-direction:column;align-items:flex-start;}
+  .cta-strip{padding:56px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="brand-mark"></div>
+    <span class="brand-name">Medisyns</span>
+    <span class="brand-region">Canada</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-back">← Canada overview</a>
+    <a href="#saskatchewan">Saskatchewan</a>
+    <a href="#ontario">Ontario</a>
+    <a href="#bc">British Columbia</a>
+    <a href="index.html#contact" class="nav-cta">Start a conversation</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-header-glow"></div>
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Provincial analysis · Canada</div>
+    <h1>The verification gap,<br>province by province</h1>
+    <p>Each province has a distinct drug plan structure, fraud exposure profile, and existing infrastructure. Medisyns enters where the gap is largest and the integration path is clearest.</p>
+  </div>
+</div>
+
+<!-- PROVINCE NAV TABS -->
+<div class="prov-nav">
+  <div class="prov-nav-inner">
+    <a href="#saskatchewan" class="prov-tab active">
+      <span class="tab-dot" style="background:#22C55E;"></span>
+      Saskatchewan
+    </a>
+    <a href="#ontario" class="prov-tab">
+      <span class="tab-dot" style="background:var(--teal-lt);"></span>
+      Ontario
+    </a>
+    <a href="#bc" class="prov-tab">
+      <span class="tab-dot" style="background:#94A3B8;"></span>
+      British Columbia
+    </a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     SASKATCHEWAN
+══════════════════════════════════════════ -->
+<div class="province-section" id="saskatchewan">
+  <div class="section-inner">
+
+    <div class="prov-header">
+      <div class="prov-header-left">
+        <div class="prov-label">Province 01 · Phase 1 target</div>
+        <h2>Saskatchewan</h2>
+        <div class="prov-status-badge active">
+          <span class="status-dot" style="background:#22C55E;"></span>
+          Active engagement
+        </div>
+      </div>
+      <div class="prov-snapshot">
+        <div class="snap-card">
+          <div class="snap-n">~<em>$833M</em></div>
+          <div class="snap-l">Provincial drug plan annual spend</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-n"><em>2%</em></div>
+          <div class="snap-l">Conservative fraud loss estimate</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-n"><em>$16M+</em></div>
+          <div class="snap-l">Estimated annual fraud exposure</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col-wide">
+      <div>
+        <div class="analysis-block">
+          <h3>Why Saskatchewan first</h3>
+          <p>Saskatchewan's Pharmaceutical Information Program (PIP), managed by eHealth Saskatchewan, captures a near-complete record of prescription activity across the province. That breadth of data creates a uniquely clear integration target — PIP already knows what was dispensed. Medisyns adds what PIP cannot provide: real-time payer-side verification at the moment of dispensing, and a fraud-flag layer that cross-references prescriber authorization, patient eligibility, and benefit duplication in a single event.</p>
+          <p>The fraud ROI case in Saskatchewan is among the strongest in Canada. At a conservative 2% fraud loss on ~$833M in annual drug plan spend, the exposure exceeds $16M per year — more than double the cost of a full Medisyns deployment at pilot scale. The province doesn't need to believe a high fraud estimate for the business case to hold. The conservative case is already compelling.</p>
+        </div>
+
+        <div class="analysis-block">
+          <h3>Existing infrastructure</h3>
+          <div class="infra-list">
+            <div class="infra-item">
+              <div class="infra-icon">💊</div>
+              <div class="infra-body">
+                <div class="infra-name">PIP — Pharmaceutical Information Program</div>
+                <div class="infra-desc">Near-complete provincial prescription record managed by eHealth Saskatchewan. Captures dispensing data across community pharmacies.</div>
+                <span class="infra-gap">Medisyns adds: real-time payer verification + fraud flagging</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">🏥</div>
+              <div class="infra-body">
+                <div class="infra-name">Saskatchewan Health Authority (SHA)</div>
+                <div class="infra-desc">Unified health authority managing provincial health services. Primary procurement and governance counterpart for Medisyns engagement.</div>
+                <span class="infra-gap">Medisyns role: SHA implementation partner</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">📋</div>
+              <div class="infra-body">
+                <div class="infra-name">Drug Plan &amp; Extended Benefits Branch</div>
+                <div class="infra-desc">Administers the provincial drug benefit program. The direct stakeholder for fraud prevention ROI and benefit eligibility verification.</div>
+                <span class="infra-gap">Medisyns role: payer-side fraud layer for drug plan claims</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pitch-block">
+          <h3>The Saskatchewan pitch</h3>
+          <p>"PIP tells you what was dispensed. Medisyns tells you whether it should have been. You already have the dispensing record — you're missing the verification layer that sits above it."</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="roi-block">
+          <h3>ROI framework</h3>
+          <div class="roi-row">
+            <div class="roi-label">Provincial drug plan annual spend</div>
+            <div class="roi-value">~<em>$833M</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Conservative fraud loss estimate (2%)</div>
+            <div class="roi-value"><em>$16.6M</em>/yr</div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Moderate fraud loss estimate (5%)</div>
+            <div class="roi-value"><em>$41.6M</em>/yr</div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Medisyns pilot scope cost (annual cap)</div>
+            <div class="roi-value">$150K–<em>$300K</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">ROI at conservative fraud estimate</div>
+            <div class="roi-value"><em>55×</em>+</div>
+          </div>
+          <div class="roi-note">
+            Fraud estimates based on publicly reported Canadian healthcare fraud ranges. True fraud rate is unknown — no provincial baseline exists. These figures represent the cost of not measuring.
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="analysis-block">
+            <h3>The procurement path</h3>
+            <p>Gaining programmatic API access to PIP is a procurement conversation with eHealth Saskatchewan, not a purely technical integration. Medisyns should be positioned as an enhancement layer that increases PIP's value — not a competing system. The SHA is the primary relationship; eHealth Saskatchewan is the technical counterpart.</p>
+            <p>The goal of initial engagement is a designated implementation contact within the SHA and a defined pilot scope, not a full provincial procurement commitment at first contact.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ONTARIO
+══════════════════════════════════════════ -->
+<div class="province-section" id="ontario" style="background:var(--off);">
+  <div class="section-inner">
+
+    <div class="prov-header">
+      <div class="prov-header-left">
+        <div class="prov-label">Province 02 · Phase 2 target</div>
+        <h2>Ontario</h2>
+        <div class="prov-status-badge pipeline">
+          <span class="status-dot" style="background:var(--teal-lt);"></span>
+          In pipeline
+        </div>
+      </div>
+      <div class="prov-snapshot">
+        <div class="snap-card">
+          <div class="snap-n"><em>8M+</em></div>
+          <div class="snap-l">Dual-insured patients (OHIP + private)</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-n"><em>15 yr</em></div>
+          <div class="snap-l">Avg gap between pharmacy inspections</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-n"><em>3</em></div>
+          <div class="snap-l">Existing systems with no unifying layer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col-wide">
+      <div>
+        <div class="analysis-block">
+          <h3>Why Ontario is the scale test</h3>
+          <p>Ontario has already built the proof of concept for every component of what Medisyns does — in isolation. The Digital Health Drug Repository (DHDR), the Health Network System (HNS), and the Narcotics Monitoring System (NMS) each verify a different layer of the prescription chain. What Ontario has never built is a protocol that connects them into a single real-time event.</p>
+          <p>The Ontario pitch is not "here's a new idea." It's "you've already proven the value of each piece separately — here's the layer that unifies them." That framing removes the innovation risk objection entirely: Ontario has already invested in the infrastructure that Medisyns integrates.</p>
+          <p>The second angle is coordination of benefits. Ontario's 8 million dual-insured patients — those holding both OHIP coverage and a private employer plan — represent the single largest unresolved real-time verification gap in Canadian healthcare. No system today confirms, in a single event, that both payers have been correctly billed and that no duplication has occurred.</p>
+        </div>
+
+        <div class="analysis-block">
+          <h3>Existing infrastructure</h3>
+          <div class="infra-list">
+            <div class="infra-item">
+              <div class="infra-icon">💊</div>
+              <div class="infra-body">
+                <div class="infra-name">DHDR — Digital Health Drug Repository</div>
+                <div class="infra-desc">Province-wide medication record. Captures dispensing data from community pharmacies and hospital systems.</div>
+                <span class="infra-gap">Gap: dispensing record only — no real-time payer verification</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">🔗</div>
+              <div class="infra-body">
+                <div class="infra-name">HNS — Health Network System</div>
+                <div class="infra-desc">Claims adjudication and eligibility system for ODB (Ontario Drug Benefit). Handles provincial formulary verification for eligible populations.</div>
+                <span class="infra-gap">Gap: operates independently of DHDR and private payer systems</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">🚨</div>
+              <div class="infra-body">
+                <div class="infra-name">NMS — Narcotics Monitoring System</div>
+                <div class="infra-desc">Monitors controlled substance prescribing and dispensing. Flags patterns that indicate potential diversion or over-prescribing.</div>
+                <span class="infra-gap">Gap: narcotics-only — no coverage of broader formulary fraud</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">🤝</div>
+              <div class="infra-body">
+                <div class="infra-name">Private insurer coordination</div>
+                <div class="infra-desc">Ontario has no unified protocol for real-time coordination between OHIP/ODB and employer-sponsored drug plans.</div>
+                <span class="infra-gap">Medisyns: the missing coordination layer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pitch-block">
+          <h3>The Ontario pitch</h3>
+          <p>"You've already proven the value of each piece separately — DHDR, HNS, NMS. Medisyns is the layer that connects them into a single real-time event. You're not being asked to start from scratch. You're being asked to finish what you've already built."</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="roi-block">
+          <h3>Ontario opportunity</h3>
+          <div class="roi-row">
+            <div class="roi-label">ODB annual drug plan spend (est.)</div>
+            <div class="roi-value">~<em>$5B</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Dual-insured patient population</div>
+            <div class="roi-value"><em>8M+</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Average time between pharmacy inspections</div>
+            <div class="roi-value">~<em>15 yr</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Pharmacies inspected in 2016</div>
+            <div class="roi-value"><em>6.7%</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Estimated ARR at provincial scale</div>
+            <div class="roi-value">$2M–<em>$8M</em></div>
+          </div>
+          <div class="roi-note">
+            ODB spend estimate from MOHLTC public accounts. Fraud exposure unquantified — no baseline measurement system exists.
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="analysis-block">
+            <h3>The Ontario entry point</h3>
+            <p>A full Ontario Ministry of Health procurement is not the entry point. The fastest path is coordination of benefits between ODB and private insurers — a gap that exists independent of full ministry engagement and where the stakeholder universe is smaller.</p>
+            <p>The NMS provides a precedent: Ontario has already accepted the principle of cross-system monitoring for controlled substances. Medisyns extends that logic to the full formulary and to the payer-side verification gap.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     BRITISH COLUMBIA
+══════════════════════════════════════════ -->
+<div class="province-section" id="bc">
+  <div class="section-inner">
+
+    <div class="prov-header">
+      <div class="prov-header-left">
+        <div class="prov-label">Province 03 · Phase 3 target</div>
+        <h2>British Columbia</h2>
+        <div class="prov-status-badge next">
+          <span class="status-dot" style="background:#94A3B8;"></span>
+          Identified — next phase
+        </div>
+      </div>
+      <div class="prov-snapshot">
+        <div class="snap-card">
+          <div class="snap-n"><em>#1</em></div>
+          <div class="snap-l">Most mature provincial Rx database in Canada</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-n"><em>5M+</em></div>
+          <div class="snap-l">Population covered by BC PharmaCare</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-n"><em>30yr</em></div>
+          <div class="snap-l">PharmaNet operational history</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col-wide">
+      <div>
+        <div class="analysis-block">
+          <h3>Why BC anchors the national model</h3>
+          <p>British Columbia's PharmaNet is the most mature provincial prescription database in Canada. Operational since 1995, it captures every prescription dispensed in the province in near real-time — a capability that most other provinces are still building toward. That maturity makes BC an ideal integration target and a proving ground for what a Medisyns national rollout looks like at scale.</p>
+          <p>BC's sophistication also means the Medisyns pitch is different here than in Saskatchewan or Ontario. The province is not being sold on the value of tracking prescriptions — they've been doing that for 30 years. The pitch is specifically about the payer-side fraud layer that PharmaNet does not provide: real-time verification that the prescriber is authorized, the patient is eligible under the correct benefit, and the claim is not being duplicated across payers.</p>
+          <p>A successful BC integration — following Saskatchewan and Ontario — creates the three-province precedent that Canada Health Infoway needs to formalize Medisyns as a national standard. BC is strategically the most important Phase 3 target for that reason.</p>
+        </div>
+
+        <div class="analysis-block">
+          <h3>Existing infrastructure</h3>
+          <div class="infra-list">
+            <div class="infra-item">
+              <div class="infra-icon">💊</div>
+              <div class="infra-body">
+                <div class="infra-name">PharmaNet</div>
+                <div class="infra-desc">Provincial prescription network capturing every prescription dispensed in BC since 1995. The most comprehensive provincial Rx database in Canada — accessible to pharmacists, physicians, and certain health authorities in real time.</div>
+                <span class="infra-gap">Gap: dispensing and clinical record only — no payer-side fraud verification</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">📋</div>
+              <div class="infra-body">
+                <div class="infra-name">BC PharmaCare</div>
+                <div class="infra-desc">Provincial drug benefit program covering approximately 5 million BC residents across multiple plan categories (Fair PharmaCare, Plan B, Plan C, etc.).</div>
+                <span class="infra-gap">Medisyns role: real-time eligibility + benefit tier verification</span>
+              </div>
+            </div>
+            <div class="infra-item">
+              <div class="infra-icon">🏥</div>
+              <div class="infra-body">
+                <div class="infra-name">BC Ministry of Health — Digital Health</div>
+                <div class="infra-desc">Governs PharmaNet and provincial digital health infrastructure. Primary procurement counterpart for Medisyns engagement in BC.</div>
+                <span class="infra-gap">Medisyns role: API integration with PharmaNet as payer verification layer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pitch-block">
+          <h3>The BC pitch</h3>
+          <p>"PharmaNet is the most complete prescription record in Canada. Medisyns adds the one layer it doesn't have: real-time verification that the payer should have paid, the prescriber was authorized to prescribe, and the claim hasn't already been submitted elsewhere. Thirty years of dispensing data — now with fraud detection built in."</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="roi-block">
+          <h3>BC opportunity</h3>
+          <div class="roi-row">
+            <div class="roi-label">BC PharmaCare annual spend (est.)</div>
+            <div class="roi-value">~<em>$1.5B</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Population covered by PharmaCare</div>
+            <div class="roi-value"><em>5M+</em></div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">PharmaNet operational history</div>
+            <div class="roi-value"><em>30</em> years</div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Conservative fraud exposure (2%)</div>
+            <div class="roi-value">~<em>$30M</em>/yr</div>
+          </div>
+          <div class="roi-row">
+            <div class="roi-label">Strategic value</div>
+            <div class="roi-value"><em>National</em></div>
+          </div>
+          <div class="roi-note">
+            BC PharmaCare spend estimated from Ministry of Health public accounts. Fraud exposure is unquantified — this is precisely the gap Medisyns addresses.
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="analysis-block">
+            <h3>The national standard pathway</h3>
+            <p>Three provincial adoptions — Saskatchewan, Ontario, BC — spanning eastern and western Canada create the evidence base for Canada Health Infoway to designate Medisyns as a national prescription verification standard. No individual province needs to carry the weight of a national procurement decision. The standard emerges from adoption.</p>
+            <p>Alberta and Manitoba are identified as the next expansion targets following BC, completing the western Canada coverage and the conditions for full Infoway engagement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-strip" id="contact">
+  <div class="cta-strip-inner">
+    <h2>Start the conversation</h2>
+    <p>No pitch deck required. If you work in or with provincial health systems and you recognize the problem — leave your details and we'll be in touch within 48 hours.</p>
+    <div class="cta-form">
+      <input class="cta-input" type="text" placeholder="Your name">
+      <input class="cta-input" type="email" placeholder="Work email">
+      <button class="cta-submit">Get in touch</button>
+    </div>
+    <div class="cta-fine">Patent pending CA &amp; US · Confidential · We do not share your information</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-brand">
+    <div class="footer-hex"></div>
+    <span class="footer-name">Medisyns</span>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Canada overview</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="/">Global</a>
+  </div>
+  <div class="footer-meta">
+    PIPEDA · ITSG-33 (in progress) · FHIR R4 · SOC 2 Type II (in progress) · Ontario Law
+  </div>
+</footer>
+
+<script>
+// Highlight active province tab on scroll
+const tabs = document.querySelectorAll('.prov-tab');
+const sections = ['saskatchewan','ontario','bc'].map(id => document.getElementById(id));
+const navHeight = 68 + 49; // nav + prov-nav
+
+function updateTab(){
+  let active = 0;
+  sections.forEach((s,i)=>{
+    if(s && window.scrollY + navHeight + 40 >= s.offsetTop) active = i;
+  });
+  tabs.forEach((t,i)=> t.classList.toggle('active', i === active));
+}
+window.addEventListener('scroll', updateTab, {passive:true});
+updateTab();
+</script>
+
+</body>
+</html>
