@@ -26,34 +26,122 @@ a{text-decoration:none;color:inherit;}
 /* ── NAV ── */
 .nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 64px;height:64px;
+  padding:0 64px;height:80px;
   background:#fff;
   border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:200;
 }
-.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-brand{display:flex;align-items:center;gap:12px;}
 .brand-mark{
-  width:24px;height:24px;background:var(--teal);
+  width:30px;height:30px;background:var(--teal);
   clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
 }
 .brand-name{
-  font-family:'DM Serif Display',serif;font-size:17px;
+  font-family:'DM Serif Display',serif;font-size:22px;
   color:var(--navy);letter-spacing:.01em;
 }
-.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links{display:flex;gap:36px;align-items:center;}
 .nav-links a{
-  font-size:12px;font-weight:500;color:var(--slate);
-  letter-spacing:.05em;text-transform:uppercase;transition:color .15s;
+  font-size:13px;font-weight:500;color:var(--slate);
+  letter-spacing:.04em;text-transform:uppercase;transition:color .15s;
 }
 .nav-links a:hover{color:var(--navy);}
 .nav-cta{
   background:var(--navy);color:#fff!important;
-  padding:8px 20px;border-radius:var(--r);
-  font-size:12px;font-weight:500;
-  letter-spacing:.05em;text-transform:uppercase;
+  padding:11px 26px;border-radius:var(--r);
+  font-size:13px;font-weight:500;
+  letter-spacing:.04em;text-transform:uppercase;
   transition:background .15s;
 }
 .nav-cta:hover{background:var(--teal)!important;}
+
+/* ── NAV DROPDOWN ── */
+.nav-dropdown{position:relative;display:flex;align-items:center;}
+.nav-dropdown-trigger{
+  display:flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:500;color:var(--slate);
+  letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;transition:color .15s;
+  background:none;border:none;font-family:'DM Sans',sans-serif;
+  padding:0;
+}
+.nav-dropdown-trigger:hover{color:var(--navy);}
+.nav-dropdown-trigger:hover .dd-chevron{transform:rotate(180deg);}
+.dd-chevron{
+  width:14px;height:14px;transition:transform .2s;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.dd-chevron svg{display:block;}
+
+.nav-dropdown-menu{
+  position:absolute;top:calc(100% + 16px);right:0;
+  width:520px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:0 12px 48px rgba(13,31,60,.12),0 2px 8px rgba(13,31,60,.06);
+  opacity:0;pointer-events:none;
+  transform:translateY(-8px);
+  transition:opacity .18s,transform .18s;
+  overflow:hidden;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu{
+  opacity:1;pointer-events:all;transform:translateY(0);
+}
+
+.dd-header{
+  padding:16px 20px 12px;
+  border-bottom:1px solid var(--border);
+  background:var(--off);
+}
+.dd-header-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);
+}
+
+.dd-regions{display:grid;grid-template-columns:1fr 1fr 1fr;}
+.dd-region{
+  padding:20px 18px;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;gap:8px;
+  transition:background .15s;
+  text-decoration:none;
+}
+.dd-region:last-child{border-right:none;}
+.dd-region:hover{background:var(--off);}
+.dd-region.dd-active:hover{background:rgba(11,122,117,.04);}
+
+.dd-flag{font-size:22px;line-height:1;margin-bottom:2px;}
+.dd-name{
+  font-family:'DM Serif Display',serif;
+  font-size:16px;color:var(--navy);
+}
+.dd-status{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.dd-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.dd-dot-live{background:#22C55E;}
+.dd-dot-soon{background:#94A3B8;}
+.dd-status-live{color:#16A34A;}
+.dd-status-soon{color:#94A3B8;}
+.dd-desc{font-size:11px;color:var(--slate);line-height:1.55;}
+.dd-link{
+  font-size:11px;font-weight:500;color:var(--teal);
+  margin-top:auto;
+}
+.dd-region.dd-inactive .dd-link{color:#94A3B8;}
+.dd-footer{
+  padding:12px 20px;border-top:1px solid var(--border);
+  background:var(--off);
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:#94A3B8;letter-spacing:.04em;
+  text-align:center;
+}
 
 /* ── HERO ── */
 .hero{
@@ -286,46 +374,71 @@ a{text-decoration:none;color:inherit;}
 .region-intro-right p{
   font-size:13px;color:var(--slate);line-height:1.75;
 }
-.regions{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.regions{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
 .region-card{
-  border:1px solid var(--border);border-radius:6px;
-  overflow:hidden;transition:border-color .18s,box-shadow .18s;
+  border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;transition:border-color .18s,box-shadow .18s,transform .18s;
   display:flex;flex-direction:column;
 }
 .region-card:hover{
   border-color:var(--teal);
-  box-shadow:0 8px 32px rgba(11,122,117,.1);
+  box-shadow:0 16px 48px rgba(11,122,117,.12);
+  transform:translateY(-2px);
 }
 .region-card.active-region{border-color:var(--teal);}
-.region-card.inactive-region{opacity:.6;cursor:default;}
-.region-card.inactive-region:hover{border-color:var(--border);box-shadow:none;}
+.region-card.inactive-region{opacity:.72;cursor:default;}
+.region-card.inactive-region:hover{
+  border-color:var(--border);box-shadow:none;transform:none;
+}
 
-.region-head{padding:28px 24px 20px;background:#fff;}
-.region-flag{font-size:28px;margin-bottom:12px;line-height:1;}
+.region-head{padding:36px 32px 26px;background:#fff;position:relative;}
+.region-flag{font-size:40px;margin-bottom:16px;line-height:1;}
 .region-name{
-  font-family:'DM Serif Display',serif;font-size:22px;
-  color:var(--navy);margin-bottom:6px;
+  font-family:'DM Serif Display',serif;font-size:30px;
+  color:var(--navy);margin-bottom:8px;line-height:1.1;
 }
 .region-status{
-  display:inline-flex;align-items:center;gap:6px;
+  display:inline-flex;align-items:center;gap:7px;
   font-family:'DM Mono',monospace;font-size:10px;
   letter-spacing:.08em;text-transform:uppercase;
 }
 .status-live{color:#16A34A;}
-.status-live .rdot{background:#22C55E;}
 .status-soon{color:var(--slate);}
-.status-soon .rdot{background:#94A3B8;}
-.rdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.rdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+.region-stats{
+  display:flex;gap:0;margin-top:24px;padding-top:20px;
+  border-top:1px solid var(--border);
+}
+.rstat{flex:1;padding-right:16px;}
+.rstat+.rstat{padding-left:16px;border-left:1px solid var(--border);padding-right:0;}
+.rstat-n{
+  font-family:'DM Serif Display',serif;font-size:20px;
+  color:var(--navy);line-height:1;margin-bottom:4px;
+}
+.rstat-n em{color:var(--teal);font-style:normal;}
+.rstat-l{font-size:10px;color:#94A3B8;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;}
 
 .region-body{
-  padding:18px 24px 22px;
+  padding:24px 32px 28px;
   background:var(--off);flex:1;
   border-top:1px solid var(--border);
 }
-.region-body p{font-size:12px;color:var(--slate);line-height:1.7;margin-bottom:14px;}
+.region-body p{font-size:13px;color:var(--slate);line-height:1.8;margin-bottom:18px;}
+.region-subpoints{
+  display:flex;flex-direction:column;gap:8px;margin-bottom:20px;
+}
+.region-subpoint{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:11px;color:var(--slate);line-height:1.5;
+}
+.rsp-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--teal);flex-shrink:0;margin-top:5px;
+}
 .region-link{
   display:inline-flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:500;color:var(--teal);
+  font-size:13px;font-weight:500;color:var(--teal);
   transition:gap .15s;
 }
 .region-link:hover{gap:10px;}
@@ -413,7 +526,11 @@ a{text-decoration:none;color:inherit;}
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
   .nav,.hero,.section,.cta-section,.footer{padding-left:24px;padding-right:24px;}
+  .nav{height:64px;}
+  .brand-mark{width:24px;height:24px;}
+  .brand-name{font-size:17px;}
   .nav-links a:not(.nav-cta){display:none;}
+  .nav-dropdown{display:none;}
   .hero{min-height:auto;padding-top:64px;padding-bottom:64px;}
   .hero-body{grid-template-columns:1fr;}
   .hero-right{align-items:flex-start;}
@@ -425,6 +542,7 @@ a{text-decoration:none;color:inherit;}
   .steps-grid{grid-template-columns:repeat(3,1fr);gap:20px;}
   .steps-line{display:none;}
   .regions{grid-template-columns:1fr;}
+  .region-stats{flex-direction:row;}
   .footer{padding:20px 24px;flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -440,7 +558,54 @@ a{text-decoration:none;color:inherit;}
   <div class="nav-links">
     <a href="#problem">The problem</a>
     <a href="#protocol">The protocol</a>
-    <a href="#regions">Where we operate</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-trigger">
+        Where we operate
+        <span class="dd-chevron">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <div class="dd-header">
+          <div class="dd-header-label">Select a region</div>
+        </div>
+        <div class="dd-regions">
+          <a href="canada/" class="dd-region dd-active">
+            <div class="dd-flag">🇨🇦</div>
+            <div class="dd-name">Canada</div>
+            <div class="dd-status">
+              <span class="dd-dot dd-dot-live"></span>
+              <span class="dd-status-live">Active</span>
+            </div>
+            <div class="dd-desc">Provincial engagement underway. Saskatchewan, Ontario, and BC in active pipeline.</div>
+            <div class="dd-link">View Canada →</div>
+          </a>
+          <div class="dd-region dd-inactive">
+            <div class="dd-flag">🇬🇧</div>
+            <div class="dd-name">United Kingdom</div>
+            <div class="dd-status">
+              <span class="dd-dot dd-dot-soon"></span>
+              <span class="dd-status-soon">Coming soon</span>
+            </div>
+            <div class="dd-desc">NHS prescription fraud: £256M/yr. Research stage. Single-payer integration path identified.</div>
+            <div class="dd-link">Coming soon</div>
+          </div>
+          <div class="dd-region dd-inactive">
+            <div class="dd-flag">🇪🇺</div>
+            <div class="dd-name">Europe</div>
+            <div class="dd-status">
+              <span class="dd-dot dd-dot-soon"></span>
+              <span class="dd-status-soon">Coming soon</span>
+            </div>
+            <div class="dd-desc">EMVS covers supply chain only. Payer-side reimbursement fraud layer unaddressed EU-wide.</div>
+            <div class="dd-link">Coming soon</div>
+          </div>
+        </div>
+        <div class="dd-footer">Patent pending CA &amp; US · FHIR R4 · PIPEDA / GDPR designed</div>
+      </div>
+    </div>
     <a href="#contact" class="nav-cta">Get in touch</a>
   </div>
 </nav>
@@ -679,48 +844,101 @@ a{text-decoration:none;color:inherit;}
       </div>
     </div>
     <div class="regions">
+
+      <!-- CANADA -->
       <div class="region-card active-region">
         <div class="region-head">
           <div class="region-flag">🇨🇦</div>
           <div class="region-name">Canada</div>
           <div class="region-status">
-            <span class="rdot status-live" style="background:#22C55E;display:inline-block;width:5px;height:5px;border-radius:50%;"></span>
+            <span class="rdot" style="background:#22C55E;"></span>
             <span class="status-live">Active — provincial engagement underway</span>
+          </div>
+          <div class="region-stats">
+            <div class="rstat">
+              <div class="rstat-n"><em>$550M</em>–$2.75B</div>
+              <div class="rstat-l">Est. annual fraud losses</div>
+            </div>
+            <div class="rstat">
+              <div class="rstat-n"><em>5</em></div>
+              <div class="rstat-l">Provinces in analysis</div>
+            </div>
           </div>
         </div>
         <div class="region-body">
-          <p>Active engagement with provincial health authorities. Saskatchewan is the primary target, with Ontario and BC in active pipeline. $550M–$2.75B in estimated annual fraud exposure across public drug programs.</p>
-          <a href="canada/" class="region-link">View Canada →</a>
+          <p>Canada's provincial drug plan structure creates a direct entry point for Medisyns. Each province operates its own drug plan, insurer network, and pharmacy infrastructure — with no unified real-time verification layer across any of them.</p>
+          <div class="region-subpoints">
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>Saskatchewan Health Authority — active engagement, materials escalated to senior decision-makers</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>Ontario — coordination of benefits gap across 8M+ dual-insured patients, in active pipeline</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>British Columbia — PharmaNet integration identified as national standard anchor</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>Alberta and Manitoba — research complete, next phase engagement pending</span></div>
+          </div>
+          <a href="canada/" class="region-link">View Canada in full →</a>
         </div>
       </div>
+
+      <!-- UK -->
       <div class="region-card inactive-region">
         <div class="region-head">
           <div class="region-flag">🇬🇧</div>
           <div class="region-name">United Kingdom</div>
           <div class="region-status">
-            <span style="background:#94A3B8;display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:6px;"></span>
+            <span class="rdot" style="background:#94A3B8;"></span>
             <span class="status-soon">Coming — research stage</span>
+          </div>
+          <div class="region-stats">
+            <div class="rstat">
+              <div class="rstat-n"><em>£256M</em></div>
+              <div class="rstat-l">NHS prescription fraud annually</div>
+            </div>
+            <div class="rstat">
+              <div class="rstat-n"><em>1</em> payer</div>
+              <div class="rstat-l">Single NHS structure</div>
+            </div>
           </div>
         </div>
         <div class="region-body">
-          <p>The NHS loses £256M annually to prescription fraud. Point-of-dispensing eligibility verification remains underdeveloped. Single-payer structure creates a clear integration path analogous to Canadian provincial systems.</p>
-          <span class="region-link disabled">Coming soon</span>
+          <p>The NHS is structurally analogous to a Canadian provincial health system — a single public payer reimbursing prescriptions across a national formulary. The Counter Fraud Authority has documented £256M in annual prescription fraud losses with no real-time point-of-dispensing verification in place.</p>
+          <div class="region-subpoints">
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>NHS Counter Fraud Authority taxonomy identifies prescription fraud as a primary loss category</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>Point-of-dispensing eligibility verification piloted as recently as 2018 — still incomplete nationally</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>Single-payer structure means one integration covers the entire national system</span></div>
+          </div>
+          <span class="region-link disabled">Engagement coming soon</span>
         </div>
       </div>
+
+      <!-- EUROPE -->
       <div class="region-card inactive-region">
         <div class="region-head">
           <div class="region-flag">🇪🇺</div>
           <div class="region-name">Europe</div>
           <div class="region-status">
-            <span style="background:#94A3B8;display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:6px;"></span>
+            <span class="rdot" style="background:#94A3B8;"></span>
             <span class="status-soon">Coming — research stage</span>
+          </div>
+          <div class="region-stats">
+            <div class="rstat">
+              <div class="rstat-n"><em>EMVS</em></div>
+              <div class="rstat-l">Supply chain only — no payer layer</div>
+            </div>
+            <div class="rstat">
+              <div class="rstat-n"><em>27</em></div>
+              <div class="rstat-l">Member states with the gap</div>
+            </div>
           </div>
         </div>
         <div class="region-body">
-          <p>The EMVS addresses supply chain authenticity but not payer-side reimbursement fraud. National health systems across the EU face the same verification gap with no unified protocol layer to address it.</p>
-          <span class="region-link disabled">Coming soon</span>
+          <p>The EU's European Medicines Verification System (EMVS) authenticates drug packaging at the point of dispensing — but does not perform payer-side reimbursement fraud verification. The reimbursement layer is entirely unaddressed across all 27 member states.</p>
+          <div class="region-subpoints">
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>EMVS is a supply chain authenticity tool — not a competitor to Medisyns but a potential integration point</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>NHS (UK), France Assurance Maladie, and Nordic systems identified as primary entry points</span></div>
+            <div class="region-subpoint"><div class="rsp-dot"></div><span>GDPR-compliant architecture designed from day one — no retrofit required for EU deployment</span></div>
+          </div>
+          <span class="region-link disabled">Engagement coming soon</span>
         </div>
       </div>
+
     </div>
   </div>
 </div>
