@@ -3,474 +3,429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Medisyns — Canada</title>
-<meta name="description" content="Medisyns is a real-time prescription verification protocol built for Canadian provincial health systems. Closing the verification gap between provincial registries, insurers, physicians, and pharmacies.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Medisyns — Prescription Verification Protocol</title>
+<meta name="description" content="Medisyns is a real-time prescription verification protocol. Every health system that reimburses prescriptions has a verification gap. Medisyns closes it.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;color:#0D1F3C;background:#fff;overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
-img{display:block;max-width:100%;}
 
-/* ── TOKENS ── */
 :root{
   --navy:#0D1F3C;
   --teal:#0B7A75;
   --teal-lt:#0FA3A0;
-  --teal-dim:rgba(11,122,117,.12);
   --slate:#64748B;
   --border:#E2EAF2;
   --off:#F4F7FB;
-  --gold:#B8892A;
-  --white:#fff;
   --r:4px;
+  --ink:rgba(13,31,60,.06);
 }
 
 /* ── NAV ── */
 .nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 60px;height:68px;
-  background:var(--navy);
+  padding:0 64px;height:64px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:200;
-  border-bottom:1px solid rgba(255,255,255,.06);
 }
-.nav-brand{display:flex;align-items:center;gap:11px;}
+.nav-brand{display:flex;align-items:center;gap:10px;}
 .brand-mark{
-  width:26px;height:26px;
-  background:var(--teal);
+  width:24px;height:24px;background:var(--teal);
   clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-  flex-shrink:0;
 }
-.brand-name{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;letter-spacing:.01em;}
-.brand-region{
-  font-family:'DM Mono',monospace;font-size:10px;
-  color:var(--teal-lt);letter-spacing:.12em;text-transform:uppercase;
-  border:1px solid rgba(15,163,160,.3);border-radius:2px;
-  padding:3px 8px;margin-left:4px;
+.brand-name{
+  font-family:'DM Serif Display',serif;font-size:17px;
+  color:var(--navy);letter-spacing:.01em;
 }
-.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links{display:flex;gap:28px;align-items:center;}
 .nav-links a{
-  font-size:12px;font-weight:500;
-  color:rgba(255,255,255,.5);
-  letter-spacing:.06em;text-transform:uppercase;
-  transition:color .18s;
+  font-size:12px;font-weight:500;color:var(--slate);
+  letter-spacing:.05em;text-transform:uppercase;transition:color .15s;
 }
-.nav-links a:hover{color:#fff;}
+.nav-links a:hover{color:var(--navy);}
 .nav-cta{
-  background:var(--teal) !important;
-  color:#fff !important;
-  padding:8px 18px;border-radius:var(--r);
-  opacity:1 !important;
+  background:var(--navy);color:#fff!important;
+  padding:8px 20px;border-radius:var(--r);
+  font-size:12px;font-weight:500;
+  letter-spacing:.05em;text-transform:uppercase;
+  transition:background .15s;
 }
-.nav-cta:hover{background:var(--teal-lt) !important;}
+.nav-cta:hover{background:var(--teal)!important;}
 
 /* ── HERO ── */
 .hero{
+  min-height:92vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 64px;
   background:var(--navy);
-  padding:108px 60px 80px;
   position:relative;overflow:hidden;
 }
-.hero-grid{
-  position:absolute;inset:0;
-  opacity:.025;
-  background-image:
-    linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;
+.hero-noise{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.4;
 }
-.hero-glow{
-  position:absolute;top:-160px;right:-80px;
-  width:800px;height:800px;
-  background:radial-gradient(ellipse at center,rgba(11,122,117,.16) 0%,transparent 58%);
-  pointer-events:none;
+.hero-line{
+  position:absolute;left:64px;top:0;bottom:0;
+  width:1px;background:rgba(255,255,255,.06);
 }
-.hero-inner{max-width:1080px;margin:0 auto;position:relative;}
+.hero-line-r{
+  position:absolute;right:64px;top:0;bottom:0;
+  width:1px;background:rgba(255,255,255,.06);
+}
+.hero-inner{max-width:1080px;margin:0 auto;width:100%;position:relative;}
 
-.eyebrow{
-  display:inline-flex;align-items:center;gap:9px;
-  border:1px solid rgba(15,163,160,.35);border-radius:2px;
-  padding:6px 14px;margin-bottom:32px;
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:44px;
+}
+.kicker-rule{width:32px;height:1px;background:rgba(255,255,255,.2);}
+.kicker-text{
   font-family:'DM Mono',monospace;font-size:10px;
-  color:var(--teal-lt);letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.32);letter-spacing:.18em;text-transform:uppercase;
 }
-.eyebrow-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--teal-lt);
-  animation:blink 2.6s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
 
 .hero h1{
   font-family:'DM Serif Display',serif;
-  font-size:64px;line-height:1.07;
-  color:#fff;max-width:820px;
-  margin-bottom:24px;
+  font-size:clamp(44px,6vw,80px);
+  line-height:1.04;color:#fff;
+  max-width:860px;margin-bottom:0;
+  font-weight:400;
 }
-.hero h1 em{font-style:italic;color:var(--teal-lt);}
-.hero-sub{
-  font-size:18px;font-weight:300;
-  color:rgba(255,255,255,.52);
-  max-width:560px;line-height:1.8;
-  margin-bottom:44px;
+.hero h1 .accent{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(15,163,160,.7);
 }
-.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--teal);color:#fff;
-  padding:14px 28px;border-radius:var(--r);
-  font-size:14px;font-weight:500;
-  transition:background .18s;
-  white-space:nowrap;
+.hero h1 em{
+  font-style:italic;color:var(--teal-lt);
+  -webkit-text-stroke:0;
 }
-.btn-primary:hover{background:var(--teal-lt);}
-.btn-text{
-  font-size:13px;color:rgba(255,255,255,.44);
-  transition:color .18s;
-}
-.btn-text:hover{color:rgba(255,255,255,.8);}
 
-.hero-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  margin-top:68px;padding-top:40px;
-  border-top:1px solid rgba(255,255,255,.07);
-  gap:0;
+.hero-divider{
+  width:48px;height:1px;
+  background:rgba(255,255,255,.15);
+  margin:44px 0;
 }
-.hstat{padding:0 36px;}
-.hstat:first-child{padding-left:0;}
-.hstat:last-child{border-right:none;}
-.hstat+.hstat{border-left:1px solid rgba(255,255,255,.07);}
-.hstat-n{
+
+.hero-body{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:64px;align-items:end;
+}
+.hero-left p{
+  font-size:17px;font-weight:300;
+  color:rgba(255,255,255,.48);
+  line-height:1.85;max-width:420px;
+}
+.hero-right{
+  display:flex;flex-direction:column;
+  align-items:flex-end;gap:20px;
+}
+.hero-stat-row{
+  display:flex;gap:0;width:100%;
+  border:1px solid rgba(255,255,255,.07);border-radius:var(--r);
+  overflow:hidden;
+}
+.hero-stat{
+  flex:1;padding:20px 18px;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.hero-stat:last-child{border-right:none;}
+.hs-n{
   font-family:'DM Serif Display',serif;
-  font-size:36px;color:#fff;line-height:1;
-  margin-bottom:8px;
+  font-size:22px;color:#fff;line-height:1;margin-bottom:6px;
 }
-.hstat-n em{color:var(--teal-lt);font-style:normal;}
-.hstat-l{
-  font-size:12px;color:rgba(255,255,255,.38);
-  text-transform:uppercase;letter-spacing:.05em;line-height:1.5;
-}
-.hstat-s{
-  font-size:10px;color:rgba(255,255,255,.18);
-  margin-top:4px;font-style:italic;
-  font-family:'DM Mono',monospace;
-}
+.hs-n em{color:var(--teal-lt);font-style:normal;}
+.hs-l{font-size:10px;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:.06em;line-height:1.4;}
 
-/* ── SHARED SECTION ── */
-.section{padding:88px 60px;}
+.hero-scroll{
+  display:flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:rgba(255,255,255,.2);letter-spacing:.1em;text-transform:uppercase;
+  margin-top:60px;
+}
+.scroll-line{width:24px;height:1px;background:rgba(255,255,255,.15);}
+
+/* ── SECTION BASE ── */
+.section{padding:96px 64px;}
 .section-inner{max-width:1080px;margin:0 auto;}
 .section-label{
   font-family:'DM Mono',monospace;font-size:10px;
   letter-spacing:.16em;text-transform:uppercase;
-  color:var(--teal);margin-bottom:16px;
+  color:var(--teal);margin-bottom:14px;
 }
 .section h2{
   font-family:'DM Serif Display',serif;
-  font-size:44px;line-height:1.1;
-  color:var(--navy);max-width:640px;
-  margin-bottom:16px;
+  font-size:42px;line-height:1.1;color:var(--navy);
+  max-width:600px;margin-bottom:14px;
 }
 .section-lead{
   font-size:16px;color:var(--slate);
-  max-width:560px;line-height:1.8;
-  margin-bottom:52px;
+  max-width:520px;line-height:1.85;margin-bottom:56px;
 }
 .bg-off{background:var(--off);}
-.bg-dark{background:var(--navy);}
-.bg-dark .section h2,
-.bg-dark h2{color:#fff;}
-.bg-dark .section-label{color:var(--teal-lt);}
-.bg-dark .section-lead{color:rgba(255,255,255,.46);}
+.bg-navy{background:var(--navy);}
 
-/* ── PROBLEM ── */
-.problem-layout{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;}
+/* ── PROBLEM SECTION ── */
+.problem-cols{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
 .problem-left{}
-.callout-block{
-  background:var(--navy);border-radius:6px;
-  padding:32px 36px;margin-top:28px;
-  border-left:3px solid var(--teal);
+.problem-left p{
+  font-size:15px;color:var(--slate);
+  line-height:1.9;margin-bottom:16px;
 }
-.callout-block p{
-  font-size:15px;color:rgba(255,255,255,.78);
-  line-height:1.85;font-style:italic;
-}
-.callout-block p strong{color:#fff;font-style:normal;}
-.callout-block cite{
-  display:block;margin-top:12px;
-  font-size:10px;color:rgba(255,255,255,.22);
-  font-style:normal;font-family:'DM Mono',monospace;
-  letter-spacing:.06em;
-}
-.stat-cards{display:flex;flex-direction:column;gap:14px;}
-.stat-card{
-  background:#fff;border:1px solid var(--border);
-  border-radius:var(--r);padding:22px 20px;
-  display:flex;gap:16px;align-items:flex-start;
-}
-.stat-bar{width:3px;flex-shrink:0;border-radius:2px;align-self:stretch;}
-.stat-num{
-  font-family:'DM Serif Display',serif;
-  font-size:30px;line-height:1;
-  flex-shrink:0;width:96px;
-}
-.stat-label{font-size:13px;font-weight:500;color:var(--navy);margin-bottom:3px;line-height:1.4;}
-.stat-src{font-size:10px;color:#94A3B8;font-style:italic;font-family:'DM Mono',monospace;}
+.problem-left p:last-child{margin-bottom:0;}
+.problem-left strong{color:var(--navy);font-weight:600;}
 
-/* ── CHAIN ── */
-.chain-wrap{position:relative;margin-bottom:32px;}
-.chain{
-  display:grid;grid-template-columns:repeat(6,1fr);
-  position:relative;
+.evidence-stack{display:flex;flex-direction:column;gap:2px;}
+.evidence-item{
+  padding:22px 0;
+  border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:80px 1fr;gap:20px;align-items:start;
 }
-.chain-connector{
-  position:absolute;top:21px;
-  left:calc(100%/12);right:calc(100%/12);
-  height:1px;background:var(--border);
-  pointer-events:none;
+.evidence-item:first-child{border-top:1px solid var(--border);}
+.ev-region{
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:var(--teal);letter-spacing:.1em;text-transform:uppercase;
+  padding-top:3px;
 }
-.chain-step{
-  display:flex;flex-direction:column;
-  align-items:center;text-align:center;
-  padding:0 4px;position:relative;z-index:1;
+.ev-body{}
+.ev-stat{
+  font-family:'DM Serif Display',serif;
+  font-size:26px;color:var(--navy);line-height:1;margin-bottom:5px;
 }
-.chain-node{
-  width:42px;height:42px;border-radius:50%;
+.ev-stat em{color:var(--teal);font-style:normal;}
+.ev-desc{font-size:12px;color:var(--slate);line-height:1.6;}
+.ev-src{
+  font-size:10px;color:#94A3B8;margin-top:4px;
+  font-family:'DM Mono',monospace;font-style:italic;
+}
+
+/* ── GAP SECTION ── */
+.gap-layout{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:6px;overflow:hidden;
+}
+.gap-col{
+  background:#fff;padding:36px 28px;
+}
+.gap-col-head{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--slate);margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px solid var(--border);
+}
+.gap-item{
+  display:flex;gap:10px;align-items:flex-start;
+  margin-bottom:14px;
+}
+.gap-item:last-child{margin-bottom:0;}
+.gap-dot{
+  width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;
+}
+.dot-exists{background:#22C55E;}
+.dot-missing{background:#F43F5E;}
+.gap-item-text{font-size:12px;color:var(--slate);line-height:1.6;}
+.gap-item-text strong{color:var(--navy);display:block;font-size:11px;margin-bottom:1px;}
+
+.gap-col.gap-medisyns{background:var(--navy);}
+.gap-col.gap-medisyns .gap-col-head{color:var(--teal-lt);border-bottom-color:rgba(255,255,255,.08);}
+.gap-col.gap-medisyns .gap-item-text{color:rgba(255,255,255,.55);}
+.gap-col.gap-medisyns .gap-item-text strong{color:#fff;}
+.gap-col.gap-medisyns .gap-dot{background:var(--teal-lt);}
+
+/* ── HOW IT WORKS ── */
+.protocol-statement{
+  font-family:'DM Serif Display',serif;
+  font-size:32px;line-height:1.3;
+  color:#fff;max-width:720px;margin-bottom:52px;
+  font-style:italic;
+}
+.protocol-statement em{
+  font-style:normal;color:var(--teal-lt);
+}
+.steps-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative;}
+.steps-line{
+  position:absolute;top:18px;left:0;right:0;height:1px;
+  background:rgba(255,255,255,.08);pointer-events:none;
+}
+.step{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;padding:0 8px;position:relative;z-index:1;
+}
+.step-node{
+  width:36px;height:36px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  font-family:'DM Serif Display',serif;
-  font-size:16px;color:#fff;margin-bottom:12px;
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;
+  color:#fff;margin-bottom:14px;flex-shrink:0;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);
 }
-.chain-node.navy{background:var(--navy);}
-.chain-node.teal{background:var(--teal);}
-.chain-entity{
-  font-size:10px;font-weight:600;color:var(--navy);
-  letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;
+.step-node.active-node{background:var(--teal);border-color:var(--teal);}
+.step-entity{
+  font-size:10px;font-weight:600;color:rgba(255,255,255,.5);
+  letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;
 }
-.chain-desc{font-size:10px;color:#94A3B8;line-height:1.5;}
+.step-desc{font-size:10px;color:rgba(255,255,255,.25);line-height:1.55;}
 
-/* ── PROTOCOL CARDS ── */
-.proto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);}
-.proto-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.07);
-  padding:30px 26px;
-  transition:background .18s;
-}
-.proto-card:hover{background:rgba(11,122,117,.1);}
-.proto-icon{
-  width:34px;height:34px;
-  background:rgba(11,122,117,.22);border-radius:5px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;margin-bottom:14px;
-}
-.proto-card h3{
-  font-size:14px;font-weight:500;color:#fff;
-  margin-bottom:10px;font-family:'DM Sans',sans-serif;
-}
-.proto-card p{font-size:12px;color:rgba(255,255,255,.42);line-height:1.75;}
-.compliance-note{
-  margin-top:28px;
-  padding:16px 20px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:var(--r);
-  font-family:'DM Mono',monospace;font-size:10px;
-  color:rgba(255,255,255,.28);letter-spacing:.05em;
-  text-align:center;
-}
-
-/* ── PAIN CARDS ── */
-.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-.pain-card{
-  background:#fff;border:1px solid var(--border);
-  border-radius:var(--r);padding:28px 24px;
-  position:relative;overflow:hidden;
-}
-.pain-card::before{
-  content:'';position:absolute;
-  left:0;top:0;bottom:0;width:3px;
-  background:var(--teal);
-}
-.pain-tag{
-  display:inline-block;
-  background:var(--off);border:1px solid var(--border);
-  border-radius:100px;padding:3px 11px;
-  font-family:'DM Mono',monospace;font-size:10px;
-  color:var(--teal);margin-bottom:10px;
-  letter-spacing:.06em;text-transform:uppercase;
-}
-.pain-card h3{
-  font-size:14px;font-weight:500;color:var(--navy);
-  margin-bottom:8px;font-family:'DM Sans',sans-serif;
-  line-height:1.4;
-}
-.pain-card p{font-size:12px;color:var(--slate);line-height:1.75;}
-
-/* ── ROADMAP ── */
-.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.rm-card{
-  border-radius:var(--r);overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-}
-.rm-head{padding:24px 22px 18px;}
-.rm-phase-label{
-  font-family:'DM Mono',monospace;font-size:10px;
-  letter-spacing:.1em;text-transform:uppercase;
-  margin-bottom:8px;
-}
-.rm-title{
-  font-family:'DM Serif Display',serif;
-  font-size:20px;color:#fff;line-height:1.2;margin-bottom:4px;
-}
-.rm-scope{font-size:11px;color:rgba(255,255,255,.36);font-style:italic;}
-.rm-body{
-  padding:18px 22px 22px;
+.protocol-note{
+  margin-top:40px;padding:18px 22px;
   background:rgba(255,255,255,.03);
-}
-.rm-body p{font-size:12px;color:rgba(255,255,255,.46);line-height:1.75;margin-bottom:16px;}
-.rm-badge{
-  display:inline-flex;padding:6px 14px;
-  border-radius:2px;font-family:'DM Mono',monospace;
-  font-size:11px;font-weight:500;
+  border:1px solid rgba(255,255,255,.07);border-radius:var(--r);
+  font-family:'DM Mono',monospace;font-size:10px;
+  color:rgba(255,255,255,.22);letter-spacing:.05em;text-align:center;
 }
 
-.phase-sk .rm-head{background:rgba(11,122,117,.16);}
-.phase-sk .rm-phase-label{color:var(--teal-lt);}
-.phase-sk .rm-badge{background:var(--teal);color:#fff;}
-
-.phase-on .rm-head{background:rgba(26,86,160,.14);}
-.phase-on .rm-phase-label{color:#60A5FA;}
-.phase-on .rm-badge{background:rgba(26,86,160,.6);color:#fff;}
-
-.phase-bc .rm-head{background:rgba(184,137,42,.12);}
-.phase-bc .rm-phase-label{color:#C8940F;}
-.phase-bc .rm-badge{background:rgba(184,137,42,.5);color:#fff;}
-
-/* ── PROVINCE FINDER ── */
-.province-strip{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
-  margin-top:8px;
+/* ── REGION SELECTOR ── */
+.region-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:64px;align-items:end;margin-bottom:52px;
 }
-.prov-card{
-  background:#fff;border:1px solid var(--border);
-  border-radius:var(--r);padding:22px 20px;
-  display:flex;flex-direction:column;gap:10px;
-  transition:border-color .18s,box-shadow .18s;
+.region-intro-right p{
+  font-size:13px;color:var(--slate);line-height:1.75;
 }
-.prov-card:hover{
+.regions{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.region-card{
+  border:1px solid var(--border);border-radius:6px;
+  overflow:hidden;transition:border-color .18s,box-shadow .18s;
+  display:flex;flex-direction:column;
+}
+.region-card:hover{
   border-color:var(--teal);
-  box-shadow:0 4px 24px rgba(11,122,117,.1);
+  box-shadow:0 8px 32px rgba(11,122,117,.1);
 }
-.prov-name{
-  font-family:'DM Serif Display',serif;
-  font-size:20px;color:var(--navy);
+.region-card.active-region{border-color:var(--teal);}
+.region-card.inactive-region{opacity:.6;cursor:default;}
+.region-card.inactive-region:hover{border-color:var(--border);box-shadow:none;}
+
+.region-head{padding:28px 24px 20px;background:#fff;}
+.region-flag{font-size:28px;margin-bottom:12px;line-height:1;}
+.region-name{
+  font-family:'DM Serif Display',serif;font-size:22px;
+  color:var(--navy);margin-bottom:6px;
 }
-.prov-status{
+.region-status{
   display:inline-flex;align-items:center;gap:6px;
   font-family:'DM Mono',monospace;font-size:10px;
   letter-spacing:.08em;text-transform:uppercase;
 }
-.prov-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.active-dot{background:#22C55E;}
-.pipeline-dot{background:var(--teal-lt);}
-.next-dot{background:#94A3B8;}
-.prov-card p{font-size:12px;color:var(--slate);line-height:1.65;}
-.prov-link{
-  font-size:12px;font-weight:500;color:var(--teal);
-  display:inline-flex;align-items:center;gap:5px;
-  margin-top:auto;
-}
-.prov-link:hover{color:var(--navy);}
+.status-live{color:#16A34A;}
+.status-live .rdot{background:#22C55E;}
+.status-soon{color:var(--slate);}
+.status-soon .rdot{background:#94A3B8;}
+.rdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
 
-/* ── AUDIENCE ── */
-.audience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-.aud-card{
-  background:#fff;border:1px solid var(--border);
-  border-radius:var(--r);padding:22px 18px;text-align:center;
+.region-body{
+  padding:18px 24px 22px;
+  background:var(--off);flex:1;
+  border-top:1px solid var(--border);
 }
-.aud-icon{font-size:26px;margin-bottom:10px;}
-.aud-card h3{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:5px;line-height:1.4;}
-.aud-card p{font-size:11px;color:#94A3B8;line-height:1.6;}
+.region-body p{font-size:12px;color:var(--slate);line-height:1.7;margin-bottom:14px;}
+.region-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;font-weight:500;color:var(--teal);
+  transition:gap .15s;
+}
+.region-link:hover{gap:10px;}
+.region-link.disabled{color:#94A3B8;pointer-events:none;}
+
+/* ── WHAT IT IS ── */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.what-left{}
+.what-left p{font-size:15px;color:var(--slate);line-height:1.9;margin-bottom:16px;}
+.what-left p strong{color:var(--navy);}
+.what-right{display:flex;flex-direction:column;gap:14px;}
+.what-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--r);padding:22px 20px;
+}
+.what-card-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:6px;
+}
+.what-card h3{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:5px;}
+.what-card p{font-size:12px;color:var(--slate);line-height:1.65;}
 
 /* ── CTA ── */
-.cta-band{
-  background:var(--teal);
-  padding:88px 60px;text-align:center;
+.cta-section{
+  background:var(--navy);padding:96px 64px;
+  position:relative;overflow:hidden;
 }
-.cta-inner{max-width:600px;margin:0 auto;}
-.cta-band h2{
+.cta-glow{
+  position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:400px;
+  background:radial-gradient(ellipse,rgba(11,122,117,.18) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cta-inner{max-width:600px;margin:0 auto;text-align:center;position:relative;}
+.cta-inner h2{
   font-family:'DM Serif Display',serif;
-  font-size:40px;color:#fff;margin-bottom:14px;line-height:1.15;
+  font-size:42px;color:#fff;margin-bottom:14px;line-height:1.1;
 }
-.cta-band p{
-  font-size:16px;color:rgba(255,255,255,.68);
-  line-height:1.8;margin-bottom:40px;max-width:500px;
-  margin-left:auto;margin-right:auto;
+.cta-inner p{
+  font-size:16px;color:rgba(255,255,255,.46);
+  line-height:1.8;margin-bottom:40px;
 }
 .cta-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 .cta-input{
-  flex:1;min-width:170px;max-width:220px;
+  flex:1;min-width:170px;max-width:210px;
   padding:13px 16px;border-radius:var(--r);
-  border:none;font-size:13px;font-family:'DM Sans',sans-serif;
-  background:rgba(255,255,255,.16);color:#fff;
-  outline:none;
+  border:1px solid rgba(255,255,255,.1);
+  font-size:13px;font-family:'DM Sans',sans-serif;
+  background:rgba(255,255,255,.07);color:#fff;outline:none;
+  transition:border-color .15s,background .15s;
 }
-.cta-input::placeholder{color:rgba(255,255,255,.42);}
-.cta-input:focus{background:rgba(255,255,255,.22);}
+.cta-input::placeholder{color:rgba(255,255,255,.28);}
+.cta-input:focus{border-color:rgba(15,163,160,.5);background:rgba(255,255,255,.1);}
 .cta-submit{
-  padding:13px 26px;border-radius:var(--r);
-  background:var(--navy);color:#fff;border:none;
+  padding:13px 28px;border-radius:var(--r);
+  background:var(--teal);color:#fff;border:none;
   cursor:pointer;font-size:13px;font-weight:500;
   font-family:'DM Sans',sans-serif;white-space:nowrap;
-  transition:opacity .18s;
+  transition:background .15s;
 }
-.cta-submit:hover{opacity:.85;}
+.cta-submit:hover{background:var(--teal-lt);}
 .cta-fine{
-  font-size:11px;color:rgba(255,255,255,.3);
-  margin-top:16px;font-family:'DM Mono',monospace;
-  letter-spacing:.04em;
+  font-size:10px;color:rgba(255,255,255,.2);
+  margin-top:18px;font-family:'DM Mono',monospace;letter-spacing:.04em;
 }
 
 /* ── FOOTER ── */
 .footer{
-  background:var(--navy);padding:28px 60px;
-  display:flex;justify-content:space-between;
-  align-items:center;flex-wrap:wrap;gap:14px;
-  border-top:1px solid rgba(255,255,255,.05);
+  background:#fff;padding:24px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;border-top:1px solid var(--border);
 }
-.footer-brand{display:flex;align-items:center;gap:9px;}
+.footer-brand{display:flex;align-items:center;gap:8px;}
 .footer-hex{
-  width:18px;height:18px;background:var(--teal);
+  width:16px;height:16px;background:var(--teal);
   clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
 }
-.footer-name{font-family:'DM Serif Display',serif;font-size:15px;color:#fff;}
-.footer-links{display:flex;gap:20px;}
-.footer-links a{font-size:11px;color:rgba(255,255,255,.3);transition:color .15s;}
-.footer-links a:hover{color:rgba(255,255,255,.7);}
-.footer-meta{
-  font-size:10px;color:rgba(255,255,255,.2);
-  font-family:'DM Mono',monospace;letter-spacing:.04em;
-}
+.footer-name{font-family:'DM Serif Display',serif;font-size:14px;color:var(--navy);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:11px;color:#94A3B8;transition:color .15s;}
+.footer-links a:hover{color:var(--navy);}
+.footer-meta{font-size:10px;color:#CBD5E1;font-family:'DM Mono',monospace;letter-spacing:.04em;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
-  .nav{padding:0 24px;}
-  .nav-links{display:none;}
-  .hero{padding:88px 24px 64px;}
-  .hero h1{font-size:42px;}
-  .hero-stats{grid-template-columns:1fr 1fr;gap:24px;}
-  .hstat+.hstat{border-left:none;}
-  .hstat{padding:0;}
-  .section{padding:64px 24px;}
-  .problem-layout,
-  .pain-grid,
-  .roadmap,
-  .proto-grid,
-  .audience-grid,
-  .province-strip{grid-template-columns:1fr;}
-  .chain{grid-template-columns:repeat(3,1fr);gap:18px;}
-  .chain-connector{display:none;}
-  .footer{padding:24px;flex-direction:column;align-items:flex-start;}
+  .nav,.hero,.section,.cta-section,.footer{padding-left:24px;padding-right:24px;}
+  .nav-links a:not(.nav-cta){display:none;}
+  .hero{min-height:auto;padding-top:64px;padding-bottom:64px;}
+  .hero-body{grid-template-columns:1fr;}
+  .hero-right{align-items:flex-start;}
+  .hero-stat-row{flex-direction:column;}
+  .hero-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);}
+  .hero-stat:last-child{border-bottom:none;}
+  .problem-cols,.region-intro,.what-grid{grid-template-columns:1fr;}
+  .gap-layout{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:repeat(3,1fr);gap:20px;}
+  .steps-line{display:none;}
+  .regions{grid-template-columns:1fr;}
+  .footer{padding:20px 24px;flex-direction:column;align-items:flex-start;}
 }
 </style>
 </head>
@@ -481,97 +436,107 @@ img{display:block;max-width:100%;}
   <div class="nav-brand">
     <div class="brand-mark"></div>
     <span class="brand-name">Medisyns</span>
-    <span class="brand-region">Canada</span>
   </div>
   <div class="nav-links">
     <a href="#problem">The problem</a>
-    <a href="#how">How it works</a>
-    <a href="#provincial">For provinces</a>
-    <a href="canada/provincial-breakdown.html">By province</a>
-    <a href="#roadmap">Roadmap</a>
-    <a href="#contact" class="nav-cta">Start a conversation</a>
+    <a href="#protocol">The protocol</a>
+    <a href="#regions">Where we operate</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-line"></div>
+  <div class="hero-line-r"></div>
   <div class="hero-inner">
-    <div class="eyebrow">
-      <span class="eyebrow-dot"></span>
-      Provincial health system infrastructure · Canada
+    <div class="hero-kicker">
+      <div class="kicker-rule"></div>
+      <span class="kicker-text">Prescription verification infrastructure</span>
     </div>
-    <h1>Canada's prescription system<br>has a <em>verification gap.</em><br>Medisyns closes it.</h1>
-    <p class="hero-sub">A real-time prescription verification protocol that connects provincial health registries, insurers, physicians, and pharmacies — giving provinces the audit infrastructure they've never had.</p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Start a conversation →</a>
-      <a href="#how" class="btn-text">See how it works ↓</a>
+    <h1>Every public health system<br>that pays for prescriptions<br>has a <em>verification gap.</em></h1>
+    <div class="hero-divider"></div>
+    <div class="hero-body">
+      <div class="hero-left">
+        <p>Between the moment a prescription is written and the moment a payer reimburses it, there is no single system that verifies the prescriber was authorized, the patient was eligible, the drug was appropriate, and the claim wasn't already paid. Medisyns is that system.</p>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat-row">
+          <div class="hero-stat">
+            <div class="hs-n"><em>$550M</em>–$2.75B</div>
+            <div class="hs-l">Est. prescription fraud — Canada annually</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hs-n"><em>£256M</em></div>
+            <div class="hs-l">NHS prescription fraud losses — UK annually</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hs-n"><em>Zero</em></div>
+            <div class="hs-l">National real-time verification systems — globally</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-n"><em>$550M</em>–$2.75B</div>
-        <div class="hstat-l">Estimated public sector Rx fraud losses annually</div>
-        <div class="hstat-s">Lexology 2018 — Canada</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-n">~<em>15</em> yrs</div>
-        <div class="hstat-l">Average gap between pharmacy inspections in Ontario</div>
-        <div class="hstat-s">6.7% of pharmacies inspected in 2016 — Ontario MOH</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-n"><em>Zero</em></div>
-        <div class="hstat-l">National real-time prescription fraud detection systems</div>
-        <div class="hstat-s">No dedicated federal oversight body exists</div>
-      </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll to explore</span>
     </div>
   </div>
 </div>
 
-<!-- PROBLEM -->
-<div class="section bg-off" id="problem">
+<!-- THE PROBLEM -->
+<div class="section" id="problem">
   <div class="section-inner">
-    <div class="problem-layout">
+    <div class="problem-cols">
       <div class="problem-left">
         <div class="section-label">The problem</div>
-        <h2>Provinces are flying blind on prescription fraud</h2>
-        <p class="section-lead">Every figure in the public record reflects only what was caught. The infrastructure to know the real number has never existed.</p>
-        <div class="callout-block">
-          <p><strong>You cannot know the true prescription fraud rate without a system like Medisyns in place.</strong> Every figure cited in provincial reports is based only on detected fraud. A pharmacy in Ontario can go 15 years without a single inspection. This isn't a reporting problem — it's an infrastructure problem.</p>
-          <cite>— Core Medisyns thesis</cite>
-        </div>
+        <h2>The verification gap is not a reporting failure. It is an infrastructure failure.</h2>
+        <p>Every figure in the public record — every fraud estimate, every loss statistic — reflects only what was caught. The number that wasn't caught is structurally unknowable, because the infrastructure to know it has never been built.</p>
+        <p>Public health systems reimburse prescriptions through disconnected networks: provincial or national registries that track who is enrolled, insurer systems that track what is covered, prescriber registries that track who is licensed, and pharmacy dispensing systems that track what was filled. <strong>None of these systems speak to each other in real time at the point of dispensing.</strong></p>
+        <p>The result is a reimbursement process that relies on periodic audits, manual inspection, and after-the-fact anomaly detection — none of which prevent fraud. They can only discover it, long after the money has left.</p>
       </div>
-      <div class="stat-cards">
-        <div class="stat-card">
-          <div class="stat-bar" style="background:#B83030;"></div>
-          <div class="stat-num" style="color:#B83030;">6.7%</div>
-          <div>
-            <div class="stat-label">of Ontario pharmacies inspected in 2016</div>
-            <div class="stat-src">Ontario MOH — 286 of 4,260 pharmacies</div>
+      <div>
+        <div class="evidence-stack">
+          <div class="evidence-item">
+            <div class="ev-region">Canada</div>
+            <div class="ev-body">
+              <div class="ev-stat"><em>$550M</em>–$2.75B</div>
+              <div class="ev-desc">Estimated annual public sector prescription fraud losses. The true figure is unknown — no real-time detection baseline exists.</div>
+              <div class="ev-src">Lexology, 2018</div>
+            </div>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:var(--navy);"></div>
-          <div class="stat-num" style="color:var(--navy);font-size:22px;">~15 yrs</div>
-          <div>
-            <div class="stat-label">Average gap between pharmacy inspections at that rate</div>
-            <div class="stat-src">Extrapolated from 2016 Ontario MOH inspection frequency</div>
+          <div class="evidence-item">
+            <div class="ev-region">Ontario</div>
+            <div class="ev-body">
+              <div class="ev-stat"><em>6.7%</em></div>
+              <div class="ev-desc">Of pharmacies inspected in 2016. At that rate, the average pharmacy goes 15 years between inspections.</div>
+              <div class="ev-src">Ontario Ministry of Health, 2016</div>
+            </div>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:var(--teal);"></div>
-          <div class="stat-num" style="color:var(--teal);font-size:18px;">$550M–$2.75B</div>
-          <div>
-            <div class="stat-label">Estimated public sector prescription fraud losses annually</div>
-            <div class="stat-src">Lexology 2018 — Canada</div>
+          <div class="evidence-item">
+            <div class="ev-region">UK · NHS</div>
+            <div class="ev-body">
+              <div class="ev-stat"><em>£256M</em></div>
+              <div class="ev-desc">Annual prescription fraud losses. Point-of-dispensing eligibility verification was still being piloted as recently as 2018.</div>
+              <div class="ev-src">NHS Counter Fraud Authority</div>
+            </div>
           </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-bar" style="background:#C8940F;"></div>
-          <div class="stat-num" style="color:#C8940F;font-size:22px;">Unknown</div>
-          <div>
-            <div class="stat-label">True national fraud rate — no baseline has ever been established</div>
-            <div class="stat-src">Detection infrastructure does not exist</div>
+          <div class="evidence-item">
+            <div class="ev-region">Europe</div>
+            <div class="ev-body">
+              <div class="ev-stat"><em>EMVS gap</em></div>
+              <div class="ev-desc">The EU's medicines verification system authenticates drug packaging but does not perform payer-side fraud verification at dispensing. The reimbursement layer is unaddressed.</div>
+              <div class="ev-src">European Medicines Verification Organisation</div>
+            </div>
+          </div>
+          <div class="evidence-item">
+            <div class="ev-region">Manitoba</div>
+            <div class="ev-body">
+              <div class="ev-stat"><em>Active</em></div>
+              <div class="ev-desc">The College of Pharmacists of Manitoba is actively warning of forged prescriptions faxed from out-of-province numbers at scale. No cross-system dispensing verification exists.</div>
+              <div class="ev-src">College of Pharmacists of Manitoba</div>
+            </div>
           </div>
         </div>
       </div>
@@ -579,248 +544,193 @@ img{display:block;max-width:100%;}
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
-<div class="section" id="how">
+<!-- THE GAP -->
+<div class="section bg-off">
   <div class="section-inner">
-    <div class="section-label">How it works</div>
-    <h2>A verification event at every step of the prescription chain</h2>
-    <p class="section-lead">Medisyns sits as a neutral protocol layer between existing systems. Nothing gets replaced. Every party connects via API. Every event is logged, auditable, and immutable.</p>
-    <div class="chain-wrap">
-      <div class="chain">
-        <div class="chain-connector"></div>
-        <div class="chain-step">
-          <div class="chain-node navy">1</div>
-          <div class="chain-entity">Provincial registry</div>
-          <div class="chain-desc">Patient confirmed as eligible — alive, enrolled, active</div>
-        </div>
-        <div class="chain-step">
-          <div class="chain-node teal">2</div>
-          <div class="chain-entity">Insurer / payer</div>
-          <div class="chain-desc">Coverage and formulary confirmed in real time</div>
-        </div>
-        <div class="chain-step">
-          <div class="chain-node navy">3</div>
-          <div class="chain-entity">Physician</div>
-          <div class="chain-desc">Prescribing authority verified across registries</div>
-        </div>
-        <div class="chain-step">
-          <div class="chain-node teal">4</div>
-          <div class="chain-entity">Prior auth</div>
-          <div class="chain-desc">Authorization confirmed before dispensing</div>
-        </div>
-        <div class="chain-step">
-          <div class="chain-node navy">5</div>
-          <div class="chain-entity">Pharmacy</div>
-          <div class="chain-desc">Dispense confirmed, cross-system duplication checked</div>
-        </div>
-        <div class="chain-step">
-          <div class="chain-node teal">6</div>
-          <div class="chain-entity">Patient record</div>
-          <div class="chain-desc">Benefit balance updated on auditable ledger</div>
-        </div>
+    <div class="section-label">What exists vs. what's needed</div>
+    <h2>Existing systems verify pieces. No system verifies the whole.</h2>
+    <p class="section-lead">Every jurisdiction has built parts of the answer in isolation. Medisyns is the protocol layer that connects them.</p>
+    <div class="gap-layout">
+      <div class="gap-col">
+        <div class="gap-col-head">What exists today</div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Dispensing records</strong>What was filled — but not whether it should have been</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Eligibility systems</strong>Whether a patient is enrolled — checked in isolation, not cross-referenced</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Prescriber registries</strong>Whether a physician is licensed — not verified at point of dispensing</div></div>
+        <div class="gap-item"><div class="gap-dot dot-missing"></div><div class="gap-item-text"><strong>Cross-system real-time event</strong>Does not exist in any jurisdiction</div></div>
+        <div class="gap-item"><div class="gap-dot dot-missing"></div><div class="gap-item-text"><strong>Payer-side fraud flag at dispense</strong>Does not exist in any jurisdiction</div></div>
+        <div class="gap-item"><div class="gap-dot dot-missing"></div><div class="gap-item-text"><strong>Continuous audit trail across parties</strong>Does not exist in any jurisdiction</div></div>
+      </div>
+      <div class="gap-col">
+        <div class="gap-col-head">What Medisyns adds</div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Patient eligibility — live</strong>Confirmed alive, enrolled, and active at the moment of dispensing</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Prescriber authorization — live</strong>Verified against licensing registries in real time, not on file</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Coverage confirmation — live</strong>Formulary and benefit tier confirmed before the drug leaves the shelf</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Duplication check — live</strong>Cross-system check that the claim hasn't already been submitted elsewhere</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Fraud flag — live</strong>Anomaly detection at the point of dispensing, not six months after</div></div>
+        <div class="gap-item"><div class="gap-dot dot-exists"></div><div class="gap-item-text"><strong>Immutable audit trail</strong>Every event logged, timestamped, and cross-referenced across all parties</div></div>
+      </div>
+      <div class="gap-col gap-medisyns">
+        <div class="gap-col-head">The protocol model</div>
+        <div class="gap-item"><div class="gap-dot"></div><div class="gap-item-text"><strong>Nothing gets replaced</strong>Medisyns sits as a neutral layer above existing systems. No rip-and-replace.</div></div>
+        <div class="gap-item"><div class="gap-dot"></div><div class="gap-item-text"><strong>FHIR R4 native</strong>Built to the international interoperability standard. Any compliant system integrates.</div></div>
+        <div class="gap-item"><div class="gap-dot"></div><div class="gap-item-text"><strong>Patient PII stays off-chain</strong>Only cryptographic event hashes on the ledger. Designed for PIPEDA and GDPR.</div></div>
+        <div class="gap-item"><div class="gap-dot"></div><div class="gap-item-text"><strong>Patent protected</strong>Protocol architecture protected by patent applications filed in Canada and the US.</div></div>
+        <div class="gap-item"><div class="gap-dot"></div><div class="gap-item-text"><strong>Per-transaction model</strong>Cost tied directly to verified transactions — not a flat licence fee.</div></div>
       </div>
     </div>
-    <p style="font-size:12px;color:#94A3B8;text-align:center;font-family:'DM Mono',monospace;letter-spacing:.05em;text-transform:uppercase;">Per-transaction model · Every event logged · Continuous audit trail</p>
   </div>
 </div>
 
 <!-- PROTOCOL -->
-<div class="bg-dark">
-  <div class="section" style="padding-top:88px;padding-bottom:88px;">
+<div class="bg-navy" id="protocol">
+  <div class="section">
     <div class="section-inner">
-      <div class="section-label">The protocol</div>
-      <h2 style="color:#fff;">Not a product. Not another EHR.<br>A neutral verification layer.</h2>
-      <p class="section-lead">Like TCP/IP — Medisyns is infrastructure. It doesn't replace provincial systems. It connects them. Any compliant system can integrate. No vendor lock-in.</p>
-      <div class="proto-grid">
-        <div class="proto-card">
-          <div class="proto-icon">⬡</div>
-          <h3>Open protocol architecture</h3>
-          <p>Any provincial system, insurer, or pharmacy network can integrate. The standard is governed by Medisyns Inc. with a commitment to open interoperability — no proprietary lock-in.</p>
+      <div class="section-label" style="color:var(--teal-lt);">How it works</div>
+      <div class="protocol-statement">
+        A single verification event — triggered at dispensing — that checks <em>every party</em> in the prescription chain simultaneously.
+      </div>
+      <div class="steps-grid">
+        <div class="steps-line"></div>
+        <div class="step">
+          <div class="step-node active-node">1</div>
+          <div class="step-entity">Provincial registry</div>
+          <div class="step-desc">Patient confirmed alive, enrolled, and active</div>
         </div>
-        <div class="proto-card">
-          <div class="proto-icon">🔒</div>
-          <h3>Patient data stays off-chain</h3>
-          <p>Built on permissioned ledger architecture. Patient PII never touches the ledger — only cryptographic event hashes. Designed from the ground up for PIPEDA compliance.</p>
+        <div class="step">
+          <div class="step-node">2</div>
+          <div class="step-entity">Insurer / payer</div>
+          <div class="step-desc">Coverage and formulary confirmed in real time</div>
         </div>
-        <div class="proto-card">
-          <div class="proto-icon">📋</div>
-          <h3>FHIR R4 native</h3>
-          <p>Built to the international healthcare interoperability standard. Compatible with every compliant provincial system today and any future procurement architecture.</p>
+        <div class="step">
+          <div class="step-node active-node">3</div>
+          <div class="step-entity">Physician</div>
+          <div class="step-desc">Prescribing authority verified against licensing registry</div>
         </div>
-        <div class="proto-card">
-          <div class="proto-icon">📊</div>
-          <h3>Continuous audit trail</h3>
-          <p>Every transaction timestamped and logged. The same record that satisfies a regulator generates the monthly usage report. One source of truth for all connected parties.</p>
+        <div class="step">
+          <div class="step-node">4</div>
+          <div class="step-entity">Prior auth</div>
+          <div class="step-desc">Authorization confirmed before dispensing occurs</div>
         </div>
-        <div class="proto-card">
-          <div class="proto-icon">🛡</div>
-          <h3>Patent protected</h3>
-          <p>Protocol architecture and verification logic protected by patent applications filed in both Canada and the United States. Medisyns is not a repackaged EHR — it is a novel infrastructure layer.</p>
+        <div class="step">
+          <div class="step-node active-node">5</div>
+          <div class="step-entity">Pharmacy</div>
+          <div class="step-desc">Dispense confirmed, cross-system duplication checked</div>
         </div>
-        <div class="proto-card">
-          <div class="proto-icon">🏗</div>
-          <h3>Built for procurement readiness</h3>
-          <p>Designed to meet PIPEDA, ITSG-33, FHIR R4, and SOC 2 Type II requirements. Compliance frameworks are embedded in the architecture — not retrofitted after deployment.</p>
+        <div class="step">
+          <div class="step-node">6</div>
+          <div class="step-entity">Patient record</div>
+          <div class="step-desc">Benefit balance updated on immutable audit ledger</div>
         </div>
       </div>
-      <div class="compliance-note">
-        PIPEDA · ITSG-33 (in progress) · FHIR R4 · SOC 2 Type II (in progress) · Patent pending CA &amp; US · Governed by Ontario Law
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FOR PROVINCES -->
-<div class="section bg-off" id="provincial">
-  <div class="section-inner">
-    <div class="section-label">For provincial health systems</div>
-    <h2>The problems Medisyns solves for provinces, ministries, and health authorities</h2>
-    <p class="section-lead">Whether you're a minister looking at budget leakage, a CIO evaluating interoperability, or a health authority managing coordination of benefits — Medisyns addresses the same underlying gap.</p>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-tag">Budget &amp; fraud</div>
-        <h3>Unknown fraud losses draining public health budgets</h3>
-        <p>Public sector prescription fraud losses are estimated at $550M–$2.75B annually in Canada — but no province has a real-time baseline. Medisyns doesn't model the fraud rate. It builds the infrastructure to measure it for the first time.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-tag">Interoperability</div>
-        <h3>Provincial and private systems don't talk to each other</h3>
-        <p>When a patient holds both a provincial benefit and a private employer plan, coordination of benefits requires two separate systems to verify in real time. Right now that process is slow, manual, and fraud-prone. Medisyns is the protocol layer that connects them.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-tag">Audit &amp; compliance</div>
-        <h3>Pharmacy oversight is periodic, not continuous</h3>
-        <p>At current Ontario inspection rates, a pharmacy can operate for 15 years without a single audit. Medisyns replaces periodic inspection with a continuous automated audit trail — every dispense event logged, timestamped, and cross-referenced across all connected parties.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-tag">Procurement readiness</div>
-        <h3>Designed to meet federal and provincial compliance standards</h3>
-        <p>Medisyns is built to align with PIPEDA, ITSG-33, and FHIR R4 procurement requirements from day one. Compliance is architectural — not an add-on that creates deployment delays or integration risk.</p>
+      <div class="protocol-note">
+        Per-transaction model · FHIR R4 · PIPEDA / GDPR designed · Patent pending CA &amp; US · ITSG-33 in progress · SOC 2 Type II in progress
       </div>
     </div>
   </div>
 </div>
 
-<!-- PROVINCE CARDS -->
+<!-- WHAT IT IS -->
 <div class="section">
   <div class="section-inner">
-    <div class="section-label">Active provinces</div>
-    <h2>Where Medisyns is building</h2>
-    <p class="section-lead">Medisyns is in active engagement with provincial health authorities. Each province represents a distinct drug plan structure, fraud exposure profile, and procurement path.</p>
-    <div class="province-strip">
-      <div class="prov-card">
-        <div class="prov-name">Saskatchewan</div>
-        <div class="prov-status">
-          <span class="prov-dot active-dot"></span>
-          <span style="color:#22C55E;font-weight:600;">Active engagement</span>
-        </div>
-        <p>Saskatchewan's Pharmaceutical Information Program (PIP) creates a near-complete prescription record — Medisyns adds the real-time payer-side fraud layer that PIP doesn't provide.</p>
-        <a href="canada/provincial-breakdown.html#saskatchewan" class="prov-link">View Saskatchewan analysis →</a>
+    <div class="what-grid">
+      <div class="what-left">
+        <div class="section-label">What Medisyns is</div>
+        <h2>Not a product. Not an EHR. A protocol.</h2>
+        <p>The distinction matters. A product replaces something. A protocol connects everything that already exists. Medisyns does not ask health systems to abandon their infrastructure. It gives that infrastructure a verification layer it has never had.</p>
+        <p>Like TCP/IP standardized how computers communicate, Medisyns standardizes how prescription verification events are communicated across parties. The protocol is governed by Medisyns Inc. Any compliant system — provincial, national, insurer, pharmacy — can integrate without vendor lock-in.</p>
+        <p><strong>The commercial model reflects this.</strong> Medisyns charges per verified transaction, not a flat licence. The cost is tied directly to the fraud it prevents — making the ROI case self-evident at any scale of adoption.</p>
       </div>
-      <div class="prov-card">
-        <div class="prov-name">Ontario</div>
-        <div class="prov-status">
-          <span class="prov-dot pipeline-dot"></span>
-          <span style="color:var(--teal-lt);font-weight:600;">In pipeline</span>
+      <div class="what-right">
+        <div class="what-card">
+          <div class="what-card-label">Governance</div>
+          <h3>Governed by Medisyns Inc.</h3>
+          <p>An Ontario-incorporated company. Protocol standards are maintained by Medisyns with a commitment to open interoperability. No proprietary lock-in for adopting jurisdictions.</p>
         </div>
-        <p>Ontario's existing DHDR, HNS, and NMS infrastructure proves the value of each verification layer in isolation. Medisyns is the protocol that unifies them into a single auditable system.</p>
-        <a href="canada/provincial-breakdown.html#ontario" class="prov-link">View Ontario analysis →</a>
-      </div>
-      <div class="prov-card">
-        <div class="prov-name">British Columbia</div>
-        <div class="prov-status">
-          <span class="prov-dot next-dot"></span>
-          <span style="color:#94A3B8;font-weight:600;">Identified — next phase</span>
+        <div class="what-card">
+          <div class="what-card-label">IP position</div>
+          <h3>Patent pending — Canada &amp; United States</h3>
+          <p>The protocol architecture and verification logic are protected by patent applications filed in both jurisdictions. Medisyns is not a repackaged EHR — it is a novel infrastructure layer.</p>
         </div>
-        <p>BC's PharmaNet is the most mature provincial prescription database in Canada. Its breadth makes it an ideal integration target — and a proving ground for the national rollout model.</p>
-        <a href="canada/provincial-breakdown.html#bc" class="prov-link">View BC analysis →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ROADMAP -->
-<div class="bg-dark" id="roadmap">
-  <div class="section" style="padding-top:88px;padding-bottom:88px;">
-    <div class="section-inner">
-      <div class="section-label">Roadmap</div>
-      <h2 style="color:#fff;">Province by province.<br>Then a national standard.</h2>
-      <p class="section-lead">Medisyns enters through provinces with the most acute fraud exposure and the most developed existing infrastructure. Each adoption creates the data and the precedent for the next.</p>
-      <div class="roadmap">
-        <div class="rm-card phase-sk">
-          <div class="rm-head">
-            <div class="rm-phase-label">Phase 1 · Saskatchewan</div>
-            <div class="rm-title">Proof of protocol</div>
-            <div class="rm-scope">Saskatchewan Health Authority · Drug Plan &amp; Extended Benefits</div>
-          </div>
-          <div class="rm-body">
-            <p>Establish the first real-time fraud baseline on a provincial drug plan. Saskatchewan's PIP infrastructure makes it the fastest integration path — and the most compelling proof point for provinces that follow.</p>
-            <div class="rm-badge">Active conversations</div>
-          </div>
+        <div class="what-card">
+          <div class="what-card-label">Compliance posture</div>
+          <h3>Built for regulated procurement</h3>
+          <p>Designed to meet PIPEDA, GDPR, ITSG-33, FHIR R4, and SOC 2 Type II requirements. Compliance is architectural — not retrofitted. ITSG-33 and SOC 2 Type II certifications in progress.</p>
         </div>
-        <div class="rm-card phase-on">
-          <div class="rm-head">
-            <div class="rm-phase-label">Phase 2 · Ontario</div>
-            <div class="rm-title">Scale &amp; complexity</div>
-            <div class="rm-scope">OHIP · ODB · Private insurers · 8M+ dual-insured</div>
-          </div>
-          <div class="rm-body">
-            <p>Ontario's coordination of benefits challenge — where provincial and private coverage overlap across millions of patients — is the single largest unresolved verification gap in Canadian healthcare.</p>
-            <div class="rm-badge">Pipeline</div>
-          </div>
-        </div>
-        <div class="rm-card phase-bc">
-          <div class="rm-head">
-            <div class="rm-phase-label">Phase 3 · National</div>
-            <div class="rm-title">Standard adoption</div>
-            <div class="rm-scope">BC · Alberta · Manitoba · Canada Health Infoway</div>
-          </div>
-          <div class="rm-body">
-            <p>Provincial endorsements create the conditions for Canada Health Infoway to formalize Medisyns as a national interoperability standard. BC's PharmaNet is the anchor integration for western expansion.</p>
-            <div class="rm-badge">Next phase</div>
-          </div>
+        <div class="what-card">
+          <div class="what-card-label">Commercial model</div>
+          <h3>Per-transaction · No flat licence</h3>
+          <p>Cost is tied directly to verified transactions. The ROI case is self-funding: the fee is a fraction of the fraud each transaction prevents. Pilot caps available for initial deployments.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- WHO SHOULD REACH OUT -->
-<div class="section bg-off">
+<!-- REGION SELECTOR -->
+<div class="section bg-off" id="regions">
   <div class="section-inner">
-    <div class="section-label">Who should reach out</div>
-    <h2>We're looking for the right conversations, not the right titles</h2>
-    <p class="section-lead">If you work in or with provincial health systems and you recognize the problem — there's no minimum scope to start a conversation.</p>
-    <div class="audience-grid">
-      <div class="aud-card">
-        <div class="aud-icon">🏛</div>
-        <h3>Health ministers &amp; political offices</h3>
-        <p>Looking for defensible wins on healthcare budget integrity and fraud prevention</p>
+    <div class="region-intro">
+      <div>
+        <div class="section-label">Where we operate</div>
+        <h2>The verification gap exists in every jurisdiction that reimburses prescriptions.</h2>
       </div>
-      <div class="aud-card">
-        <div class="aud-icon">📋</div>
-        <h3>Deputy ministers &amp; senior officials</h3>
-        <p>Evaluating interoperability investments and provincial data governance frameworks</p>
+      <div class="region-intro-right">
+        <p>Medisyns enters through jurisdictions with the most acute fraud exposure and the most developed existing infrastructure. Each adoption builds the evidence base and the interoperability standard that the next jurisdiction requires.</p>
       </div>
-      <div class="aud-card">
-        <div class="aud-icon">💻</div>
-        <h3>CIOs &amp; technical procurement</h3>
-        <p>Assessing FHIR R4 compliant infrastructure for provincial health system integration</p>
+    </div>
+    <div class="regions">
+      <div class="region-card active-region">
+        <div class="region-head">
+          <div class="region-flag">🇨🇦</div>
+          <div class="region-name">Canada</div>
+          <div class="region-status">
+            <span class="rdot status-live" style="background:#22C55E;display:inline-block;width:5px;height:5px;border-radius:50%;"></span>
+            <span class="status-live">Active — provincial engagement underway</span>
+          </div>
+        </div>
+        <div class="region-body">
+          <p>Active engagement with provincial health authorities. Saskatchewan is the primary target, with Ontario and BC in active pipeline. $550M–$2.75B in estimated annual fraud exposure across public drug programs.</p>
+          <a href="canada/" class="region-link">View Canada →</a>
+        </div>
       </div>
-      <div class="aud-card">
-        <div class="aud-icon">🤝</div>
-        <h3>Canada Health Infoway</h3>
-        <p>Exploring national interoperability standards and provincial protocol layer investments</p>
+      <div class="region-card inactive-region">
+        <div class="region-head">
+          <div class="region-flag">🇬🇧</div>
+          <div class="region-name">United Kingdom</div>
+          <div class="region-status">
+            <span style="background:#94A3B8;display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:6px;"></span>
+            <span class="status-soon">Coming — research stage</span>
+          </div>
+        </div>
+        <div class="region-body">
+          <p>The NHS loses £256M annually to prescription fraud. Point-of-dispensing eligibility verification remains underdeveloped. Single-payer structure creates a clear integration path analogous to Canadian provincial systems.</p>
+          <span class="region-link disabled">Coming soon</span>
+        </div>
+      </div>
+      <div class="region-card inactive-region">
+        <div class="region-head">
+          <div class="region-flag">🇪🇺</div>
+          <div class="region-name">Europe</div>
+          <div class="region-status">
+            <span style="background:#94A3B8;display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:6px;"></span>
+            <span class="status-soon">Coming — research stage</span>
+          </div>
+        </div>
+        <div class="region-body">
+          <p>The EMVS addresses supply chain authenticity but not payer-side reimbursement fraud. National health systems across the EU face the same verification gap with no unified protocol layer to address it.</p>
+          <span class="region-link disabled">Coming soon</span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- CTA -->
-<div class="cta-band" id="contact">
+<div class="cta-section" id="contact">
+  <div class="cta-glow"></div>
   <div class="cta-inner">
     <h2>Start the conversation</h2>
-    <p>No pitch deck required. If you work in or with provincial health systems and you recognize the problem Medisyns solves — leave your details and we'll be in touch within 48 hours.</p>
+    <p>If you work in or with a public health system and you recognize this problem — there is no minimum scope to reach out. Leave your details and we'll be in touch within 48 hours.</p>
     <div class="cta-form">
       <input class="cta-input" type="text" placeholder="Your name">
       <input class="cta-input" type="email" placeholder="Work email">
@@ -837,13 +747,11 @@ img{display:block;max-width:100%;}
     <span class="footer-name">Medisyns</span>
   </div>
   <div class="footer-links">
+    <a href="canada/">Canada</a>
     <a href="canada/provincial-breakdown.html">By province</a>
     <a href="#contact">Contact</a>
-    <a href="/">Global</a>
   </div>
-  <div class="footer-meta">
-    PIPEDA · ITSG-33 (in progress) · FHIR R4 · SOC 2 Type II (in progress) · Ontario Law
-  </div>
+  <div class="footer-meta">PIPEDA · GDPR designed · FHIR R4 · Patent pending CA &amp; US · Ontario Law</div>
 </footer>
 
 </body>
