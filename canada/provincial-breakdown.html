@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medisyns — Provincial Analysis · Canada</title>
-<meta name="description" content="Province-by-province analysis of prescription fraud exposure, existing infrastructure, and the Medisyns integration case across Canadian provinces.">
+<meta name="description" content="Province-by-province analysis of prescription fraud exposure, existing infrastructure gaps, and the Medisyns integration case across Canadian provinces.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -55,7 +55,8 @@ a{text-decoration:none;color:inherit;}
 }
 .page-header-grid{
   position:absolute;inset:0;opacity:.022;
-  background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
+  background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
   background-size:48px 48px;pointer-events:none;
 }
 .page-header-glow{
@@ -74,12 +75,11 @@ a{text-decoration:none;color:inherit;}
   font-family:'DM Serif Display',serif;font-size:50px;line-height:1.08;
   color:#fff;max-width:700px;margin-bottom:16px;
 }
-.page-header p{font-size:17px;font-weight:300;color:rgba(255,255,255,.5);max-width:540px;line-height:1.8;}
+.page-header p{font-size:17px;font-weight:300;color:rgba(255,255,255,.5);max-width:560px;line-height:1.8;}
 
-/* NATIONAL STATS STRIP */
+/* NATIONAL STRIP */
 .national-strip{
-  background:var(--off);border-bottom:1px solid var(--border);
-  padding:32px 60px;
+  background:var(--off);border-bottom:1px solid var(--border);padding:32px 60px;
 }
 .national-strip-inner{
   max-width:1080px;margin:0 auto;
@@ -88,101 +88,109 @@ a{text-decoration:none;color:inherit;}
 .nstat{padding:0 32px;text-align:center;}
 .nstat:first-child{padding-left:0;text-align:left;}
 .nstat+.nstat{border-left:1px solid var(--border);}
-.nstat-n{
-  font-family:'DM Serif Display',serif;font-size:28px;line-height:1;
-  color:var(--navy);margin-bottom:5px;
-}
+.nstat-n{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);margin-bottom:5px;line-height:1;}
 .nstat-n em{color:var(--teal);font-style:normal;}
 .nstat-l{font-size:11px;color:var(--slate);text-transform:uppercase;letter-spacing:.05em;line-height:1.4;}
 .nstat-s{font-size:10px;color:#94A3B8;font-family:'DM Mono',monospace;margin-top:3px;font-style:italic;}
 
-/* TIER LABELS */
-.tier-section{padding:60px 60px 0;}
-.tier-section-inner{max-width:1080px;margin:0 auto;}
-.tier-label{
-  display:flex;align-items:center;gap:14px;margin-bottom:24px;
-  padding-bottom:14px;border-bottom:1px solid var(--border);
-}
-.tier-label h2{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);}
-.tier-badge{
-  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;
-  text-transform:uppercase;padding:4px 12px;border-radius:2px;
-}
-.tier-active{background:rgba(34,197,94,.12);color:#16A34A;border:1px solid rgba(34,197,94,.25);}
-.tier-pipeline{background:rgba(11,122,117,.1);color:var(--teal);border:1px solid rgba(11,122,117,.2);}
-.tier-next{background:rgba(100,116,139,.1);color:var(--slate);border:1px solid rgba(100,116,139,.2);}
-
 /* PROVINCE GRID */
-.province-grid{
-  max-width:1080px;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:16px;
-  padding:0 60px 24px;
+.provinces-section{padding:72px 60px;}
+.provinces-inner{max-width:1080px;margin:0 auto;}
+.section-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:14px;
 }
-.province-grid.single{grid-template-columns:1fr;}
+.section-intro{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;
+  align-items:end;margin-bottom:52px;
+}
+.section-intro h2{
+  font-family:'DM Serif Display',serif;font-size:38px;
+  color:var(--navy);line-height:1.1;
+}
+.section-intro p{font-size:14px;color:var(--slate);line-height:1.8;}
 
+.province-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+/* PROVINCE CARD */
 .prov-card{
   background:#fff;border:1px solid var(--border);
-  border-radius:6px;overflow:hidden;
-  transition:box-shadow .2s,border-color .2s;
+  border-radius:8px;overflow:hidden;
   display:flex;flex-direction:column;
+  transition:border-color .18s,box-shadow .18s,transform .18s;
 }
-.prov-card:hover{border-color:var(--teal);box-shadow:0 6px 32px rgba(11,122,117,.1);}
+.prov-card:hover{
+  border-color:var(--teal);
+  box-shadow:0 8px 36px rgba(11,122,117,.1);
+  transform:translateY(-2px);
+}
 
-.prov-card-head{padding:28px 28px 20px;position:relative;}
+.prov-card-head{
+  padding:32px 30px 24px;
+  position:relative;
+}
 .prov-card-head::before{
   content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:var(--teal);
 }
-.status-active .prov-card-head::before{background:#22C55E;}
-.status-pipeline .prov-card-head::before{background:var(--teal);}
-.status-next .prov-card-head::before{background:#94A3B8;}
 
-.prov-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.prov-name{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);}
-.prov-status-pill{
-  display:inline-flex;align-items:center;gap:6px;
+.prov-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.prov-name{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);}
+.prov-abbr{
+  font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--teal);letter-spacing:.1em;
+  background:rgba(11,122,117,.08);border:1px solid rgba(11,122,117,.18);
+  border-radius:2px;padding:4px 10px;
+}
+
+.prov-problem-label{
   font-family:'DM Mono',monospace;font-size:10px;
-  letter-spacing:.07em;text-transform:uppercase;
-  padding:5px 12px;border-radius:100px;
-  white-space:nowrap;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#94A3B8;margin-bottom:8px;
 }
-.pill-active{background:rgba(34,197,94,.1);color:#16A34A;border:1px solid rgba(34,197,94,.25);}
-.pill-pipeline{background:rgba(11,122,117,.1);color:var(--teal);border:1px solid rgba(11,122,117,.22);}
-.pill-next{background:rgba(100,116,139,.1);color:#64748B;border:1px solid rgba(100,116,139,.2);}
-.pill-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
-.dot-active{background:#22C55E;}
-.dot-pipeline{background:var(--teal-lt);}
-.dot-next{background:#94A3B8;}
-
-.prov-desc{font-size:13px;color:var(--slate);line-height:1.75;margin-bottom:18px;}
+.prov-problem{
+  font-size:14px;font-weight:600;color:var(--navy);
+  line-height:1.4;margin-bottom:12px;
+}
+.prov-desc{font-size:12px;color:var(--slate);line-height:1.75;}
 
 /* STAT ROW */
 .prov-stats{
-  display:flex;gap:0;
+  display:flex;
   border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  margin:0 -28px;padding:0 28px;
+  margin:0 -30px;padding:0 30px;
 }
 .pstat{flex:1;padding:14px 0;text-align:center;}
 .pstat+.pstat{border-left:1px solid var(--border);}
-.pstat-n{font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy);line-height:1;margin-bottom:3px;}
+.pstat-n{
+  font-family:'DM Serif Display',serif;font-size:19px;
+  color:var(--navy);line-height:1;margin-bottom:3px;
+}
 .pstat-n em{color:var(--teal);font-style:normal;}
 .pstat-l{font-size:10px;color:#94A3B8;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;}
 
-/* INFRA TAGS */
-.prov-infra{padding:16px 28px 20px;display:flex;flex-wrap:wrap;gap:8px;}
+/* INFRA */
+.prov-infra{padding:16px 30px 14px;}
+.infra-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:#94A3B8;margin-bottom:10px;
+}
+.infra-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .infra-tag{
-  display:inline-flex;align-items:center;gap:6px;
+  display:inline-flex;align-items:center;gap:5px;
   background:var(--off);border:1px solid var(--border);
-  border-radius:var(--r);padding:6px 12px;
+  border-radius:var(--r);padding:5px 10px;
   font-size:11px;color:var(--navy);font-weight:500;
 }
-.infra-tag-gap{
-  background:rgba(11,122,117,.06);border-color:rgba(11,122,117,.2);
-  color:var(--teal);
+.infra-gap{
+  background:rgba(11,122,117,.06);border-color:rgba(11,122,117,.18);color:var(--teal);
 }
 
 /* CARD FOOTER */
 .prov-card-footer{
-  padding:16px 28px;margin-top:auto;
+  padding:16px 30px;margin-top:auto;
   border-top:1px solid var(--border);
   display:flex;justify-content:space-between;align-items:center;
 }
@@ -192,31 +200,33 @@ a{text-decoration:none;color:inherit;}
   transition:gap .15s;
 }
 .prov-link:hover{gap:10px;}
-.prov-fraud-est{font-size:11px;color:#94A3B8;font-family:'DM Mono',monospace;}
+.prov-fraud{
+  font-size:10px;color:#94A3B8;
+  font-family:'DM Mono',monospace;
+}
 
-/* NATIONAL SECTION */
-.national-section{
-  background:var(--navy);padding:72px 60px;margin-top:60px;
+/* REMAINING */
+.remaining-section{
+  background:var(--navy);padding:72px 60px;
 }
-.national-inner{max-width:1080px;margin:0 auto;}
-.national-section .section-label{
-  font-family:'DM Mono',monospace;font-size:10px;
-  letter-spacing:.16em;text-transform:uppercase;
-  color:var(--teal-lt);margin-bottom:14px;
+.remaining-inner{max-width:1080px;margin:0 auto;}
+.remaining-section .section-label{color:var(--teal-lt);}
+.remaining-section h2{
+  font-family:'DM Serif Display',serif;font-size:34px;
+  color:#fff;max-width:560px;margin-bottom:10px;line-height:1.15;
 }
-.national-section h2{
-  font-family:'DM Serif Display',serif;font-size:38px;
-  color:#fff;max-width:600px;margin-bottom:12px;line-height:1.15;
+.remaining-section p{
+  font-size:14px;color:rgba(255,255,255,.46);
+  max-width:520px;line-height:1.8;margin-bottom:36px;
 }
-.national-section p{font-size:15px;color:rgba(255,255,255,.5);max-width:520px;line-height:1.8;margin-bottom:36px;}
 .remaining-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
 .rem-card{
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-  border-radius:var(--r);padding:18px 16px;
+  border-radius:var(--r);padding:20px 18px;
 }
-.rem-prov{font-family:'DM Serif Display',serif;font-size:16px;color:#fff;margin-bottom:6px;}
-.rem-spend{font-size:12px;color:var(--teal-lt);font-family:'DM Mono',monospace;margin-bottom:6px;}
-.rem-note{font-size:11px;color:rgba(255,255,255,.35);line-height:1.55;}
+.rem-prov{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;margin-bottom:5px;}
+.rem-spend{font-size:12px;color:var(--teal-lt);font-family:'DM Mono',monospace;margin-bottom:7px;}
+.rem-note{font-size:11px;color:rgba(255,255,255,.32);line-height:1.6;}
 
 /* CTA */
 .cta-band{background:var(--teal);padding:80px 60px;text-align:center;}
@@ -251,16 +261,14 @@ a{text-decoration:none;color:inherit;}
 .footer-links a:hover{color:rgba(255,255,255,.7);}
 .footer-meta{font-size:10px;color:rgba(255,255,255,.2);font-family:'DM Mono',monospace;letter-spacing:.04em;}
 
-/* SPACER */
-.tier-spacer{height:36px;}
-
 @media(max-width:960px){
-  .nav,.page-header,.national-strip,.tier-section,.national-section,.cta-band,.footer{padding-left:24px;padding-right:24px;}
+  .nav,.page-header,.national-strip,.provinces-section,.remaining-section,.cta-band,.footer{padding-left:24px;padding-right:24px;}
   .nav-links{display:none;}
   .page-header h1{font-size:36px;}
-  .province-grid,.province-grid.single{grid-template-columns:1fr;padding-left:24px;padding-right:24px;}
-  .national-strip-inner,.remaining-grid{grid-template-columns:1fr 1fr;}
+  .national-strip-inner{grid-template-columns:1fr 1fr;}
   .nstat+.nstat{border-left:none;}
+  .section-intro,.province-grid{grid-template-columns:1fr;}
+  .remaining-grid{grid-template-columns:1fr 1fr;}
 }
 </style>
 </head>
@@ -275,9 +283,6 @@ a{text-decoration:none;color:inherit;}
   </div>
   <div class="nav-links">
     <a href="index.html">← Canada overview</a>
-    <a href="#active">Active</a>
-    <a href="#pipeline">Pipeline</a>
-    <a href="#next">Next phase</a>
     <a href="index.html#contact" class="nav-cta">Start a conversation</a>
   </div>
 </nav>
@@ -289,11 +294,11 @@ a{text-decoration:none;color:inherit;}
   <div class="page-header-inner">
     <div class="page-eyebrow">Provincial analysis · Canada</div>
     <h1>The verification gap,<br>province by province</h1>
-    <p>Each province has a distinct drug plan structure, existing infrastructure, and fraud exposure profile. Medisyns enters where the gap is largest and the integration path is clearest.</p>
+    <p>Each province has built pieces of a verification system in isolation. None has unified them. The gap between what exists and what's needed is where fraud lives.</p>
   </div>
 </div>
 
-<!-- NATIONAL STATS STRIP -->
+<!-- NATIONAL STRIP -->
 <div class="national-strip">
   <div class="national-strip-inner">
     <div class="nstat">
@@ -313,205 +318,207 @@ a{text-decoration:none;color:inherit;}
     </div>
     <div class="nstat">
       <div class="nstat-n"><em>5</em> provinces</div>
-      <div class="nstat-l">In active analysis or engagement</div>
+      <div class="nstat-l">With documented verification infrastructure gaps</div>
       <div class="nstat-s">SK · ON · BC · AB · MB</div>
     </div>
   </div>
 </div>
 
-<!-- ── TIER 1: ACTIVE ── -->
-<div class="tier-section" id="active">
-  <div class="tier-section-inner">
-    <div class="tier-label">
-      <h2>Active engagement</h2>
-      <span class="tier-badge tier-active">Conversations underway</span>
-    </div>
-  </div>
-</div>
-
-<div class="province-grid single">
-  <div class="prov-card status-active">
-    <div class="prov-card-head">
-      <div class="prov-card-top">
-        <div class="prov-name">Saskatchewan</div>
-        <div class="prov-status-pill pill-active"><span class="pill-dot dot-active"></span>Active engagement</div>
+<!-- PROVINCE CARDS -->
+<div class="provinces-section">
+  <div class="provinces-inner">
+    <div class="section-intro">
+      <div>
+        <div class="section-label">Province by province</div>
+        <h2>The same gap, five different systems.</h2>
       </div>
-      <p class="prov-desc">Saskatchewan's Pharmaceutical Information Program (PIP) captures a near-complete provincial prescription record — the most advanced integration foundation of any active target. Medisyns adds the one layer PIP doesn't provide: real-time payer-side verification at the point of dispensing. The Saskatchewan Health Authority has escalated materials to senior decision-makers. At a conservative 2% fraud rate on the $833M public drug plan, the exposure exceeds $16M annually — more than double the cost of full deployment.</p>
+      <p>Every province has invested in pieces of the solution — dispensing records, eligibility systems, prescriber registries. None has a protocol that connects them in real time at the point of dispensing. That is the gap Medisyns closes.</p>
     </div>
-    <div class="prov-stats">
-      <div class="pstat"><div class="pstat-n"><em>$833M</em></div><div class="pstat-l">Public drug plan spend (2022–23)</div></div>
-      <div class="pstat"><div class="pstat-n"><em>$16M+</em></div><div class="pstat-l">Conservative fraud exposure (2%)</div></div>
-      <div class="pstat"><div class="pstat-n"><em>55×</em></div><div class="pstat-l">ROI at conservative estimate</div></div>
-      <div class="pstat"><div class="pstat-n"><em>PIP</em></div><div class="pstat-l">eHealth SK integration anchor</div></div>
-    </div>
-    <div class="prov-infra">
-      <span class="infra-tag">💊 PIP — Pharmaceutical Information Program</span>
-      <span class="infra-tag">🏥 Saskatchewan Health Authority</span>
-      <span class="infra-tag">📋 Drug Plan &amp; Extended Benefits Branch</span>
-      <span class="infra-tag infra-tag-gap">+ Medisyns: real-time payer verification layer</span>
-    </div>
-    <div class="prov-card-footer">
-      <a href="../provinces/saskatchewan.html" class="prov-link">Full Saskatchewan analysis →</a>
-      <span class="prov-fraud-est">Est. fraud: $16M–$41M/yr</span>
-    </div>
-  </div>
-</div>
 
-<!-- ── TIER 2: PIPELINE ── -->
-<div class="tier-section tier-spacer" id="pipeline" style="padding-top:40px;">
-  <div class="tier-section-inner">
-    <div class="tier-label">
-      <h2>Active pipeline</h2>
-      <span class="tier-badge tier-pipeline">Engagement initiated</span>
-    </div>
-  </div>
-</div>
+    <div class="province-grid">
 
-<div class="province-grid">
-
-  <!-- ONTARIO -->
-  <div class="prov-card status-pipeline">
-    <div class="prov-card-head">
-      <div class="prov-card-top">
-        <div class="prov-name">Ontario</div>
-        <div class="prov-status-pill pill-pipeline"><span class="pill-dot dot-pipeline"></span>In pipeline</div>
+      <!-- SASKATCHEWAN -->
+      <div class="prov-card">
+        <div class="prov-card-head">
+          <div class="prov-top">
+            <div class="prov-name">Saskatchewan</div>
+            <div class="prov-abbr">SK</div>
+          </div>
+          <div class="prov-problem-label">The core problem</div>
+          <div class="prov-problem">PIP captures what was dispensed. Nothing verifies whether it should have been.</div>
+          <p class="prov-desc">Saskatchewan's Pharmaceutical Information Program (PIP) provides a near-complete provincial prescription record — one of the most advanced in Canada. But PIP is a dispensing record, not a verification engine. It tells you what left the pharmacy shelf. It does not tell you whether the prescriber was authorized, whether the patient was eligible under the correct benefit, or whether the same claim was submitted elsewhere. That verification event has never existed in Saskatchewan.</p>
+        </div>
+        <div class="prov-stats">
+          <div class="pstat"><div class="pstat-n"><em>$833M</em></div><div class="pstat-l">Public drug plan spend 2022–23</div></div>
+          <div class="pstat"><div class="pstat-n"><em>$16M+</em></div><div class="pstat-l">Conservative fraud exposure (2%)</div></div>
+          <div class="pstat"><div class="pstat-n"><em>55×</em></div><div class="pstat-l">ROI vs. deployment cost</div></div>
+        </div>
+        <div class="prov-infra">
+          <div class="infra-label">Existing infrastructure</div>
+          <div class="infra-tags">
+            <span class="infra-tag">💊 PIP — dispensing record only</span>
+            <span class="infra-tag">🏥 Saskatchewan Health Authority</span>
+            <span class="infra-tag">📋 Drug Plan &amp; Extended Benefits Branch</span>
+            <span class="infra-tag infra-gap">Gap: no real-time payer-side verification</span>
+          </div>
+        </div>
+        <div class="prov-card-footer">
+          <a href="../provinces/saskatchewan.html" class="prov-link">Full Saskatchewan analysis →</a>
+          <span class="prov-fraud">Est. fraud: $16M–$41M/yr</span>
+        </div>
       </div>
-      <p class="prov-desc">Ontario has already built each verification layer in isolation — DHDR for dispensing records, HNS for ODB eligibility, NMS for narcotics monitoring. None of them talk to each other. With 8M+ dual-insured patients and pharmacies averaging 15 years between inspections, Ontario's coordination of benefits gap is the single largest unresolved verification problem in Canadian healthcare. Medisyns is the protocol that unifies what Ontario has already proven piece by piece.</p>
-    </div>
-    <div class="prov-stats">
-      <div class="pstat"><div class="pstat-n">~<em>$5B</em></div><div class="pstat-l">ODB annual drug plan spend</div></div>
-      <div class="pstat"><div class="pstat-n"><em>8M+</em></div><div class="pstat-l">Dual-insured patients</div></div>
-      <div class="pstat"><div class="pstat-n"><em>15yr</em></div><div class="pstat-l">Avg gap between pharmacy inspections</div></div>
-    </div>
-    <div class="prov-infra">
-      <span class="infra-tag">📁 DHDR — Digital Health Drug Repository</span>
-      <span class="infra-tag">🔗 HNS — Health Network System</span>
-      <span class="infra-tag">🚨 NMS — Narcotics Monitoring System</span>
-      <span class="infra-tag infra-tag-gap">+ Medisyns: unified cross-system verification</span>
-    </div>
-    <div class="prov-card-footer">
-      <a href="../provinces/ontario.html" class="prov-link">Full Ontario analysis →</a>
-      <span class="prov-fraud-est">Est. fraud: $100M–$250M/yr</span>
-    </div>
-  </div>
 
-  <!-- BRITISH COLUMBIA -->
-  <div class="prov-card status-pipeline">
-    <div class="prov-card-head">
-      <div class="prov-card-top">
-        <div class="prov-name">British Columbia</div>
-        <div class="prov-status-pill pill-pipeline"><span class="pill-dot dot-pipeline"></span>In pipeline</div>
+      <!-- ONTARIO -->
+      <div class="prov-card">
+        <div class="prov-card-head">
+          <div class="prov-top">
+            <div class="prov-name">Ontario</div>
+            <div class="prov-abbr">ON</div>
+          </div>
+          <div class="prov-problem-label">The core problem</div>
+          <div class="prov-problem">Three systems each solve a slice of the problem. None of them talk to each other.</div>
+          <p class="prov-desc">Ontario has built more verification infrastructure than any other province — DHDR tracks dispensing history, HNS adjudicates ODB eligibility in real time, and NMS flags narcotic duplication. But DHDR is advisory and read-only. HNS only covers ODB-eligible Ontarians — not the general population. NMS only covers narcotics and controlled substances — not the full formulary. The result: 8 million dual-insured Ontarians and the entire non-narcotic formulary fall outside any real-time verification event. A pharmacy in Ontario can go 15 years without a single inspection.</p>
+        </div>
+        <div class="prov-stats">
+          <div class="pstat"><div class="pstat-n">~<em>$5B</em></div><div class="pstat-l">ODB annual drug plan spend</div></div>
+          <div class="pstat"><div class="pstat-n"><em>8M+</em></div><div class="pstat-l">Dual-insured patients</div></div>
+          <div class="pstat"><div class="pstat-n"><em>15yr</em></div><div class="pstat-l">Avg inspection gap</div></div>
+        </div>
+        <div class="prov-infra">
+          <div class="infra-label">Existing infrastructure</div>
+          <div class="infra-tags">
+            <span class="infra-tag">📁 DHDR — advisory only, read-only</span>
+            <span class="infra-tag">🔗 HNS — ODB population only</span>
+            <span class="infra-tag">🚨 NMS — narcotics only</span>
+            <span class="infra-tag infra-gap">Gap: no unified cross-system verification</span>
+          </div>
+        </div>
+        <div class="prov-card-footer">
+          <a href="../provinces/ontario.html" class="prov-link">Full Ontario analysis →</a>
+          <span class="prov-fraud">Est. fraud: $100M–$250M/yr</span>
+        </div>
       </div>
-      <p class="prov-desc">BC's PharmaNet is the most mature provincial prescription database in Canada — operational since 1995, capturing every prescription dispensed in the province in near real-time. That maturity makes BC the ideal proving ground for what a national Medisyns rollout looks like at scale. The pitch here isn't about the value of tracking prescriptions — BC has done that for 30 years. It's about the payer-side fraud layer PharmaNet has never had.</p>
-    </div>
-    <div class="prov-stats">
-      <div class="pstat"><div class="pstat-n">~<em>$1.5B</em></div><div class="pstat-l">PharmaCare annual spend</div></div>
-      <div class="pstat"><div class="pstat-n"><em>5M+</em></div><div class="pstat-l">Population covered</div></div>
-      <div class="pstat"><div class="pstat-n"><em>30yr</em></div><div class="pstat-l">PharmaNet operational history</div></div>
-    </div>
-    <div class="prov-infra">
-      <span class="infra-tag">💊 PharmaNet — provincial Rx network since 1995</span>
-      <span class="infra-tag">📋 BC PharmaCare — 5M+ covered residents</span>
-      <span class="infra-tag infra-tag-gap">+ Medisyns: payer-side fraud layer on PharmaNet</span>
-    </div>
-    <div class="prov-card-footer">
-      <a href="../provinces/british-columbia.html" class="prov-link">Full BC analysis →</a>
-      <span class="prov-fraud-est">Est. fraud: $30M–$75M/yr</span>
-    </div>
-  </div>
 
-</div>
-
-<!-- ── TIER 3: NEXT PHASE ── -->
-<div class="tier-section tier-spacer" id="next" style="padding-top:40px;">
-  <div class="tier-section-inner">
-    <div class="tier-label">
-      <h2>Next phase</h2>
-      <span class="tier-badge tier-next">Research complete — engagement pending</span>
-    </div>
-  </div>
-</div>
-
-<div class="province-grid">
-
-  <!-- ALBERTA -->
-  <div class="prov-card status-next">
-    <div class="prov-card-head">
-      <div class="prov-card-top">
-        <div class="prov-name">Alberta</div>
-        <div class="prov-status-pill pill-next"><span class="pill-dot dot-next"></span>Next phase</div>
+      <!-- BRITISH COLUMBIA -->
+      <div class="prov-card">
+        <div class="prov-card-head">
+          <div class="prov-top">
+            <div class="prov-name">British Columbia</div>
+            <div class="prov-abbr">BC</div>
+          </div>
+          <div class="prov-problem-label">The core problem</div>
+          <div class="prov-problem">PharmaNet is the most complete dispensing record in Canada. It has never had a payer-side fraud layer.</div>
+          <p class="prov-desc">BC's PharmaNet has captured every prescription dispensed in the province since 1995 — 30 years of near-complete dispensing data, accessible in real time to pharmacists, physicians, and health authorities. That maturity is PharmaNet's strength. It is also its limitation: PharmaNet is a dispensing and clinical reference system. It does not verify prescriber authorization against live registry data, does not confirm payer-side eligibility across all benefit tiers, and does not cross-reference duplication across private and public payers. The fraud layer has never been built on top of it.</p>
+        </div>
+        <div class="prov-stats">
+          <div class="pstat"><div class="pstat-n">~<em>$1.5B</em></div><div class="pstat-l">PharmaCare annual spend</div></div>
+          <div class="pstat"><div class="pstat-n"><em>5M+</em></div><div class="pstat-l">Population covered</div></div>
+          <div class="pstat"><div class="pstat-n"><em>30yr</em></div><div class="pstat-l">PharmaNet history</div></div>
+        </div>
+        <div class="prov-infra">
+          <div class="infra-label">Existing infrastructure</div>
+          <div class="infra-tags">
+            <span class="infra-tag">💊 PharmaNet — dispensing record since 1995</span>
+            <span class="infra-tag">📋 BC PharmaCare — 5M+ covered</span>
+            <span class="infra-tag infra-gap">Gap: no payer-side fraud verification layer</span>
+          </div>
+        </div>
+        <div class="prov-card-footer">
+          <a href="../provinces/british-columbia.html" class="prov-link">Full BC analysis →</a>
+          <span class="prov-fraud">Est. fraud: $30M–$75M/yr</span>
+        </div>
       </div>
-      <p class="prov-desc">Alberta accounts for a disproportionate share of Canada's opioid crisis — 1,870 apparent opioid toxicity deaths in 2023 alone, the province's deadliest year on record. Alberta Health Services administers a large public drug program through Alberta Blue Cross with no dedicated pharmacy dispensing audit infrastructure. The Danielle Smith government's recovery-oriented, fraud-prevention posture makes Alberta ideologically aligned with the Medisyns pitch in a way that other provinces may not be.</p>
-    </div>
-    <div class="prov-stats">
-      <div class="pstat"><div class="pstat-n">~<em>$5.2B</em></div><div class="pstat-l">Est. total Rx spend (pop. share)</div></div>
-      <div class="pstat"><div class="pstat-n"><em>1,870</em></div><div class="pstat-l">Opioid toxicity deaths — 2023</div></div>
-      <div class="pstat"><div class="pstat-n"><em>Zero</em></div><div class="pstat-l">Dedicated dispensing audit system</div></div>
-    </div>
-    <div class="prov-infra">
-      <span class="infra-tag">🏥 Alberta Health Services</span>
-      <span class="infra-tag">📋 Alberta Blue Cross — public drug plan administrator</span>
-      <span class="infra-tag infra-tag-gap">+ Medisyns: dispensing verification + opioid fraud detection</span>
-    </div>
-    <div class="prov-card-footer">
-      <a href="../provinces/alberta.html" class="prov-link">Full Alberta analysis →</a>
-      <span class="prov-fraud-est">Est. fraud: $100M–$260M/yr</span>
-    </div>
-  </div>
 
-  <!-- MANITOBA -->
-  <div class="prov-card status-next">
-    <div class="prov-card-head">
-      <div class="prov-card-top">
-        <div class="prov-name">Manitoba</div>
-        <div class="prov-status-pill pill-next"><span class="pill-dot dot-next"></span>Next phase</div>
+      <!-- ALBERTA -->
+      <div class="prov-card">
+        <div class="prov-card-head">
+          <div class="prov-top">
+            <div class="prov-name">Alberta</div>
+            <div class="prov-abbr">AB</div>
+          </div>
+          <div class="prov-problem-label">The core problem</div>
+          <div class="prov-problem">Alberta tracks opioid deaths through surveillance data. It has no system to prevent the prescriptions that cause them from being fraudulently filled.</div>
+          <p class="prov-desc">Alberta recorded 1,870 apparent opioid toxicity deaths in 2023 — its deadliest year on record. Alberta Health Services administers one of Canada's largest public drug programs through Alberta Blue Cross. Despite the scale of the opioid crisis and the size of the drug program, Alberta has no dedicated pharmacy dispensing audit infrastructure. The provincial Auditor General has focused on financial statements, not drug plan fraud. Surveillance data tracks deaths. No system verifies dispensing in real time before those deaths occur.</p>
+        </div>
+        <div class="prov-stats">
+          <div class="pstat"><div class="pstat-n">~<em>$5.2B</em></div><div class="pstat-l">Est. total Rx spend</div></div>
+          <div class="pstat"><div class="pstat-n"><em>1,870</em></div><div class="pstat-l">Opioid deaths — 2023</div></div>
+          <div class="pstat"><div class="pstat-n"><em>Zero</em></div><div class="pstat-l">Dedicated dispensing audit system</div></div>
+        </div>
+        <div class="prov-infra">
+          <div class="infra-label">Existing infrastructure</div>
+          <div class="infra-tags">
+            <span class="infra-tag">🏥 Alberta Health Services</span>
+            <span class="infra-tag">📋 Alberta Blue Cross — drug plan administrator</span>
+            <span class="infra-tag infra-gap">Gap: no dispensing verification or audit infrastructure</span>
+          </div>
+        </div>
+        <div class="prov-card-footer">
+          <a href="../provinces/alberta.html" class="prov-link">Full Alberta analysis →</a>
+          <span class="prov-fraud">Est. fraud: $100M–$260M/yr</span>
+        </div>
       </div>
-      <p class="prov-desc">The College of Pharmacists of Manitoba is actively warning pharmacists about a high volume of prescription forgeries — Percocet and Cotridin are the most common targets, with forged prescriptions being faxed from out-of-province numbers at scale. Manitoba's Prescribing Practices Program (M3P) is prescriber-focused, not dispensing-focused. That's exactly Medisyns' gap: the moment between a prescription being issued and a pharmacist dispensing it has no cross-system verification.</p>
-    </div>
-    <div class="prov-stats">
-      <div class="pstat"><div class="pstat-n">~<em>$1.6B</em></div><div class="pstat-l">Est. total Rx spend (pop. share)</div></div>
-      <div class="pstat"><div class="pstat-n"><em>Active</em></div><div class="pstat-l">Documented forged prescription fraud</div></div>
-      <div class="pstat"><div class="pstat-n"><em>M3P</em></div><div class="pstat-l">Prescriber-only — no dispensing layer</div></div>
-    </div>
-    <div class="prov-infra">
-      <span class="infra-tag">📋 M3P — Manitoba Prescribing Practices Program</span>
-      <span class="infra-tag">🏥 Manitoba Health — Pharmacare Program</span>
-      <span class="infra-tag infra-tag-gap">+ Medisyns: dispensing-side forgery detection</span>
-    </div>
-    <div class="prov-card-footer">
-      <a href="../provinces/manitoba.html" class="prov-link">Full Manitoba analysis →</a>
-      <span class="prov-fraud-est">Est. fraud: $32M–$80M/yr</span>
+
+      <!-- MANITOBA -->
+      <div class="prov-card">
+        <div class="prov-card-head">
+          <div class="prov-top">
+            <div class="prov-name">Manitoba</div>
+            <div class="prov-abbr">MB</div>
+          </div>
+          <div class="prov-problem-label">The core problem</div>
+          <div class="prov-problem">The College of Pharmacists is actively warning of prescription forgeries at scale. The verification layer that would catch them at dispensing does not exist.</div>
+          <p class="prov-desc">Manitoba's College of Pharmacists has issued active warnings to pharmacists about a high volume of forged prescriptions — Percocet and Cotridin are the most common targets, with forged scripts being faxed from out-of-province numbers at scale. Manitoba's Prescribing Practices Program (M3P) monitors prescriber behaviour but is prescriber-focused, not dispensing-focused. The moment between a prescription being issued and a pharmacist dispensing it — the exact moment where a forged script is filled — has no cross-system verification in Manitoba. The warnings exist because the infrastructure to prevent the fraud does not.</p>
+        </div>
+        <div class="prov-stats">
+          <div class="pstat"><div class="pstat-n">~<em>$1.6B</em></div><div class="pstat-l">Est. total Rx spend</div></div>
+          <div class="pstat"><div class="pstat-n"><em>Active</em></div><div class="pstat-l">Documented forgery fraud</div></div>
+          <div class="pstat"><div class="pstat-n"><em>M3P</em></div><div class="pstat-l">Prescriber-only — no dispense layer</div></div>
+        </div>
+        <div class="prov-infra">
+          <div class="infra-label">Existing infrastructure</div>
+          <div class="infra-tags">
+            <span class="infra-tag">📋 M3P — prescriber monitoring only</span>
+            <span class="infra-tag">🏥 Manitoba Health Pharmacare</span>
+            <span class="infra-tag infra-gap">Gap: no dispensing-side forgery detection</span>
+          </div>
+        </div>
+        <div class="prov-card-footer">
+          <a href="../provinces/manitoba.html" class="prov-link">Full Manitoba analysis →</a>
+          <span class="prov-fraud">Est. fraud: $32M–$80M/yr</span>
+        </div>
+      </div>
+
     </div>
   </div>
-
 </div>
 
 <!-- REMAINING PROVINCES -->
-<div class="national-section">
-  <div class="national-inner">
+<div class="remaining-section">
+  <div class="remaining-inner">
     <div class="section-label">Remaining provinces &amp; territories</div>
-    <h2>The national opportunity extends beyond five provinces</h2>
-    <p>Quebec, the Atlantic provinces, and the territories each represent distinct drug plan structures and fraud profiles. Medisyns' provincial adoption strategy is designed to build the evidence base that makes national standard adoption inevitable.</p>
+    <h2>The gap extends to every province that reimburses prescriptions.</h2>
+    <p>Quebec, the Atlantic provinces, and the territories each operate distinct drug plan structures — but the same structural verification gap exists across all of them. The national opportunity grows with each provincial adoption.</p>
     <div class="remaining-grid">
       <div class="rem-card">
         <div class="rem-prov">Quebec</div>
         <div class="rem-spend">~$9.5B est. Rx spend</div>
-        <div class="rem-note">RAMQ operates a distinct formulary and procurement system. Requires a standalone French-language strategy. Identified for Phase 4.</div>
+        <div class="rem-note">RAMQ operates a distinct formulary and procurement system. French-language strategy required. Identified for Phase 4 after national standard begins forming.</div>
       </div>
       <div class="rem-card">
         <div class="rem-prov">New Brunswick</div>
         <div class="rem-spend">~$900M est. Rx spend</div>
-        <div class="rem-note">MaveRX prescription monitoring launched 2024 — still early. 72 opioid deaths in 2023. Revisit once SK and ON advance.</div>
+        <div class="rem-note">MaveRX prescription monitoring launched 2024 — early stage with acknowledged gaps. 72 opioid deaths in 2023. Strong eventual target.</div>
       </div>
       <div class="rem-card">
         <div class="rem-prov">Nova Scotia</div>
         <div class="rem-spend">~$1.1B est. Rx spend</div>
-        <div class="rem-note">Existing prescription monitoring program publicly criticized for failing to flag over-prescribing. Documented systemic gaps — strong eventual target.</div>
+        <div class="rem-note">Existing prescription monitoring program publicly criticized by its own designers for failing to flag over-prescribing. Documented systemic failure — clear integration case.</div>
       </div>
       <div class="rem-card">
         <div class="rem-prov">Atlantic &amp; Territories</div>
         <div class="rem-spend">PEI · NL · YT · NT · NU</div>
-        <div class="rem-note">Smaller populations addressed through a unified Atlantic or territorial framing once national standard conversations begin.</div>
+        <div class="rem-note">Smaller populations addressed through a unified Atlantic or territorial framing once national standard conversations begin with Canada Health Infoway.</div>
       </div>
     </div>
   </div>
