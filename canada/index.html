@@ -413,6 +413,65 @@ img{display:block;max-width:100%;}
   font-family:'DM Mono',monospace;letter-spacing:.04em;
 }
 
+/* ── ROADMAP ── */
+.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.rm-card{
+  border-radius:6px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;flex-direction:column;
+}
+.rm-head{padding:28px 26px 22px;}
+.rm-phase-label{
+  font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:10px;
+}
+.rm-title{
+  font-family:'DM Serif Display',serif;
+  font-size:24px;color:#fff;line-height:1.15;
+  margin-bottom:6px;
+}
+.rm-scope{
+  font-size:11px;color:rgba(255,255,255,.32);
+  font-style:italic;line-height:1.5;
+}
+.rm-body{
+  padding:20px 26px 26px;
+  background:rgba(255,255,255,.03);
+  border-top:1px solid rgba(255,255,255,.06);
+  flex:1;display:flex;flex-direction:column;gap:16px;
+}
+.rm-body p{
+  font-size:13px;color:rgba(255,255,255,.5);
+  line-height:1.8;flex:1;
+}
+.rm-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 14px;border-radius:2px;
+  font-family:'DM Mono',monospace;
+  font-size:10px;font-weight:500;letter-spacing:.06em;
+  text-transform:uppercase;width:fit-content;
+}
+.rm-badge::before{
+  content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;
+}
+
+/* Phase colours */
+.phase-sk .rm-head{background:rgba(11,122,117,.18);}
+.phase-sk .rm-phase-label{color:var(--teal-lt);}
+.phase-sk .rm-badge{background:var(--teal);color:#fff;}
+.phase-sk .rm-badge::before{background:#fff;}
+
+.phase-on .rm-head{background:rgba(26,86,160,.16);}
+.phase-on .rm-phase-label{color:#60A5FA;}
+.phase-on .rm-badge{background:rgba(26,86,160,.55);color:#fff;}
+.phase-on .rm-badge::before{background:#60A5FA;}
+
+.phase-bc .rm-head{background:rgba(184,137,42,.14);}
+.phase-bc .rm-phase-label{color:#C8940F;}
+.phase-bc .rm-badge{background:rgba(184,137,42,.45);color:#fff;}
+.phase-bc .rm-badge::before{background:#C8940F;}
+
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
   .nav{padding:0 24px;}
@@ -669,41 +728,45 @@ img{display:block;max-width:100%;}
     <div class="section-inner">
       <div class="section-label">Roadmap</div>
       <h2 style="color:#fff;">Province by province.<br>Then a national standard.</h2>
-      <p class="section-lead">Medisyns enters through provinces with the most acute fraud exposure and the most developed existing infrastructure. Each adoption creates the data and the precedent for the next.</p>
+      <p class="section-lead">Medisyns enters through provinces with the most acute fraud exposure and the most developed existing infrastructure. Each adoption creates the evidence and the precedent for the next.</p>
       <div class="roadmap">
+
         <div class="rm-card phase-sk">
           <div class="rm-head">
             <div class="rm-phase-label">Phase 1 · Saskatchewan</div>
             <div class="rm-title">Proof of protocol</div>
-            <div class="rm-scope">Saskatchewan Health Authority · Drug Plan &amp; Extended Benefits</div>
+            <div class="rm-scope">Saskatchewan Health Authority · Drug Plan &amp; Extended Benefits · eHealth Saskatchewan PIP</div>
           </div>
           <div class="rm-body">
-            <p>Establish the first real-time fraud baseline on a provincial drug plan. Saskatchewan's PIP infrastructure makes it the fastest integration path — and the most compelling proof point for provinces that follow.</p>
-            <div class="rm-badge">Active conversations</div>
+            <p>Saskatchewan's Pharmaceutical Information Program captures a near-complete provincial prescription record. Medisyns adds the payer-side verification layer PIP has never had — establishing the first real-time fraud baseline on a Canadian provincial drug plan and the proof point every province that follows will ask for.</p>
+            <div class="rm-badge">Saskatchewan</div>
           </div>
         </div>
+
         <div class="rm-card phase-on">
           <div class="rm-head">
             <div class="rm-phase-label">Phase 2 · Ontario</div>
             <div class="rm-title">Scale &amp; complexity</div>
-            <div class="rm-scope">OHIP · ODB · Private insurers · 8M+ dual-insured</div>
+            <div class="rm-scope">OHIP · ODB · Private insurers · 8M+ dual-insured patients</div>
           </div>
           <div class="rm-body">
-            <p>Ontario's coordination of benefits challenge — where provincial and private coverage overlap across millions of patients — is the single largest unresolved verification gap in Canadian healthcare.</p>
-            <div class="rm-badge">Pipeline</div>
+            <p>Ontario has proven the value of each verification layer in isolation — DHDR, HNS, and NMS each solve a slice of the problem. The coordination of benefits gap across 8 million dual-insured Ontarians is the largest unresolved verification gap in Canadian healthcare. Medisyns is the protocol that unifies what Ontario has already built.</p>
+            <div class="rm-badge">Ontario</div>
           </div>
         </div>
+
         <div class="rm-card phase-bc">
           <div class="rm-head">
-            <div class="rm-phase-label">Phase 3 · National</div>
+            <div class="rm-phase-label">Phase 3 · National standard</div>
             <div class="rm-title">Standard adoption</div>
             <div class="rm-scope">BC · Alberta · Manitoba · Canada Health Infoway</div>
           </div>
           <div class="rm-body">
-            <p>Provincial endorsements create the conditions for Canada Health Infoway to formalize Medisyns as a national interoperability standard. BC's PharmaNet is the anchor integration for western expansion.</p>
-            <div class="rm-badge">Next phase</div>
-             </div>
+            <p>BC's PharmaNet — the most mature provincial prescription database in Canada — anchors the western expansion. Three provincial adoptions spanning east and west create the conditions for Canada Health Infoway to formalize Medisyns as a national interoperability standard.</p>
+            <div class="rm-badge">National</div>
           </div>
+        </div>
+
       </div>
     </div>
   </div>
